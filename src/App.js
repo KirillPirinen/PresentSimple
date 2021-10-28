@@ -6,6 +6,7 @@ import Registration from "./components/main/Registration/Registration";
 import Authorization from "./components/main/Authorization/Authorization";
 import SentList from "./components/presents/SentList/SentList";
 import PersonalProfile from "./components/PersonalProfile/PersonalProfile"
+import { SentForm } from "./components/SentForm/SentForm";
 function App() {
   return (
     <Router>
@@ -14,6 +15,7 @@ function App() {
       <Route exact path="/registration" component={Registration} />
       <Route exact path="/authorization" component={Authorization} />
       <Route exact path="/sentList" component={SentList} />
+      <Route exact path="/sentform" component={SentForm} />
     </Router>
   );
 }
