@@ -3,23 +3,18 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class User extends Model {
+  class Form extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate({Wishlist, Form, Present, Group, UserGroup}) {
-      this.hasOne(Wishlist, {foreignKey:"user_id"})
-      this.hasMany(Form, {foreignKey:"user_id"})
-      this.hasMany(Present, {foreignKey:"user_id"})
-      this.hasMany(Wish, {foreignKey:"user_id"})
-      this.belongsToMany(Group, {through:UserGroup, foreignKey:"user_id"})
+    static associate({User, Present}) {
+      this.belongsTo(User, {foreignKey:"user_id"})
+      this.hasMany(Present, {foreignKey:"form_id"})
     }
   };
-  User.init({
-    name: DataTypes.STRING,
-    lname: DataTypes.STRING,
+  Form.init({
     phone: {
       unique:true,
       type:DataTypes.INTEGER,
@@ -34,13 +29,12 @@ module.exports = (sequelize, DataTypes) => {
         isEmail:true
       }
     },
-    password: {
-      allowNull:false
-    },
-    avatar: DataTypes.STRING
+    isActive: DataTypes.BOOLEAN,
+    status: DataTypes.BOOLEAN,
+    user_id: DataTypes.INTEGER
   }, {
     sequelize,
-    modelName: 'User',
+    modelName: 'Form',
   });
-  return User;
+  return Form;
 };
