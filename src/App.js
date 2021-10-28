@@ -1,9 +1,11 @@
+
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import NavBar from "./components/main/NavBar/NavBar";
 import Home from "./components/main/Home/Home";
 import Registration from "./components/main/Registration/Registration";
 import Authorization from "./components/main/Authorization/Authorization";
 import SentList from "./components/presents/SentList/SentList";
+import PersonalProfile from "./components/PersonalProfile/PersonalProfile"
 function App() {
   return (
     <Router>
