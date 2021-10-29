@@ -17,13 +17,13 @@ module.exports = (sequelize, DataTypes) => {
   Form.init({
     phone: {
       unique:true,
-      type:DataTypes.INTEGER,
+      type:DataTypes.STRING,
       validate:{
         len: 11,
-        isNumeric:true
       }
     },
     email: {
+      unique:true,
       type:DataTypes.STRING,
       validate:{
         isEmail:true
