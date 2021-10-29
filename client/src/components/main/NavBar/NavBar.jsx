@@ -1,7 +1,11 @@
 import { Link } from "react-router-dom";
 import styles from "./styles.module.css";
+import { useSelector } from "react-redux";
 
 export default function NavBar() {
+
+  const user = useSelector(state => state.user)
+
   return (
     <nav>
         <Link to="/">
@@ -19,12 +23,16 @@ export default function NavBar() {
         <Link to="/sentList" className={styles.link}>
           Отправленные анкеты
         </Link> 
-         <Link to="/registration" className={styles.link}>
-        Регистрация
-        </Link>
-        <Link to="/authorization" className={styles.link}>
-          Авторизация
-        </Link>
+        { user ?
+        <Link exact to="/auth/signout">Выйти</Link>
+            :
+          <>
+      <Link to="/auth/signup" className={styles.link}>Зарегистрироваться</Link>
+      <Link exact to="/auth/signin" className={styles.link}>
+        Войти
+      </Link>
+          </>
+        }
   </nav>
   );
 };
