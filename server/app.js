@@ -9,7 +9,19 @@ const session = require('express-session')
 let RedisStore = require('connect-redis')(session)
 let redisClient = redis.createClient();
 
-const { PORT, COOKIE_SECRET, COOKIE_NAME} = process.env
+const { SERVER_PORT, COOKIE_SECRET, COOKIE_NAME} = process.env
+const sentFormRouter = require('./src/routes/sentForm.router')
+
+require('dotenv').config()
+const logger = require('morgan')
+const rootRouter = require('./src/routes/rootRouter')
+
+
+app.use(logger('dev'))
+app.use(cors({origin:'http://localhost:3000'}))
+app.use(express.json())
+
+app.use('/', rootRouter)
 
 app.set('cookieName', COOKIE_NAME)
 
@@ -35,5 +47,6 @@ app.use(
 }))
 
 app.use('/api/v1/auth', authRouter)
+app.use('/sentform', sentFormRouter)
 
-app.listen(PORT, () => console.log("Server has been started on port ", PORT))
+app.listen(SERVER_PORT, () => console.log("Server has been started on port ", SERVER_PORT))

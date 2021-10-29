@@ -2,6 +2,7 @@ const initState = {
   user: null,
   loader: false,
   error: '',
+  wishes: [],
 }
 
 const getInitState = () => {

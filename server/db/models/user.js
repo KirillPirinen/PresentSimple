@@ -24,7 +24,10 @@ module.exports = (sequelize, DataTypes) => {
       unique:true,
       type:DataTypes.STRING,
       validate:{
-        len: 11,
+      len: {
+        args: 11,
+        msg: "Phone number should be 11 symbols"
+      },
         isNumeric:true
       }
     },
