@@ -1,4 +1,4 @@
-import {Form, FormText, Label, Input, FormGroup, Button} from "reactstrap";
+import {Form, Label, Input, FormGroup, Button} from "reactstrap";
 import { PriceRange } from "./PriceRange/PriceRange";
 
 export const SentForm = () => {
@@ -16,11 +16,11 @@ export const SentForm = () => {
     <Input id="Phone" name="phone" placeholder="79251231212" type="phone" disabled/>
   </FormGroup>
 
-      <PriceRange range={{from:0, to:1000}}/>
-      <PriceRange range={{from:1000, to:3000}}/>
-      <PriceRange range={{from:3000, to:5000}}/>
-      <PriceRange range={{from:5000, to:10000}}/>
-      <PriceRange range={{from:10000, to:null}}/>
+      <PriceRange key={1} range={{from:0, to:1000}}/>
+      <PriceRange key={2} range={{from:1000, to:3000}}/>
+      <PriceRange key={3} range={{from:3000, to:5000}}/>
+      <PriceRange key={4} range={{from:5000, to:10000}}/>
+      <PriceRange key={5} range={{from:10000, to:null}}/>
 
   <FormGroup tag="fieldset">
     <FormGroup check>

@@ -3,14 +3,16 @@ import { PriceRangeInput } from "../PriceRangeInput/PriceRangeInput"
 import styles from "./styles.module.css";
 
 export const PriceRange = ({range}) => {
-  let inputCounter = 1
-  const [inputs, setInputs] = useState([<PriceRangeInput key={inputCounter} id={inputCounter} deleteHandler={deleteHandler}/>])
-  const clickHandler = () => {
-    inputCounter++
-    setInputs(prev => [...prev, <PriceRangeInput key={inputCounter} id={inputCounter}/>])
-  }
-  const deleteHandler = (boxid) => {
+  const [counter, setCounter] = useState(2)
+  const [inputs, setInputs] = useState([{key: range.to, id: 1}])
 
+  const deleteHandler = (inputId) => {
+    setInputs(prev => prev.filter(el => el.id !== inputId))
+  }
+  
+  const clickHandler = () => {
+    setInputs(prev => [...prev, {key: range.to + counter, id: counter}])
+    setCounter(prev=>prev+1)
   }
   return (
     <div className={
@@ -22,9 +24,11 @@ export const PriceRange = ({range}) => {
     null}>
       <h3>От {range.from} до {range.to ? range.to : '...'} руб.</h3>
       <div className="d-flex flex-row flex-wrap justify-content-center">
-        {inputs}
+        {inputs?.map(el => (
+          <PriceRangeInput del={deleteHandler} {...el}/>
+        ))}
       </div>
-      {inputCounter <= 5 ? <p><a className={"btn btn-info"} onClick={clickHandler}>Добавить ещё один подарок</a></p> : null}
+      {inputs.length <= 5 ? <p><a className={"btn btn-info"} onClick={clickHandler}>Добавить ещё один подарок</a></p> : null}
     </div>
   )
 }

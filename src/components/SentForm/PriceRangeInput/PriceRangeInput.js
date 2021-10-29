@@ -4,11 +4,11 @@ import { TextAreaDescription } from "./TextAreaDescription";
 import styles from "./styles.module.css";
 import {DeleteBtn} from "./DeleteBtn";
 
-export const PriceRangeInput = ({id, deleteHandler}) => {
+export const PriceRangeInput = ({id, del}) => {
    const [description, setTextarea] = useState(false)
   return (
     <div className={`d-flex flex-column ${styles['present-box']}`}>
-      {id > 1 ? <DeleteBtn onClick={()=>deleteHandler(id)}/> : null}
+      {id > 1 ? <DeleteBtn del={() => del(id)}/> : null}
       <FormGroup>
         <Label>Название подарка:
           <Input name="title" placeholder="Название подарка" type="text"/>
