@@ -19,10 +19,10 @@ export default function NavBar() {
         <Link to="/sentList" className={styles.link}>
           Отправленные анкеты
         </Link> 
-         <Link to="/registration" className={styles.link}>
+         <Link to="/auth/signup" className={styles.link}>
         Регистрация
         </Link>
-        <Link to="/authorization" className={styles.link}>
+        <Link to="/auth/signin" className={styles.link}>
           Авторизация
         </Link>
   </nav>

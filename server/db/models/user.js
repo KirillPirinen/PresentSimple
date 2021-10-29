@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate({Wishlist, Form, Present, Group, UserGroup}) {
+    static associate({Wish, Wishlist, Form, Present, Group, UserGroup}) {
       this.hasOne(Wishlist, {foreignKey:"user_id"})
       this.hasMany(Form, {foreignKey:"user_id"})
       this.hasMany(Present, {foreignKey:"user_id"})
@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     lname: DataTypes.STRING,
     phone: {
       unique:true,
-      type:DataTypes.INTEGER,
+      type:DataTypes.STRING,
       validate:{
         len: 11,
         isNumeric:true
@@ -35,6 +35,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     password: {
+      type: DataTypes.STRING,
       allowNull:false
     },
     avatar: DataTypes.STRING

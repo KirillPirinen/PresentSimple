@@ -18,7 +18,7 @@ module.exports = {
       phone: {
         unique:true,
         allowNull:false,
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       email: {
         allowNull:false,
@@ -30,7 +30,6 @@ module.exports = {
         type: Sequelize.STRING
       },
       avatar: {
-        allowNull:false,
         type: Sequelize.STRING
       },
       createdAt: {
