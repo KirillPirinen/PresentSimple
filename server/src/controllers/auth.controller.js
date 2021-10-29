@@ -1,20 +1,17 @@
 const bcrypt = require("bcrypt");
 const { User } = require("../../db/models");
-console.log("User", User);
 
 const signUp = async (req, res) => {
-  console.log("req.body", req.body);
   const { name, lname, email, phone, password } = req.body;
 
-  if (User.findOne({ where: { phone: req.body.phone } })) {
+  const personInDataBase = User.findOne({ where: { phone: phone } });
+  if (personInDataBase) {
     return res.sendStatus(403);
   }
 
   if (name && password && email && phone) {
-    console.log("nams, email, password", name, email, password, phone, lname);
     try {
       const hashPassword = await bcrypt.hash(password, 10);
-      console.log("hashPassword", hashPassword);
 
       const newUser = await User.create({
         name,
@@ -24,18 +21,13 @@ const signUp = async (req, res) => {
         password: hashPassword,
       });
 
-      console.log("newUser", newUser);
-
       req.session.user = {
         id: newUser.id,
         name: newUser.name,
       };
 
-      console.log("req.session.user", req.session.user);
-
       return res.json({ id: newUser.id, name: newUser.name });
     } catch (error) {
-      console.log("error", error);
       return res.sendStatus(500);
     }
   }

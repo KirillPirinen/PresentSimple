@@ -1,6 +1,7 @@
 const initState = {
   user: null,
-  loader: false
+  loader: false,
+  error: '',
 }
 
 const getInitState = () => {

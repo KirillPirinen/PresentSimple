@@ -1,6 +1,7 @@
 import { DELETE_USER, SET_USER } from "../types/userTypes";
 import * as endPoints from "../../config/endPoints";
 import { disableLoader, enableLoader } from "./loader.ac";
+import { clearError, getError } from "../actions/error.ac";
 
 export const setUser = (user) => ({
   type: SET_USER,
@@ -17,15 +18,17 @@ export const signUp = (payload, history) => async (dispatch) => {
     credentials: "include",
     body: JSON.stringify(payload),
   });
-  console.log('response', response)
   if (response.status === 200) {
     const user = await response.json();
     dispatch(setUser(user));
     history.replace("/");
-  } else if(response.status === 403) {
+  } else if (response.status === 403) {
+    dispatch(
+      getError("Такой пользователь уже существует, попробуйте авторизоваться")
+    );
     history.replace("/auth/signin");
-    alert('Такой пользователь уже существует, попробуйте авторизоваться')
   } else {
+    dispatch(getError("Зарегистрируйтесь"));
     history.replace("/auth/signup");
   }
   dispatch(disableLoader());
@@ -41,12 +44,14 @@ export const signIn = (payload, history, from) => async (dispatch) => {
     credentials: "include",
     body: JSON.stringify(payload),
   });
-  console.log('response', response)
   if (response.status === 200) {
+    dispatch(clearError());
     const user = await response.json();
-    console.log('user', user)
     dispatch(setUser(user));
-    history.replace('/');
+    history.replace("/");
+  } else if (response.status === 401) {
+    dispatch(getError("Такого пользователя не существует, зарегистрируйтесь"));
+    history.replace("/auth/signup");
   } else {
     history.replace("/auth/signin");
   }
@@ -70,29 +75,6 @@ export const checkAuth = () => async (dispatch) => {
     const user = await response.json();
     dispatch(setUser(user));
   }
-};
-
-export const editUser = (user, history) => async (dispatch, getState) => {
-  const {
-    user: { _id: userId },
-  } = getState();
-  dispatch(enableLoader());
-  const response = await fetch(endPoints.editUser(userId), {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    credentials: "include",
-    body: JSON.stringify(user),
-  });
-  if (response.status === 200) {
-    const user = await response.json();
-    dispatch(setUser(user));
-    history.replace(`/users/${user._id}`);
-  } else {
-    history.replace("/");
-  }
-  dispatch(disableLoader());
 };
 
 export const deleteUser = () => ({

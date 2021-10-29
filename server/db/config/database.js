@@ -2,9 +2,9 @@ const { HOST, DB_NAME, DB_PASS, DB_USER } = process.env;
 
 module.exports = {
   development: {
-    username: 'admin',
+    username: DB_USER,
     password: DB_PASS,
-    database: 'presentsimple',
+    database: DB_NAME,
     host: HOST,
     dialect: "postgres",
   },
