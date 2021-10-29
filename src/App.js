@@ -22,6 +22,7 @@ function App() {
             <SentForm/>
         </Route>
        </FormContextProvider>
+      <Route exact path="/lk" component={PersonalProfile} />
     </Router>
   );
 }
