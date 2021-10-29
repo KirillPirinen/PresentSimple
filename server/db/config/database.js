@@ -1,4 +1,5 @@
-const { HOST, DB_NAME, DB_PASS, DB_USER } = process.env;
+require('dotenv').config()
+const { HOST, DB_NAME, DB_PASS, DB_USER } = process.env
 
 module.exports = {
   development: {
