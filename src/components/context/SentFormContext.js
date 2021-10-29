@@ -20,7 +20,6 @@ export const FormContextProvider = ({children}) => {
       if(range.id === rangeid) {
          const newPayload = range.payload.map(input => {
           if(input.id === inputid) {
-            console.log(input)
             const newInput = {...input,[e.target.name]:e.target.value}
             return newInput
           } 
