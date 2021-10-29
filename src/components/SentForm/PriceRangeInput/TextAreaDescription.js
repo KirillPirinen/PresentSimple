@@ -1,13 +1,12 @@
-import {Input, FormGroup} from "reactstrap";
+import {Input} from "reactstrap";
 
-export const TextAreaDescription = () => {
+export const TextAreaDescription = ({handler}) => {
   return (
-    <FormGroup>
       <Input
         name="description"
         type="textarea"
         placeholder="Описание/Дополнительная информация"
+        onChange={handler}
       />
-      </FormGroup>
   )
 }

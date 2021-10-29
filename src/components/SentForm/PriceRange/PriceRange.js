@@ -1,19 +1,21 @@
 import { useState } from "react"
+import { useSentFormContext } from "../../context/SentFormContext";
 import { PriceRangeInput } from "../PriceRangeInput/PriceRangeInput"
 import styles from "./styles.module.css";
 
 export const PriceRange = ({range}) => {
-  const [counter, setCounter] = useState(2)
-  const [inputs, setInputs] = useState([{key: range.to, id: 1}])
+  const {addInput, deleteInput} = useSentFormContext()
+  const [counter, setCounter] = useState(range.payload.length)
 
   const deleteHandler = (inputId) => {
-    setInputs(prev => prev.filter(el => el.id !== inputId))
+    deleteInput(range.id, inputId)
   }
   
   const clickHandler = () => {
-    setInputs(prev => [...prev, {key: range.to + counter, id: counter}])
+    addInput(range.id, counter)
     setCounter(prev=>prev+1)
   }
+
   return (
     <div className={
     range.to === 1000 ? styles.easy : 
@@ -24,11 +26,11 @@ export const PriceRange = ({range}) => {
     null}>
       <h3>От {range.from} до {range.to ? range.to : '...'} руб.</h3>
       <div className="d-flex flex-row flex-wrap justify-content-center">
-        {inputs?.map(el => (
-          <PriceRangeInput del={deleteHandler} {...el}/>
+        {range.payload?.map(el => (
+          <PriceRangeInput rangeid={range.id} del={deleteHandler} {...el}/>
         ))}
       </div>
-      {inputs.length <= 5 ? <p><a className={"btn btn-info"} onClick={clickHandler}>Добавить ещё один подарок</a></p> : null}
+      {range.payload.length <= 5 ? <p><a className={"btn btn-info"} rangeid={range.id} onClick={clickHandler}>Добавить ещё один подарок</a></p> : null}
     </div>
   )
 }
