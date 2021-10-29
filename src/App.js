@@ -14,6 +14,7 @@ function App() {
       <Route exact path="/registration" component={Registration} />
       <Route exact path="/authorization" component={Authorization} />
       <Route exact path="/sentList" component={SentList} />
+      <Route exact path="/lk" component={PersonalProfile} />
     </Router>
   );
 }

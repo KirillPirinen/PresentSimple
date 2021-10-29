@@ -2,10 +2,15 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 require('dotenv').config()
+const logger = require('morgan')
+const rootRouter = require('./src/routes/rootRouter')
 
+
+app.use(logger('dev'))
 app.use(cors({origin:'http://localhost:3000'}))
 app.use(express.json())
 
+app.use('/', rootRouter)
 
 
 
