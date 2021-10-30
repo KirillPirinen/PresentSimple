@@ -21,7 +21,7 @@ export const signUp = (payload, history) => async (dispatch) => {
   if (response.status === 200) {
     const user = await response.json();
     dispatch(setUser(user));
-    history.replace("/");
+    history.goBack();
   } else if (response.status === 403) {
     dispatch(
       getError("Такой пользователь уже существует, попробуйте авторизоваться")

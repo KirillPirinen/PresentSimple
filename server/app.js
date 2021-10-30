@@ -10,6 +10,7 @@ const errorHandler = require('./src/controllers/error.controller')
 
 const redis = require("redis");
 const session = require("express-session");
+const checkFormToPersonRouter = require("./src/routes/checkFormToPerson.router");
 let RedisStore = require("connect-redis")(session);
 let redisClient = redis.createClient();
 
@@ -44,6 +45,7 @@ app.use(
 
 app.use("/api/v1/auth", authRouter);
 app.use("/sentform", sentFormRouter);
+app.use("/api/v1/form", checkFormToPersonRouter);
 
 //обработчик ошибок
 app.use(errorHandler);

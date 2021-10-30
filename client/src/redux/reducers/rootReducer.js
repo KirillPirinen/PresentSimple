@@ -4,6 +4,7 @@ import errorReducer from "./errorReducer";
 import loaderReducer from "./loaderReducer";
 import userReducer from "./userReducer";
 import {SentFormReducer} from "./SentFormReducer";
+import { checkFormToPersonReducer, getExampleFormReducer } from './checkFormToPersonReducer';
 
 const rootReducer = combineReducers({
   //wishes: wishReducer,
@@ -11,6 +12,8 @@ const rootReducer = combineReducers({
   loader: loaderReducer,
   error: errorReducer,
   sentForm: SentFormReducer,
+  checkform: checkFormToPersonReducer,
+  exampleForm: getExampleFormReducer,
 })
 
 export default rootReducer
