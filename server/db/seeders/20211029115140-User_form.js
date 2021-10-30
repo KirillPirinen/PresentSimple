@@ -6,7 +6,7 @@ module.exports = {
         name: 'John',
         lname: 'Doe',
         phone: '79251231212',
-        email:'1@mail.ru',
+        email:'ak0man19@gmail.com',
         password:'123',
         createdAt:new Date(),
         updatedAt:new Date()

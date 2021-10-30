@@ -1,4 +1,4 @@
-import { CHECK_FORM_UUID, ERR_CHECK_UUID, SEND_FILLING_FORM } from "../types/sentform.types"
+import { CHECK_FORM_UUID, ERR_INTERNAL, SEND_FILLING_FORM, SEND_FILLING_FORM_ERROR } from "../types/sentform.types"
 
 export const CheckUUID = (uuid) => async (dispatch) => {
   try {
@@ -12,7 +12,7 @@ export const CheckUUID = (uuid) => async (dispatch) => {
     }
 
   } catch (err) {
-      dispatch({type:ERR_CHECK_UUID, payload:err})
+      dispatch({type:ERR_INTERNAL, payload:err})
   }
 }
 
@@ -23,13 +23,17 @@ export const SendForm = (uuid, data) => async (dispatch) => {
       headers:{"Content-Type":"application/json"},
       body:JSON.stringify(data)
     })
-    const {status, message} = await response.json()
+    const {status, message, count} = await response.json()
 
-    if(status) {
-      dispatch({type:SEND_FILLING_FORM, payload:{status, message}})
-    } 
-
+    switch (status) {
+      case "success":
+        dispatch({type:SEND_FILLING_FORM, payload:{status, message, count}})
+        break;
+      case "empty":
+        dispatch({type:SEND_FILLING_FORM_ERROR, payload:{status, message}})
+        break;
+    }
   } catch (err) {
-      dispatch({type:ERR_CHECK_UUID, payload:err})
+      dispatch({type:ERR_INTERNAL, payload:err})
   }
 }

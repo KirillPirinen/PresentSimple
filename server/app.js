@@ -6,11 +6,11 @@ const logger = require("morgan");
 const authRouter = require("./src/routes/auth.router");
 const sentFormRouter = require("./src/routes/sentForm.router");
 const rootRouter = require("./src/routes/rootRouter");
-const errorHandler = require('./src/controllers/error.controller')
+const errorHandler = require("./src/controllers/error.controller");
+const checkFormToPersonRouter = require("./src/routes/checkFormToPerson.router");
 
 const redis = require("redis");
 const session = require("express-session");
-const checkFormToPersonRouter = require("./src/routes/checkFormToPerson.router");
 let RedisStore = require("connect-redis")(session);
 let redisClient = redis.createClient();
 
@@ -50,4 +50,6 @@ app.use("/api/v1/form", checkFormToPersonRouter);
 //обработчик ошибок
 app.use(errorHandler);
 
-app.listen(SERVER_PORT, () => console.log("Server has been started on port ", SERVER_PORT))
+app.listen(SERVER_PORT, () =>
+  console.log("Server has been started on port ", SERVER_PORT)
+);
