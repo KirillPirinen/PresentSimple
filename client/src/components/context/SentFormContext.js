@@ -4,15 +4,19 @@ const formContext = createContext();
 
 export const FormContextProvider = ({children}) => {
 
-  const ranges = [
-    {id: 1, from:0, to:1000, payload:[]},
-    {id: 2, from:1000, to:3000, payload:[]},
-    {id: 3, from:3000, to:5000, payload:[]},
-    {id: 4, from:5000, to:10000, payload:[]},
-    {id: 5, from:10000, to:null, payload:[]}
-  ]
+  // const ranges = [
+  //   {id: 1, from:0, to:1000, payload:[]},
+  //   {id: 2, from:1000, to:3000, payload:[]},
+  //   {id: 3, from:3000, to:5000, payload:[]},
+  //   {id: 4, from:5000, to:10000, payload:[]},
+  //   {id: 5, from:10000, to:null, payload:[]}
+  // ]
 
-  const [data, setData] = useState(ranges);
+  const [data, setData] = useState([]);
+ 
+  const setRanges = (arr) => {
+    setData(arr.map(el=> ({...el, payload:[]})))
+  }
   
   const changeHandler = (e, rangeid, inputid) => {
    setData(prev=> {
@@ -49,7 +53,7 @@ const deleteInput = (rangeid, inputId) => {
 }
 
   return (
-    <formContext.Provider value={{changeHandler, data, addInput, deleteInput}}>
+    <formContext.Provider value={{changeHandler, data, addInput, deleteInput, setRanges}}>
       {children}
     </formContext.Provider>
   )

@@ -22,7 +22,7 @@ module.exports = {
       },
       form_id: {
         allowNull:false,
-        type: Sequelize.INTEGER,
+        type: Sequelize.UUID,
         references:{
           model:"Forms",
           key:'id'
