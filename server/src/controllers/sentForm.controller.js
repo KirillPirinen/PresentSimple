@@ -1,5 +1,6 @@
 const {Form, PriceRange} = require('../../db/models');
 const appError = require('../Errors/errors');
+const validateBeforeInsert = require('../functions/validateBeforeInsert');
 
 module.exports = class SentFormController {
   static checkForm = async (req, res, next) => {
@@ -34,5 +35,12 @@ module.exports = class SentFormController {
     } catch (err) {
        next(new Error(err))
     }
+  }
+
+  static fillingForm = async (req, res, next) => {
+    console.log(req.body)
+    console.log(validateBeforeInsert(req.body, res.locals.guest.id))
+
+    res.sendStatus(200)
   }
 }

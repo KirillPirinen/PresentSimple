@@ -1,14 +1,18 @@
+import { useDispatch } from "react-redux";
 import {Form, Label, Input, Button} from "reactstrap";
+import { SendForm } from "../../redux/actions/SentForm.ac";
 import { useSentFormContext } from "../context/SentFormContext";
 import { PriceRange } from "./PriceRange/PriceRange";
 
 export const SentForm = ({guest}) => {
   const {data} = useSentFormContext()
+  const dispatch = useDispatch()
 
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log(data)
+    dispatch(SendForm(guest.id, data))
   }
+  
   return (
     <div className="container">
     <h1>Привет, {guest.name}, {guest.lname}!</h1>
