@@ -15,6 +15,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Form.init({
+    name: {
+      type:DataTypes.STRING,
+    },
+    lname: {
+      type:DataTypes.STRING,
+    },
     phone: {
       unique:true,
       type:DataTypes.STRING,

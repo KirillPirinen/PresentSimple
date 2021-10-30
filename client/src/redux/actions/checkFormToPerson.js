@@ -2,6 +2,16 @@ import axios from "axios";
 import { CHECK_FORM, GET_EXAMPLE_FORM } from "../types/checkFormToPersonTypes";
 import { getError } from "./error.ac";
 
+export const getCheckedForm = (response) => ({
+  type: CHECK_FORM,
+  payload: response,
+});
+
+export const getExampleForm = (value) => ({
+  type: GET_EXAMPLE_FORM,
+  payload: value,
+});
+
 export const checkForm =
   (name, lname, phone, email, history) => async (dispatch) => {
     let response = await axios.post(
@@ -14,19 +24,11 @@ export const checkForm =
       }
     );
     if (response.status === 200) {
-      dispatch({
-        type: CHECK_FORM,
-        payload: response.data,
-      });
+      dispatch(getCheckedForm(response.data));
       history.replace(`/mywishlist/${phone}`);
     } else if (response.status === 201) {
-      dispatch({
-        type: CHECK_FORM,
-        payload: response.data,
-      });
-      dispatch({
-        type: GET_EXAMPLE_FORM,
-      });
+      dispatch(getCheckedForm(response.data));
+      dispatch(getExampleForm(true));
     } else {
       dispatch(getError("Произошла ошибка"));
     }

@@ -1,5 +1,6 @@
+const { v4: uuidv4 } = require("uuid");
 const { User } = require("../../db/models");
-const { Form } = require("../../db/models/form");
+const { Form } = require("../../db/models");
 
 const check = async (req, res) => {
   const { name, lname, email, phone } = req.body;
@@ -17,9 +18,11 @@ const check = async (req, res) => {
 
   if (name && lname && email) {
     try {
-      const person = await Form.create({ ...req.body });
+      const person = await Form.create({ ...req.body, id: uuidv4() });
+
       return res.status(201).json(person);
     } catch (error) {
+      console.log("error", error);
       res.sendStatus(500);
     }
   }

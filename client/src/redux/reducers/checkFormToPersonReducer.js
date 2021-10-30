@@ -16,7 +16,7 @@ export const getExampleFormReducer = (state = false, action) => {
 
   switch (type) {
     case GET_EXAMPLE_FORM:
-      return !state;
+      return payload;
     default:
       return state;
   }

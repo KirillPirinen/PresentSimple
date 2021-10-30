@@ -3,13 +3,16 @@ import { useHistory } from "react-router";
 import CheckFormToPerson from "../../CheckFormToPerson/CheckFormToPerson";
 import PresentForm from "../../presents/PresentForm/PresentForm";
 import { useState, useEffect } from "react";
+import { getExampleForm } from "../../../redux/actions/checkFormToPerson";
 
 export default function Home() {
 
   const [showForm, setShowForm] = useState(false)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     setShowForm(false)
+    dispatch(getExampleForm(false))
   }, [])
 
     const user = useSelector(state => state.user);

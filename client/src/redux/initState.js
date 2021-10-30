@@ -7,7 +7,6 @@ const initState = {
   checkform: '',
   exampleForm: false,
 }
-
 const getInitState = () => {
   const stateFromLS = JSON.parse(window.localStorage.getItem('redux'))
   return stateFromLS ? stateFromLS : initState
