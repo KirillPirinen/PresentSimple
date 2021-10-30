@@ -14,7 +14,7 @@ const allUserWishes = async (req, res) => {
 
 const addNewWish = async (req, res) => {
   const { title, description, price_id } = req.body
-  const user_id = req.session.userId
+  const user_id = req.session.user.id
   const wishlist_id = await Wishlist.findOne({
     where: { user_id }
   })

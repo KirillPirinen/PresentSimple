@@ -4,12 +4,12 @@ const app = express();
 const logger = require('morgan')
 const cors = require('cors');
 // const rootRouter = require('./src/routes/rootRouter')
-// const authRouter = require('./src/routes/auth.router')
+const authRouter = require('./src/routes/auth.router')
 
-// const redis = require('redis')
-// const session = require('express-session')
-// let RedisStore = require('connect-redis')(session)
-// let redisClient = redis.createClient();
+const redis = require('redis')
+const session = require('express-session')
+let RedisStore = require('connect-redis')(session)
+let redisClient = redis.createClient();
 
 const { SERVER_PORT, COOKIE_SECRET, COOKIE_NAME} = process.env
 const sentFormRouter = require('./src/routes/sentForm.router');
@@ -22,7 +22,7 @@ app.use(logger('dev'))
 
 
 
-// app.set('cookieName', COOKIE_NAME)
+app.set('cookieName', COOKIE_NAME)
 
 app.use(cors({
   origin: true,
@@ -31,21 +31,21 @@ app.use(cors({
 
 app.use(express.json())
 
-// app.use(
-//   session({
-//   name: app.get('cookieName'),
-//   secret: COOKIE_SECRET,
-//   resave: false,
-//   saveUninitialized: false,
-//   store: new RedisStore({ client: redisClient }),
-//   cookie: {
-//     secure: false,
-//     httpOnly: true,
-//     maxAge: 1e3 * 86400, // COOKIE'S LIFETIME — 1 DAY
-//   },
-// }))
+app.use(
+  session({
+  name: app.get('cookieName'),
+  secret: COOKIE_SECRET,
+  resave: false,
+  saveUninitialized: false,
+  store: new RedisStore({ client: redisClient }),
+  cookie: {
+    secure: false,
+    httpOnly: true,
+    maxAge: 1e3 * 86400, // COOKIE'S LIFETIME — 1 DAY
+  },
+}))
 
-// app.use('/api/v1/auth', authRouter)
+app.use('/api/v1/auth', authRouter)
 app.use('/sentform', sentFormRouter)
 app.use('/wish', wishRouter)
 
