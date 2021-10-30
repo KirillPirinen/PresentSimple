@@ -1,9 +1,10 @@
-const { createContext, useContext, useState } = require("react");
+import {createContext, useContext, useState} from 'react';
+import {useSelector} from "react-redux"; 
 
 const formContext = createContext();
 
 export const FormContextProvider = ({children}) => {
-
+  //const {status, ranges} = useSelector(state => state.sentForm)
   // const ranges = [
   //   {id: 1, from:0, to:1000, payload:[]},
   //   {id: 2, from:1000, to:3000, payload:[]},

@@ -9,21 +9,25 @@ module.exports = class SentFormController {
       if(form.status) {
         next()
       } else {
-        next(new appError(false, 'Форма не найдена или уже заполнена'))
+        next(new appError(false, 'Форма не найдена или уже заполнялась'))
       }
     } catch(err) {
         next(new Error('Неправильный адрес формы или сервер умер'))
     }
   }
 
-   static getPriceRanges = async (req,res) => {
+   static getPriceRanges = async (req, res, next) => {
     try {
       const ranges = await PriceRange.findAll({
         attributes: {exclude: ['createdAt', 'updatedAt']},
         order: [['id','ASC']]})
-      res.json({status:true, data:ranges})
+      if(ranges) {
+        res.json({status:true, data:ranges})
+      } else {
+        next(new appError(false, 'Нет диапазона цен'))
+      }
     } catch (err) {
-      res.json({status:false, message:err.message})
+       next(new Error(err))
     }
   }
 }
