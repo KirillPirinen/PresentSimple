@@ -27,6 +27,8 @@ export const signUp = (payload, history) => async (dispatch) => {
       getError("Такой пользователь уже существует, попробуйте авторизоваться")
     );
     history.replace("/auth/signin");
+  } else if (response.status === 411) {
+    dispatch(getError("Номер телефона должен содержать 11 символов"));
   } else {
     dispatch(getError("Зарегистрируйтесь"));
     history.replace("/auth/signup");

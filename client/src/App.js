@@ -7,10 +7,12 @@ import { checkAuth } from "./redux/actions/user.ac";
 import PrivateRoute from "./components/main/PrivateRouter/PrivateRouter";
 import SignUp from "./components/main/SignUp/SignUp";
 import SignIn from "./components/main/SignIn/SignIn";
-import SignOut from "./components/main/SignOut/SignOut"
+import SignOut from "./components/main/SignOut/SignOut";
+import { SentForm } from "./components/SentForm/SentForm";
 import { FormContextProvider } from "./components/context/SentFormContext";
 import SentList from "./components/presents/SentList/SentList";
-import PersonalProfile from "./components/PersonalProfile/PersonalProfile"
+import PersonalProfile from "./components/PersonalProfile/PersonalProfile";
+import { clearError } from "./redux/actions/error.ac";
 import { SentFormCheker } from "./components/SentForm/SentFormChecker";
 
 function App() {
@@ -18,6 +20,10 @@ function App() {
 
   useEffect(() => {
     dispatch(checkAuth());
+  }, []);
+
+  useEffect(() => {
+    dispatch(clearError());
   }, []);
 
   return (
@@ -31,10 +37,13 @@ function App() {
         <SentList />
       </PrivateRoute>
       <FormContextProvider>
-        <Route exact path="/sentform/:uuid">
-            <SentFormCheker/>
+        <Route exact path="/sentform">
+          <SentForm />
         </Route>
-       </FormContextProvider>
+        <Route exact path="/sentform/:uuid">
+          <SentFormCheker />
+        </Route>
+      </FormContextProvider>
       <Route exact path="/lk" component={PersonalProfile} />
     </Router>
   );
