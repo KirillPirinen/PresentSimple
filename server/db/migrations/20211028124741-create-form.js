@@ -8,6 +8,12 @@ module.exports = {
         defaultValue: uuid(),
         primaryKey: true,
       },
+      name: {
+        type:Sequelize.STRING,
+      },
+      lname: {
+        type:Sequelize.STRING,
+      },
       phone: {
         allowNull:false,
         type: Sequelize.STRING
