@@ -7,16 +7,14 @@ import { SentForm } from "./SentForm"
 
 
 export const SentFormCheker = () => {
-  const {setRanges} = useSentFormContext()
+
   const {uuid} = useParams()
   const dispatch = useDispatch()
-  const {status, data, message} = useSelector(state => state.sentForm)
-  useEffect(()=>{
-    setRanges(data)
-  },[data])
+  const {status, message, guest} = useSelector(state => state.sentForm)
+
   useEffect(() => 
     dispatch(CheckUUID(uuid))
   ,[dispatch])
 
-  return status ? <SentForm/> : <h1>Error:{message}</h1>;
+  return status ? <SentForm guest = {guest} /> : <h1>Error:{message}</h1>;
 }
