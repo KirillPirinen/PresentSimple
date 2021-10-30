@@ -3,7 +3,7 @@ import NavBar from "./components/main/NavBar/NavBar";
 import Home from "./components/main/Home/Home";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { checkAuth } from "./redux/actions/user.ac";
+import { checkAuth, deleteUser } from "./redux/actions/user.ac";
 import PrivateRoute from "./components/main/PrivateRouter/PrivateRouter";
 import SignUp from "./components/main/SignUp/SignUp";
 import SignIn from "./components/main/SignIn/SignIn";
@@ -20,6 +20,7 @@ function App() {
 
   useEffect(() => {
     dispatch(checkAuth());
+    // dispatch(deleteUser())
   }, []);
 
   useEffect(() => {

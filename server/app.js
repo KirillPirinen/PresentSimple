@@ -6,7 +6,8 @@ const logger = require("morgan");
 const authRouter = require("./src/routes/auth.router");
 const sentFormRouter = require("./src/routes/sentForm.router");
 const rootRouter = require("./src/routes/rootRouter");
-const errorHandler = require('./src/controllers/error.controller')
+const errorHandler = require("./src/controllers/error.controller");
+const checkFormToPersonRouter = require("./src/routes/checkFormToPerson.router");
 
 const redis = require("redis");
 const session = require("express-session");
@@ -15,14 +16,14 @@ let redisClient = redis.createClient();
 
 const { SERVER_PORT, COOKIE_SECRET, COOKIE_NAME } = process.env;
 
-//app.set("cookieName", COOKIE_NAME);
+app.set("cookieName", COOKIE_NAME);
 
 app.use(logger("dev"));
 app.use("/", rootRouter);
 
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: true,
     credentials: true,
   })
 );
@@ -42,11 +43,13 @@ app.use(
   })
 );
 
-//app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/auth", authRouter);
 app.use("/sentform", sentFormRouter);
+app.use("/api/v1/form", checkFormToPersonRouter);
 
 //обработчик ошибок
 app.use(errorHandler);
 
-
-app.listen(SERVER_PORT, () => console.log("Server has been started on port ", SERVER_PORT))
+app.listen(SERVER_PORT, () =>
+  console.log("Server has been started on port ", SERVER_PORT)
+);

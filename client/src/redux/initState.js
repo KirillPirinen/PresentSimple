@@ -3,7 +3,9 @@ const initState = {
   loader: false,
   error: '',
   wishes: [],
-  sentForm:{}
+  sentForm:{},
+  checkform: '',
+  exampleForm: false,
 }
 const getInitState = () => {
   const stateFromLS = JSON.parse(window.localStorage.getItem('redux'))

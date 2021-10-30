@@ -1,0 +1,2 @@
+export const CHECK_FORM = 'CHECK_FORM'
+export const GET_EXAMPLE_FORM = 'GET_EXAMPLE_FORM'
