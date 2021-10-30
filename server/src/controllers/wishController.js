@@ -2,11 +2,14 @@ const { Wish } = require('../../db/models')
 const { Wishlist } = require('../../db/models')
 
 const allUserWishes = async (req, res) => {
-  const userId = req.session.userId
-  const allWishes = await Wish.findall({
-    where: { userId }
-  })
-  res.json(allWishes)
+  // const userId = req.session.userId
+  // const allWishes = await Wish.findall({
+  //   where: { userId }
+  // })
+  console.log('зашел в контроллер');
+  res.json([{title: 'test',
+  description: 'desctest'}, {title: 'test',
+    description: 'desctest'}])
 }
 
 const addNewWish = async (req, res) => {

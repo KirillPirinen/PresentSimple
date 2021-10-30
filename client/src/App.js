@@ -12,6 +12,7 @@ import { SentForm } from "./components/SentForm/SentForm";
 import { FormContextProvider } from "./components/context/SentFormContext";
 import SentList from "./components/presents/SentList/SentList";
 import PersonalProfile from "./components/PersonalProfile/PersonalProfile"
+import WishList from "./components/WishList/WishList";
 
 function App() {
   const dispatch = useDispatch();
@@ -36,6 +37,7 @@ function App() {
         </Route>
        </FormContextProvider>
       <Route exact path="/lk" component={PersonalProfile} />
+      <Route exact path="/mywishlist" component={WishList} />
     </Router>
   );
 }
