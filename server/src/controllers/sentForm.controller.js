@@ -1,4 +1,4 @@
-const {Form, PriceRange} = require('../../db/models');
+const {Form, PriceRange, Present} = require('../../db/models');
 const appError = require('../Errors/errors');
 const validateBeforeInsert = require('../functions/validateBeforeInsert');
 
@@ -38,9 +38,14 @@ module.exports = class SentFormController {
   }
 
   static fillingForm = async (req, res, next) => {
-    console.log(req.body)
-    console.log(validateBeforeInsert(req.body, res.locals.guest.id))
-
-    res.sendStatus(200)
+    try{
+      const readyToPush = validateBeforeInsert(req.body, res.locals.guest.id)
+      if(readyToPush.length) {
+        const {length} = await Present.bulkCreate(readyToPush, {returning: ['id']})
+        
+      }
+    }catch(err) {
+      console.log(err)
+    }
   }
 }

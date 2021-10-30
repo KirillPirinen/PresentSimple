@@ -13,12 +13,13 @@ module.exports = {
         type: Sequelize.STRING
       },
       description: {
-        allowNull:false,
+        allowNull:true,
+        defaultValue:null,
         type: Sequelize.STRING
       },
       isBinded: {
+        defaultValue:false,
         type: Sequelize.BOOLEAN,
-        defaultValue:false
       },
       form_id: {
         allowNull:false,
