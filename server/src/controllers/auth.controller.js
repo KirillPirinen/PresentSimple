@@ -29,13 +29,6 @@ const signUp = async (req, res) => {
       };
 
       return res.json({ id: newUser.id, name: newUser.name });
-      // if(errors) {
-      // console.log('errors', errors)
-      // console.log('ValidationErrorItem', errors[0])
-      // console.log('message', errors[0].message)
-      // } else if() {
-
-      // }
     } catch (error) {
       if (
         error.message == "Validation error: Phone number should be 11 symbols"

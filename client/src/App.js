@@ -13,6 +13,7 @@ import { FormContextProvider } from "./components/context/SentFormContext";
 import SentList from "./components/presents/SentList/SentList";
 import PersonalProfile from "./components/PersonalProfile/PersonalProfile";
 import { clearError } from "./redux/actions/error.ac";
+import { SentFormCheker } from "./components/SentForm/SentFormChecker";
 
 function App() {
   const dispatch = useDispatch();
@@ -38,6 +39,9 @@ function App() {
       <FormContextProvider>
         <Route exact path="/sentform">
           <SentForm />
+        </Route>
+        <Route exact path="/sentform/:uuid">
+          <SentFormCheker />
         </Route>
       </FormContextProvider>
       <Route exact path="/lk" component={PersonalProfile} />
