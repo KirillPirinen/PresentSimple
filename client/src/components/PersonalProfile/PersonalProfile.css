@@ -1,0 +1,39 @@
+.user_info {
+  display: flex;
+  align-items: center;
+  flex-flow: wrap column;
+  background-color: aliceblue;
+  margin: auto;
+  width: auto;
+}
+
+.user_info_body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.user_pic {
+  width: 200px;
+  border-radius: 50%;
+}
+
+.wish_buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.persbtn {
+  margin: 10px;
+}
+
+button {
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: rgb(77, 190, 255);
+}
+
+button:hover {
+  
+}

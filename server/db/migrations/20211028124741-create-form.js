@@ -10,11 +10,11 @@ module.exports = {
       },
       phone: {
         allowNull:false,
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       email: {
         allowNull:false,
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       isActive: {
         type: Sequelize.BOOLEAN,

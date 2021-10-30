@@ -18,7 +18,7 @@ module.exports = {
       phone: {
         unique:true,
         allowNull:false,
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       email: {
         allowNull:false,
@@ -31,6 +31,7 @@ module.exports = {
       },
       avatar: {
         allowNull:false,
+        defaultValue:"default123321.png",
         type: Sequelize.STRING
       },
       createdAt: {
