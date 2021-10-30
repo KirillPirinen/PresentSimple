@@ -4,8 +4,10 @@ const { User } = require("../../db/models");
 const signUp = async (req, res) => {
   const { name, lname, email, phone, password } = req.body;
 
-  const personInDataBase = User.findOne({ where: { phone: phone } });
-  if (personInDataBase) {
+  const personInDataBasePhone = await User.findOne({ where: { phone: phone } });
+  const personInDataBaseEmail = await User.findOne({ where: { email: email } });
+
+  if (personInDataBasePhone || personInDataBaseEmail) {
     return res.sendStatus(403);
   }
 
@@ -28,10 +30,15 @@ const signUp = async (req, res) => {
 
       return res.json({ id: newUser.id, name: newUser.name });
     } catch (error) {
-      return res.sendStatus(500);
+      if (
+        error.message == "Validation error: Phone number should be 11 symbols"
+      ) {
+        return res.sendStatus(411);
+      } else {
+        return res.sendStatus(401);
+      }
     }
   }
-
   return res.sendStatus(400);
 };
 
