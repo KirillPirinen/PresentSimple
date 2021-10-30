@@ -8,10 +8,10 @@ import PrivateRoute from "./components/main/PrivateRouter/PrivateRouter";
 import SignUp from "./components/main/SignUp/SignUp";
 import SignIn from "./components/main/SignIn/SignIn";
 import SignOut from "./components/main/SignOut/SignOut"
-import { SentForm } from "./components/SentForm/SentForm";
 import { FormContextProvider } from "./components/context/SentFormContext";
 import SentList from "./components/presents/SentList/SentList";
 import PersonalProfile from "./components/PersonalProfile/PersonalProfile"
+import { SentFormCheker } from "./components/SentForm/SentFormChecker";
 
 function App() {
   const dispatch = useDispatch();
@@ -31,8 +31,8 @@ function App() {
         <SentList />
       </PrivateRoute>
       <FormContextProvider>
-        <Route exact path="/sentform">
-            <SentForm/>
+        <Route exact path="/sentform/:uuid">
+            <SentFormCheker/>
         </Route>
        </FormContextProvider>
       <Route exact path="/lk" component={PersonalProfile} />

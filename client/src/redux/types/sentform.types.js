@@ -1,0 +1,2 @@
+export const CHECK_FORM_UUID = 'CHECK_FORM_UUID';
+export const ERR_CHECK_UUID = "ERR_CHECK_UUID";

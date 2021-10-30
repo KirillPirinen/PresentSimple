@@ -1,17 +1,29 @@
-const {Form} = require('../../db/models');
+const {Form, PriceRange} = require('../../db/models');
+const appError = require('../Errors/errors');
 
 module.exports = class SentFormController {
-  static getForm = async (req, res) => {
+  static checkForm = async (req, res, next) => {
     try{
-      const form = await Form.findOne({where:{id:req.params.id}})
-      if(form && !form.status) {
-        res.json(form)
+      const raw = await Form.findOne({where:{id:req.params.uuid}})
+      const form = raw || {status:false};
+      if(form.status) {
+        next()
       } else {
-        res.json({error:'форма не найдена или уже заполнена'})
+        next(new appError(false, 'Форма не найдена или уже заполнена'))
       }
-    } catch {
-      res.sendStatus(500)
+    } catch(err) {
+        next(new Error('Неправильный адрес формы или сервер умер'))
     }
-    
+  }
+
+   static getPriceRanges = async (req,res) => {
+    try {
+      const ranges = await PriceRange.findAll({
+        attributes: {exclude: ['createdAt', 'updatedAt']},
+        order: [['id','ASC']]})
+      res.json({status:true, data:ranges})
+    } catch (err) {
+      res.json({status:false, message:err.message})
+    }
   }
 }
