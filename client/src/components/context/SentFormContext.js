@@ -1,19 +1,25 @@
-const { createContext, useContext, useState } = require("react");
+import {createContext, useContext, useEffect, useState} from 'react';
+import {useSelector} from "react-redux"; 
 
 const formContext = createContext();
 
 export const FormContextProvider = ({children}) => {
+  const ranges = useSelector(state => state.sentForm.data)
+  const [data, setData] = useState([]);
 
-  const ranges = [
-    {id: 1, from:0, to:1000, payload:[]},
-    {id: 2, from:1000, to:3000, payload:[]},
-    {id: 3, from:3000, to:5000, payload:[]},
-    {id: 4, from:5000, to:10000, payload:[]},
-    {id: 5, from:10000, to:null, payload:[]}
-  ]
+  useEffect(() => {
+    setData(ranges?.map(el=> ({...el, payload:[]})))
+  },[ranges])
 
-  const [data, setData] = useState(ranges);
-  
+  // const ranges = [
+  //   {id: 1, from:0, to:1000, payload:[]},
+  //   {id: 2, from:1000, to:3000, payload:[]},
+  //   {id: 3, from:3000, to:5000, payload:[]},
+  //   {id: 4, from:5000, to:10000, payload:[]},
+  //   {id: 5, from:10000, to:null, payload:[]}
+  // ]
+ 
+
   const changeHandler = (e, rangeid, inputid) => {
    setData(prev=> {
      return prev.map(range => {
