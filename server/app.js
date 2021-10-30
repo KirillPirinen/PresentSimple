@@ -15,14 +15,14 @@ let redisClient = redis.createClient();
 
 const { SERVER_PORT, COOKIE_SECRET, COOKIE_NAME } = process.env;
 
-app.set("cookieName", COOKIE_NAME);
+//app.set("cookieName", COOKIE_NAME);
 
 app.use(logger("dev"));
 app.use("/", rootRouter);
 
 app.use(
   cors({
-    origin: true,
+    origin: "http://localhost:3000",
     credentials: true,
   })
 );
@@ -42,10 +42,11 @@ app.use(
   })
 );
 
-app.use("/api/v1/auth", authRouter);
+//app.use("/api/v1/auth", authRouter);
 app.use("/sentform", sentFormRouter);
 
 //обработчик ошибок
 app.use(errorHandler);
+
 
 app.listen(SERVER_PORT, () => console.log("Server has been started on port ", SERVER_PORT))
