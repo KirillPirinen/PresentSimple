@@ -9,8 +9,12 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(models) {
-      // define association here
+    static associate({Wish, Wishlist, Form, Present, Group, UserGroup}) {
+      this.hasOne(Wishlist, {foreignKey:"user_id"})
+      this.hasMany(Form, {foreignKey:"user_id"})
+      this.hasMany(Present, {foreignKey:"user_id"})
+      this.hasMany(Wish, {foreignKey:"user_id"})
+      this.belongsToMany(Group, {through:UserGroup, foreignKey:"user_id"})
     }
   };
   User.init({
@@ -18,14 +22,26 @@ module.exports = (sequelize, DataTypes) => {
     lname: DataTypes.STRING,
     phone: {
       unique:true,
-      type:DataTypes.INTEGER,
+      type:DataTypes.STRING,
       validate:{
-        len: 11,
+      len: {
+        args: 11,
+        msg: "Phone number should be 11 symbols"
+      },
         isNumeric:true
       }
     },
-    email: DataTypes.STRING,
-    password: DataTypes.STRING
+    email: {
+      type:DataTypes.STRING,
+      validate:{
+        isEmail:true
+      }
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull:false
+    },
+    avatar: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'User',

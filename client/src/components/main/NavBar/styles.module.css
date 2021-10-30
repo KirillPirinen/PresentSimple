@@ -1,0 +1,10 @@
+.nav {
+  font-size: 25px;
+  display: flex;
+  justify-content:flex-end;
+}
+.link {
+  padding: 10px;
+  text-decoration: none;
+  color:darkred;
+}
