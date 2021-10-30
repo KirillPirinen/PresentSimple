@@ -10,7 +10,6 @@ const checkInput = (input, propArr) => {
 }
 
 const validateBeforeInsert = (arr, form_id, user_id) => {
-  if(arr)
   return arr.reduce((a, e) => {
     if(e.payload.length) {
       e.payload.forEach(input => {
