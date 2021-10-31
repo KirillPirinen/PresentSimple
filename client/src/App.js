@@ -38,9 +38,9 @@ function App() {
         <SentList />
       </PrivateRoute>
       <FormContextProvider>
-        <Route exact path="/sentform">
+        {/* <Route exact path="/sentform">
           <SentForm />
-        </Route>
+        </Route> */}
         <Route exact path="/sentform/:uuid">
           <SentFormCheker />
         </Route>
