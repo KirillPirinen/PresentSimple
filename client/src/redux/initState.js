@@ -4,7 +4,7 @@ const initState = {
   error: '',
   wishes: [],
   sentForm:{},
-  checkform: '',
+  checkform: {},
   exampleForm: false,
 }
 const getInitState = () => {

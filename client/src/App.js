@@ -15,6 +15,7 @@ import PersonalProfile from "./components/PersonalProfile/PersonalProfile";
 import { clearError } from "./redux/actions/error.ac";
 import { SentFormCheker } from "./components/SentForm/SentFormChecker";
 import "./index.css";
+import CheckFormToPerson from "./components/CheckFormToPerson/CheckFormToPerson";
 
 function App() {
   const dispatch = useDispatch();
@@ -37,6 +38,9 @@ function App() {
       <Route exact path="/auth/signout" component={SignOut} />
       <PrivateRoute path="/sentList">
         <SentList />
+      </PrivateRoute>
+      <PrivateRoute exact path="/search">
+        <CheckFormToPerson/>
       </PrivateRoute>
       <FormContextProvider>
         <Route exact path="/sentform">

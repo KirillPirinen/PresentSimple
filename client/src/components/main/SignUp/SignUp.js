@@ -208,6 +208,10 @@ const SignUp = () => {
           <button type="submit" className="btn btn-primary">
             Зарегистрироваться
           </button>
+          <a href="/auth/signin" onClick={(e)=> {
+            e.preventDefault()
+            history.push('/auth/signin')
+          }}>У меня уже есть аккаунт</a>
         </form>
       )}
     </div>
