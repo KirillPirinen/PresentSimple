@@ -9,7 +9,7 @@ const checkInput = (input, propArr, forced=false) => {
       case false:
         if(Object.keys(props).length) return props
       case true:
-        if(Object.keys(props).length === propArr.lenth) return props
+        if(Object.keys(props).length === propArr.length) return props
       default: 
       return false
     } 

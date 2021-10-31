@@ -3,7 +3,7 @@ const initState = {
   loader: false,
   error: "",
   wishes: [],
-  sentForm: {},
+  sentForm:{},
   checkform: {},
   exampleForm: false,
   showAnswerFromBack: false,

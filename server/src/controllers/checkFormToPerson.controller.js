@@ -4,7 +4,7 @@ const {checkInput} = require('../functions/validateBeforeInsert')
 const appError = require('../Errors/errors');
 
 const check = async (req, res, next) => {
-  const input = checkInput(req,body, ['email', 'phone'], true)
+  const input = checkInput(req.body, ['email', 'phone'], true)
   if(input) {
     const {email, phone} = input;
     try {
@@ -18,8 +18,8 @@ const check = async (req, res, next) => {
           const formInDataBase = await Form.findAll({ 
             where: {[Op.or]: [{email}, {phone}]}
           }); 
-          if(formInDataBase) {
-            return res.status(200).json(formInDataBase);
+          if(formInDataBase.length) {
+            return res.status(201).json(formInDataBase);
           }
       } 
       

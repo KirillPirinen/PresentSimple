@@ -18,6 +18,7 @@ import "./index.css";
 import WishListPerson from "./components/WishList/WishListPerson/WishListPerson";
 import ModalGroup from "./components/WishList/ModalGroup/ModalGroup";
 import ProgressBar from "./components/main/Progrssbar/Progrssbar";
+import CheckFormToPerson from "./components/CheckFormToPerson/CheckFormToPerson";
 
 function App() {
   const dispatch = useDispatch();
@@ -40,6 +41,9 @@ function App() {
       <Route exact path="/auth/signout" component={SignOut} />
       <PrivateRoute path="/sentList">
         <SentList />
+      </PrivateRoute>
+      <PrivateRoute exact path="/search">
+        <CheckFormToPerson/>
       </PrivateRoute>
       <FormContextProvider>
         {/* <Route exact path="/sentform">
