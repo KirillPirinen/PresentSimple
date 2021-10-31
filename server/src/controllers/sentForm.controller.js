@@ -1,6 +1,6 @@
 const {Form, PriceRange, Present, User} = require('../../db/models');
 const appError = require('../Errors/errors');
-const validateBeforeInsert = require('../functions/validateBeforeInsert');
+const {validateBeforeInsert} = require('../functions/validateBeforeInsert');
 const MailController = require('./emailController/email.controller')
 const initiatorMessage = require('../functions/htmlMessage');
 
