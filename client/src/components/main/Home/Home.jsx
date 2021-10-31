@@ -36,7 +36,7 @@ export default function Home() {
     </div>
     <div>
     <h2>Выбираете подарок и не знаете, что подарить?</h2>
-     <button onClick={() => setShowForm(true)}>Да</button>
+     <button onClick={() => user ? setShowForm(true) : history.push('/auth/signup')}>Да</button>
     </div>
     {showForm ?
       <CheckFormToPerson/>
