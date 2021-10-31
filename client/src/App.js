@@ -14,6 +14,10 @@ import SentList from "./components/presents/SentList/SentList";
 import PersonalProfile from "./components/PersonalProfile/PersonalProfile";
 import { clearError } from "./redux/actions/error.ac";
 import { SentFormCheker } from "./components/SentForm/SentFormChecker";
+import "./index.css";
+import WishListPerson from "./components/WishList/WishListPerson/WishListPerson";
+import ModalGroup from "./components/WishList/ModalGroup/ModalGroup";
+import ProgressBar from "./components/main/Progrssbar/Progrssbar";
 
 function App() {
   const dispatch = useDispatch();
@@ -46,6 +50,8 @@ function App() {
         </Route>
       </FormContextProvider>
       <Route exact path="/lk" component={PersonalProfile} />
+      <Route exact path="/wishListPerson" component={WishListPerson} />
+      <Route exact path="/modalGroup" component={ModalGroup} />
     </Router>
   );
 }

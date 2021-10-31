@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import styles from "./styles.module.css";
 import { useSelector } from "react-redux";
+import {Navbar, NavbarBrand, NavbarToggler, Collapse, Nav, NavItem, NavLink } from 'reactstrap';
 
 export default function NavBar() {
 
@@ -22,6 +23,9 @@ export default function NavBar() {
       </Link>
         <Link to="/sentList" className={styles.link}>
           Отправленные анкеты
+        </Link> 
+        <Link to="/wishListPerson" className={styles.link}>
+          Мои желания, которые видны всем
         </Link> 
         { user ?
         <Link exact to="/auth/signout">Выйти</Link>

@@ -7,10 +7,13 @@ const initState = {
   checkform: {},
   exampleForm: false,
   showAnswerFromBack: false,
+  group: {},
+  alone: {},
 };
 const getInitState = () => {
-  const stateFromLS = JSON.parse(window.localStorage.getItem("redux"));
-  return stateFromLS ? stateFromLS : initState;
-};
+  const stateFromLS = JSON.parse(window.localStorage.getItem('redux'))
+  return stateFromLS ? stateFromLS : initState
+}
 
-export default getInitState;
+
+export default getInitState

@@ -30,7 +30,7 @@ export const PriceRange = ({range}) => {
           <PriceRangeInput rangeid={range.id} del={deleteHandler} {...el}/>
         ))}
       </div>
-      {range.payload.length <= 5 ? <p><a className={"btn btn-info"} rangeid={range.id} onClick={clickHandler}>Добавить ещё один подарок</a></p> : null}
+      {range.payload.length <= 5 ? <p><a className={"btn btn-info"} rangeid={range.id} onClick={clickHandler}>Добавить подарок</a></p> : null}
     </div>
   )
 }

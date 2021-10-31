@@ -49,7 +49,6 @@ const signIn = async (req, res) => {
   if (password && email) {
     try {
       const currentUser = await User.findOne({ where: { email: email } });
-      console.log("currentUser", currentUser);
       if (
         currentUser &&
         (await bcrypt.compare(password, currentUser.password))

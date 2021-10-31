@@ -11,6 +11,7 @@ const checkFormToPersonRouter = require("./src/routes/checkFormToPerson.router")
 
 const redis = require("redis");
 const session = require("express-session");
+const groupRouter = require("./src/routes/group.router");
 let RedisStore = require("connect-redis")(session);
 let redisClient = redis.createClient();
 
@@ -46,6 +47,7 @@ app.use(
 app.use("/api/v1/auth", authRouter);
 app.use("/sentform", sentFormRouter);
 app.use("/api/v1/form", checkFormToPersonRouter);
+app.use("/api/v1/group", groupRouter);
 
 //обработчик ошибок
 app.use(errorHandler);
