@@ -9,8 +9,8 @@
     initAnimation();
 
     function initHeader() {
-        width = window.innerWidth-300;
-        height = window.innerHeight-300;
+        width = window.innerWidth;
+        height = window.innerHeight;
         target = {x: 0, y: height};
 
         largeHeader = document.getElementById('large-header');
@@ -24,7 +24,7 @@
         // create particles
         triangles = [];
         for(var x = 0; x < 180; x++) {
-            addTriangle(700);
+            addTriangle(200);
         }
     }
 

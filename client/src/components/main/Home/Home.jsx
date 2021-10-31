@@ -1,10 +1,7 @@
 import { useDispatch, useSelector } from "react-redux"
-import { useHistory } from "react-router";
-import CheckFormToPerson from "../../CheckFormToPerson/CheckFormToPerson";
 import PresentForm from "../../presents/PresentForm/PresentForm";
 import { useState, useEffect } from "react";
 import { getExampleForm } from "../../../redux/actions/checkFormToPerson";
-import { CSSTransition } from 'react-transition-group';
 import { Main } from "./Main";
 
 export default function Home() {
@@ -20,7 +17,7 @@ export default function Home() {
     const exampleForm = useSelector(state => state.exampleForm);
 
   return (
-    <div className="container">
+    <div className="container-glass">
     <Main user={user}/>
      {/* <WishListPerson/> */}
     {exampleForm ?
