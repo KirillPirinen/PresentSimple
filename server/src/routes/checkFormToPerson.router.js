@@ -4,5 +4,6 @@ const checkFormToPersonController = require('../controllers/checkFormToPerson.co
 const checkFormToPersonRouter = Router()
 
 checkFormToPersonRouter.post('/addPresentRecipient', checkFormToPersonController.check)
+checkFormToPersonRouter.post('/sendFormToPresentRecipient', checkFormToPersonController.sendFormToPerson)
 
 module.exports = checkFormToPersonRouter

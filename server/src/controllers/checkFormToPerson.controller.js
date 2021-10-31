@@ -1,6 +1,7 @@
 const { v4: uuidv4 } = require("uuid");
 const { User } = require("../../db/models");
 const { Form } = require("../../db/models");
+// const MailController = require("./emailController/email.controller");
 
 const check = async (req, res) => {
   const { name, lname, email, phone } = req.body;
@@ -19,15 +20,24 @@ const check = async (req, res) => {
   if (name && lname && email) {
     try {
       const person = await Form.create({ ...req.body, id: uuidv4() });
-
+    
+      // await MailController.sendEmail(email, 'Порадуй себя 🎁', '<p>eeeee</p>'));
       return res.status(201).json(person);
+
     } catch (error) {
-      console.log("error", error);
       res.sendStatus(500);
     }
   }
 };
 
+const sendFormToPerson = async (req, res) => {
+  const {person} = req.body
+  console.log('person', person)
+  await MailController.sendEmail(person.email, 'Порадуй себя 🎁', `http://localhost:3000/sentform/${person.id}`);
+  return res.sendStatus(200)
+}
+
 module.exports = {
   check,
+  sendFormToPerson,
 };
