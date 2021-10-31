@@ -14,6 +14,7 @@ import SentList from "./components/presents/SentList/SentList";
 import PersonalProfile from "./components/PersonalProfile/PersonalProfile";
 import { clearError } from "./redux/actions/error.ac";
 import { SentFormCheker } from "./components/SentForm/SentFormChecker";
+import "./index.css";
 
 function App() {
   const dispatch = useDispatch();

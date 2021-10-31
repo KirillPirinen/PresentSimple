@@ -11,3 +11,29 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.transitions-enter {
+  opacity: 0;
+}
+.transitions-enter-active {
+  opacity: 0.7;
+  transition: opacity 200ms;
+}
+.transitions-active {
+  opacity: 0.7;
+  transition: opacity 200ms;
+}
+.transitions-exit {
+  opacity: 0.7;
+}
+.transitions-exit-active {
+  opacity: 0;
+  transition: opacity 200ms;
+}
+
+#large-header {
+  top: 50px;
+  right: 50px;
+  z-index: -100;
+  position: absolute;
+}
