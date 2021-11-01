@@ -1,22 +1,16 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import { useHistory } from "react-router";
+import { useState } from "react";
 import { checkForm } from "../../redux/actions/checkFormToPerson";
 import { RecipientInfoBlock } from "./subComponents/recipientInfoBlock";
-import { CSSTransition } from 'react-transition-group';
 import { ListOfForms } from "./subComponents/ListOfForms";
 
 export default function CheckFormToPerson() {
   const [inputFormToPerson, setInputFormToPerson] = useState({name: '', lname: '', phone: '', email: ''});
   const {recipient, forms, message} = useSelector(state=>state.checkform)
-  const [localState, setLocalState] = useState({recipient:false, forms:false, message:false})
-  const dispatch = useDispatch();
-  const history = useHistory();
-
-  useEffect(() => {
-    setLo
-  },[recipient, forms, message])
   
+  const dispatch = useDispatch();
+
+
   const changeHandler = (e) => {
     setInputFormToPerson((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
@@ -24,8 +18,7 @@ export default function CheckFormToPerson() {
   const checkFormHandler = (e) => {
     e.preventDefault();
     if (inputFormToPerson) {
-      dispatch(checkForm(inputFormToPerson.name, inputFormToPerson.lname, inputFormToPerson.phone, inputFormToPerson.email, history))
-      setInputFormToPerson({name: '', lname: '', phone: '', email: ''});
+      dispatch(checkForm(inputFormToPerson.name, inputFormToPerson.lname, inputFormToPerson.phone, inputFormToPerson.email))
     }
   };
 
@@ -62,7 +55,8 @@ export default function CheckFormToPerson() {
       name="phone"
       className="form-control"
       type="text"
-      placeholder="Телефон" 
+      placeholder="Телефон"
+      required 
       value={inputFormToPerson.phone}
       onChange={changeHandler}
       />
@@ -73,6 +67,7 @@ export default function CheckFormToPerson() {
       name="email"
       className="form-control"
       type="email"
+      required
       placeholder="Электронная почта" 
       value={inputFormToPerson.email}
       onChange={changeHandler}

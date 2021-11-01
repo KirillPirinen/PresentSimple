@@ -8,7 +8,7 @@ export const checkFormToPersonReducer = (state = {}, action) => {
       return {status:true, forms:payload};
 
     case USER_OR_FORM_NOTFOUND:
-      return {status:false, message:payload.message};
+      return {status:false, message:payload.message, contacts:payload.contacts};
 
     case ADD_USER:
       return {status:true, recipient:payload};
