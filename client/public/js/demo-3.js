@@ -44,7 +44,7 @@
         var t = Math.random()*(2*Math.PI);
         var x = (200+Math.random()*100)*Math.cos(t) + width*0.5;
         var y = (200+Math.random()*100)*Math.sin(t) + height*0.5-20;
-        var time = 6+3*Math.random();
+        var time = 9+3*Math.random();
 
         TweenLite.to(tri.pos, time, {x: x,
             y: y, ease:Circ.easeOut,

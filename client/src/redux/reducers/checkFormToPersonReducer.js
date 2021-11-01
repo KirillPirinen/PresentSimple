@@ -1,9 +1,4 @@
-import {
-  ADD_USER,
-  CHECK_FORM,
-  GET_EXAMPLE_FORM,
-  USER_OR_FORM_NOTFOUND,
-} from "../types/checkFormToPersonTypes";
+import { ADD_USER, CHECK_FORM, GET_EXAMPLE_FORM, USER_OR_FORM_NOTFOUND } from "../types/checkFormToPersonTypes";
 
 export const checkFormToPersonReducer = (state = {}, action) => {
   const { type, payload } = action;
@@ -13,7 +8,7 @@ export const checkFormToPersonReducer = (state = {}, action) => {
       return { status: true, forms: payload };
 
     case USER_OR_FORM_NOTFOUND:
-      return { status: false, message: payload.message };
+      return {status:false, message:payload.message, contacts:payload.contacts};
 
     case ADD_USER:
       return { status: true, recipient: payload };
@@ -23,13 +18,15 @@ export const checkFormToPersonReducer = (state = {}, action) => {
   }
 };
 
-export const getExampleFormReducer = (state = false, action) => {
-  const { type, payload } = action;
+// export const getExampleFormReducer = (state = false, action) => {
+//   const { type, payload } = action;
 
-  switch (type) {
-    case GET_EXAMPLE_FORM:
-      return payload;
-    default:
-      return state;
-  }
-};
+//   switch (type) {
+//     case GET_EXAMPLE_FORM:
+//       return payload;
+//     case SHOW_ANSWER_FROM_BACK:
+//       return payload;
+//     default:
+//       return state;
+//   }
+// };

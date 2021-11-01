@@ -4,12 +4,10 @@ import wishReducer from "./wishReducer";
 import loaderReducer from "./loaderReducer";
 import userReducer from "./userReducer";
 import { SentFormReducer } from "./SentFormReducer";
-import {
-  checkFormToPersonReducer,
-  getExampleFormReducer,
-} from "./checkFormToPersonReducer";
+import { checkFormToPersonReducer } from "./checkFormToPersonReducer";
 import { groupModalReducer, groupReducer } from "./groupModalReducer";
 import wishlistReducer from "./wishlistReducer";
+import { modalInfoReducer } from "./modalInfoReducer";
 
 const rootReducer = combineReducers({
   wishes: wishReducer,
@@ -18,10 +16,12 @@ const rootReducer = combineReducers({
   errorAuth: errorAuthReducer,
   sentForm: SentFormReducer,
   checkform: checkFormToPersonReducer,
-  exampleForm: getExampleFormReducer,
+  // exampleForm: getExampleFormReducer,
   modalGroup: groupModalReducer,
   group: groupReducer,
   wishlist: wishlistReducer,
+  //exampleForm: getExampleFormReducer,
+  modalInfo: modalInfoReducer,
 });
 
 export default rootReducer;

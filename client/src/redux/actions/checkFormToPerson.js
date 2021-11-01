@@ -1,11 +1,4 @@
-import axios from "axios";
-import {
-  ADD_USER,
-  CHECK_FORM,
-  GET_EXAMPLE_FORM,
-  USER_OR_FORM_NOTFOUND,
-} from "../types/checkFormToPersonTypes";
-import { getErrorAuth } from "./errorAuth.ac";
+import { ADD_USER, CHECK_FORM, GET_EXAMPLE_FORM, USER_OR_FORM_NOTFOUND } from "../types/checkFormToPersonTypes";
 
 export const getCheckedForm = (response) => ({
   type: CHECK_FORM,
@@ -22,42 +15,43 @@ export const getExampleForm = (value) => ({
   payload: value,
 });
 
-export const userOrFormNotFound = (value) => {
-  return { type: USER_OR_FORM_NOTFOUND, payload: value };
-};
+export const userOrFormNotFound = (value, contacts) => {
+  return {type:USER_OR_FORM_NOTFOUND, payload:value, contacts}
+}
 
 export const checkForm =
-  (name, lname, phone, email, history) => async (dispatch) => {
-    // let response = await axios.post(
-    //   `http://localhost:3001/api/v1/form/addPresentRecipient`,
-    //   {
-    //     name,
-    //     lname,
-    //     phone,
-    //     email,
-    //   }
-    // );
-    const response = await fetch(
-      "http://localhost:3001/api/v1/form/addPresentRecipient",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, lname, phone, email }),
-      }
-    );
-    const data = await response.json();
-    console.log("я дошел сюда");
-    console.log(response.status);
+  (name, lname, phone, email) => async (dispatch) => {
+    const response = await fetch('http://localhost:3001/api/v1/form/addPresentRecipient', {
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({name,lname,phone,email})
+    })
+    const data = await response.json()
+    console.log('я дошел сюда')
+    console.log(response.status)
     if (response.status === 200) {
       dispatch(getCheckedUser(data));
     } else if (response.status === 201) {
       dispatch(getCheckedForm(data));
-    } else if (response.status === 404) {
-      dispatch(userOrFormNotFound(data));
-      //dispatch(getExampleForm(true));
-    } else if (response.status === 500) {
-      dispatch(userOrFormNotFound(data));
-    } else {
-      dispatch(getErrorAuth("Произошла ошибка"));
+    }
+      else if (response.status === 404) {
+      const contacts = {name, lname, phone, email};
+      dispatch(userOrFormNotFound(data, contacts))
+      dispatch(getExampleForm(true));
+      }
+      else if(response.status === 500) {
+      dispatch(userOrFormNotFound(data))
+      }
+    else {
+      dispatch(userOrFormNotFound(data))
     }
   };
+
+//   export const sendFormToPerson = (person) => async (dispatch) => {
+//     console.log('зашли в action')
+//     let response = await axios.post(`http://localhost:3001/api/v1/form/sendFormToPresentRecipient`, {person})
+//     console.log('response.data', response.data)
+//   if (response.status === 200) {
+//     dispatch(showAnswerFromBack(true));
+//   }
+// }
