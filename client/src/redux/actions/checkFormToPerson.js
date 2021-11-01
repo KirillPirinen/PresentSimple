@@ -48,3 +48,12 @@ export const checkForm =
       dispatch(getError("Произошла ошибка"));
     }
   };
+
+  export const sendFormToPerson = (person) => async (dispatch) => {
+    console.log('зашли в action')
+    let response = await axios.post(`http://localhost:3001/api/v1/form/sendFormToPresentRecipient`, {person})
+    console.log('response.data', response.data)
+  if (response.status === 200) {
+    dispatch(showAnswerFromBack(true));
+  }
+}
