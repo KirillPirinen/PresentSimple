@@ -9,6 +9,7 @@ const initState = {
   showAnswerFromBack: false,
   group: {},
   alone: {},
+  wishlist: [],
 };
 const getInitState = () => {
   const stateFromLS = JSON.parse(window.localStorage.getItem('redux'))

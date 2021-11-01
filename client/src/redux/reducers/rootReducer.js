@@ -1,7 +1,6 @@
 import { combineReducers } from "redux";
-//import wishReducer from './taskReducer.js'
 import errorAuthReducer from "./errorAuthReducer";
-// import wishReducer from './wishReducer'
+import wishReducer from "./wishReducer";
 import loaderReducer from "./loaderReducer";
 import userReducer from "./userReducer";
 import { SentFormReducer } from "./SentFormReducer";
@@ -10,9 +9,10 @@ import {
   getExampleFormReducer,
 } from "./checkFormToPersonReducer";
 import { groupModalReducer, groupReducer } from "./groupModalReducer";
+import wishlistReducer from "./wishlistReducer";
 
 const rootReducer = combineReducers({
-  // wishes: wishReducer,
+  wishes: wishReducer,
   user: userReducer,
   loader: loaderReducer,
   errorAuth: errorAuthReducer,
@@ -21,6 +21,7 @@ const rootReducer = combineReducers({
   exampleForm: getExampleFormReducer,
   modalGroup: groupModalReducer,
   group: groupReducer,
+  wishlist: wishlistReducer,
 });
 
 export default rootReducer;

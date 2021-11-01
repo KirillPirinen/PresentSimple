@@ -11,6 +11,7 @@ import SignOut from "./components/main/SignOut/SignOut";
 import { SentForm } from "./components/SentForm/SentForm";
 import { FormContextProvider } from "./components/context/SentFormContext";
 import SentList from "./components/presents/SentList/SentList";
+import WishList from "./components/WishList/WishList";
 import PersonalProfile from "./components/PersonalProfile/PersonalProfile";
 import { clearErrorAuth } from "./redux/actions/errorAuth.ac";
 import { SentFormCheker } from "./components/SentForm/SentFormChecker";
@@ -57,7 +58,7 @@ function App() {
       <Route exact path="/lk" component={PersonalProfile} />
       <Route exact path="/wishListPerson" component={WishListPerson} />
       <Route exact path="/modalGroup" component={ModalGroup} />
-      {/* <Route exact path="/mywishlist" component={WishList} /> */}
+      <Route exact path="/mywishlist" component={WishList} />
     </Router>
   );
 }

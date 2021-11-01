@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt");
 const { User } = require("../../db/models");
+const { Wishlist } = require("../../db/models");
 
 const signUp = async (req, res) => {
   const { name, lname, email, phone, password } = req.body;
@@ -28,7 +29,14 @@ const signUp = async (req, res) => {
         name: newUser.name,
       };
 
-      return res.json({ id: newUser.id, name: newUser.name });
+      const wishlist = await Wishlist.create({
+        user_id: req.session.user.id,
+      });
+
+      return res.json({
+        user: { id: newUser.id, name: newUser.name },
+        wishlist: wishlist,
+      });
     } catch (error) {
       if (
         error.message == "Validation error: Phone number should be 11 symbols"

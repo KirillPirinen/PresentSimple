@@ -13,45 +13,49 @@ export default function WishListPerson() {
   console.log('group', group)
   const user = useSelector(state => state.user);
   
-  // const wish = useSelector(state => state.wish)
-  //надо достать id из wish
-  const wish = {id: 1, title: 'носки', description: '', isBinded: 'false', user_id: user?.id, pricerange_id: 1, wishlist_id: user?.id}
+  const wishes = useSelector(state => state.wishes)
 
   const groupData = [
     { bgcolor: "#6a1b9a", completed: group?.group?.currentusers, width: group?.group?.maxusers },
   ];
 
   return (
+
     <>
-    <Wish/>
-    {/* /* !group?.wish && */ }
-    { !group?.group ? 
-    <>
-    <Button onClick={() => dispatch(donateToYourself(wish.id))}>Подарить самому</Button>
+    {wishes ?
+    wishes?.map(el =>
+      <li><Wish/>
+      {!group?.group && !group?.wish ?
+
+      <>
+    <Button onClick={() => dispatch(donateToYourself(el.id))}>Подарить самому</Button>
     <Button onClick={() => {history.push('/modalGroup')}}>Подарить группой(создать группу)</Button>
-    </>
-    : ''}
+     </>
+     
+     : 
 
-    {group?.wish ? 
-    <h2>Забронировано</h2> : ''}
+    <Button>Забронировано</Button>    
+
+
+      }
+    </li>) : ''}
+    </>
+    // group?.wish || group?.group ?
+    // :
+    // group?.group ?
+    //    <>
+    // {groupData.map((item, idx) => (
+    //   <ProgressBar
+    //     key={idx}
+    //     bgcolor={item.bgcolor}
+    //     completed={item.completed}
+    //     width={item.width}
+    //   />)}
+    //   <Button onClick={() => dispatch(joinGroup(el.id))}>Подарить группой(вступить в группу)</Button>
+    //   <p>Можете пообщаться насчет подарка в этой группе в Телеграм</p>
+    //   <a href={group?.group?.telegram}>Группа в Телеграме</a>
+    // </>
+   // }
     
-    {group?.group ? 
-    <>
-    {groupData.map((item, idx) => (
-      <ProgressBar
-        key={idx}
-        bgcolor={item.bgcolor}
-        completed={item.completed}
-        width={item.width}
-      />
-    ))}
-
-    <Button onClick={() => dispatch(joinGroup(wish.id))}>Подарить группой(вступить в группу)</Button>
-
-    <p>Можете пообщаться насчет подарка в этой группе в Телеграм</p>
-    <a href={group?.group?.telegram}>Группа в Телеграме</a>
-    </> 
-    : ''}
-    </>
   )
 }
