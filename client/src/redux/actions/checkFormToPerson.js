@@ -5,7 +5,7 @@ import {
   GET_EXAMPLE_FORM,
   USER_OR_FORM_NOTFOUND,
 } from "../types/checkFormToPersonTypes";
-import { getError } from "./error.ac";
+import { getErrorAuth } from "./errorAuth.ac";
 
 export const getCheckedForm = (response) => ({
   type: CHECK_FORM,
@@ -58,6 +58,6 @@ export const checkForm =
     } else if (response.status === 500) {
       dispatch(userOrFormNotFound(data));
     } else {
-      dispatch(getError("Произошла ошибка"));
+      dispatch(getErrorAuth("Произошла ошибка"));
     }
   };

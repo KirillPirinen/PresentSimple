@@ -12,7 +12,7 @@ import { SentForm } from "./components/SentForm/SentForm";
 import { FormContextProvider } from "./components/context/SentFormContext";
 import SentList from "./components/presents/SentList/SentList";
 import PersonalProfile from "./components/PersonalProfile/PersonalProfile";
-import { clearError } from "./redux/actions/error.ac";
+import { clearErrorAuth } from "./redux/actions/errorAuth.ac";
 import { SentFormCheker } from "./components/SentForm/SentFormChecker";
 import "./index.css";
 import WishListPerson from "./components/WishList/WishListPerson/WishListPerson";
@@ -29,7 +29,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    dispatch(clearError());
+    dispatch(clearErrorAuth());
   }, []);
 
   return (

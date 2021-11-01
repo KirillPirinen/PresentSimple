@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { signUp } from "../../../redux/actions/user.ac";
 import validator from "validator";
-import { getError, clearError } from "../../../redux/actions/error.ac";
+import { getErrorAuth, clearErrorAuth } from "../../../redux/actions/errorAuth.ac";
 
 const SignUp = () => {
-  const error = useSelector((state) => state.error);
+  const errorAuth = useSelector((state) => state.errorAuth);
 
   const [userSignUp, setUserSignUp] = useState({
     name: "",
@@ -28,17 +28,17 @@ const SignUp = () => {
   const submitHandler = (e) => {
     e.preventDefault();
     if (!validator.isEmail(userSignUp.email)) {
-      dispatch(getError("Некорректный адрес электронной почты"));
+      dispatch(getErrorAuth("Некорректный адрес электронной почты"));
     } else if (!validator.isMobilePhone(userSignUp.phone)) {
-      dispatch(getError("Некорректный номер телефона"));
+      dispatch(getErrorAuth("Некорректный номер телефона"));
     } else if (userSignUp.password !== userSignUp.password2) {
       dispatch(
-        getError("Вы не правильно ввели повторно пароль, попробуйте еще раз")
+        getErrorAuth("Вы не правильно ввели повторно пароль, попробуйте еще раз")
       );
       // } else if(!validator.isStrongPassword(userSignUp.password, {minSymbols: 0})) {
       //  dispatch(getError("Пароль должен содержать не менее 8-ми символов, в том числе цифры, прописные и строчные буквы"))
     } else {
-      dispatch(clearError());
+      dispatch(clearErrorAuth());
       let payload = Object.entries(userSignUp).filter((el) =>
         el[1] ? el[1].trim() : el[1]
       );
@@ -52,9 +52,9 @@ const SignUp = () => {
 
   return (
     <div className="d-flex justify-content-center">
-      {error ? (
+      {errorAuth ? (
         <>
-          <h2>{error}</h2>
+          <h2>{errorAuth}</h2>
           <form
             onSubmit={submitHandler}
             className="d-flex flex-column align-items-center bg-light text-dark p-3 border rounded-3"

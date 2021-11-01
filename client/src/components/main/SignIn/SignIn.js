@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useLocation } from "react-router";
 import { signIn } from "../../../redux/actions/user.ac";
-import { clearError } from "../../../redux/actions/error.ac";
+import { clearErrorAuth } from "../../../redux/actions/errorAuth.ac";
 
 const SignIn = () => {
-  const error = useSelector((state) => state.error);
+  const errorAuth = useSelector((state) => state.errorAuth);
 
   const [userSignIn, setUserSignIn] = useState({
     email: "",
@@ -37,9 +37,9 @@ const SignIn = () => {
 
   return (
     <div className="d-flex justify-content-center">
-      {error ? (
+      {errorAuth ? (
         <>
-          <h2>{error}</h2>
+          <h2>{errorAuth}</h2>
           <form
             onSubmit={submitHandler}
             className="d-flex flex-column align-items-center bg-light text-dark p-3 border rounded-3"

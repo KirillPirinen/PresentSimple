@@ -1,0 +1,2 @@
+export const ERROR_AUTH = 'ERROR_AUTH'
+export const CLEAR_ERROR_AUTH = 'CLEAR_ERROR_AUTH'

@@ -1,7 +1,7 @@
 import { DELETE_USER, SET_USER } from "../types/userTypes";
 import * as endPoints from "../../config/endPoints";
 import { disableLoader, enableLoader } from "./loader.ac";
-import { clearError, getError } from "../actions/error.ac";
+import { clearErrorAuth, getErrorAuth } from "./errorAuth.ac";
 
 export const setUser = (user) => ({
   type: SET_USER,
@@ -24,13 +24,13 @@ export const signUp = (payload, history) => async (dispatch) => {
     history.replace('/');
   } else if (response.status === 403) {
     dispatch(
-      getError("Такой пользователь уже существует, попробуйте авторизоваться")
+      getErrorAuth("Такой пользователь уже существует, попробуйте авторизоваться")
     );
     history.replace("/auth/signin");
   } else if (response.status === 411) {
-    dispatch(getError("Номер телефона должен содержать 11 символов"));
+    dispatch(getErrorAuth("Номер телефона должен содержать 11 символов"));
   } else {
-    dispatch(getError("Зарегистрируйтесь"));
+    dispatch(getErrorAuth("Зарегистрируйтесь"));
     history.replace("/auth/signup");
   }
   dispatch(disableLoader());
@@ -47,12 +47,12 @@ export const signIn = (payload, history, from) => async (dispatch) => {
     body: JSON.stringify(payload),
   });
   if (response.status === 200) {
-    dispatch(clearError());
+    dispatch(clearErrorAuth());
     const user = await response.json();
     dispatch(setUser(user));
     history.replace("/");
   } else if (response.status === 401) {
-    dispatch(getError("Такого пользователя не существует, зарегистрируйтесь"));
+    dispatch(getErrorAuth("Такого пользователя не существует, зарегистрируйтесь"));
     history.replace("/auth/signup");
   } else {
     history.replace("/auth/signin");

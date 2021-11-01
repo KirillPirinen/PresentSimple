@@ -1,7 +1,7 @@
 const initState = {
   user: null,
   loader: false,
-  error: "",
+  errorAuth: "",
   wishes: [],
   sentForm:{},
   checkform: {},
