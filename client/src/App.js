@@ -11,6 +11,7 @@ import SignOut from "./components/main/SignOut/SignOut";
 import { SentForm } from "./components/SentForm/SentForm";
 import { FormContextProvider } from "./components/context/SentFormContext";
 import SentList from "./components/presents/SentList/SentList";
+import WishList from "./components/WishList/WishList";
 import PersonalProfile from "./components/PersonalProfile/PersonalProfile";
 import { clearError } from "./redux/actions/error.ac";
 import { SentFormCheker } from "./components/SentForm/SentFormChecker";
@@ -51,6 +52,7 @@ function App() {
         </Route>
       </FormContextProvider>
       <Route exact path="/lk" component={PersonalProfile} />
+      <Route exact path="/mywishlist" component={WishList} />
     </Router>
   );
 }
