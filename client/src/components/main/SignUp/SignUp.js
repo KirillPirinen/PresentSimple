@@ -6,6 +6,7 @@ import validator from "validator";
 import { getError, clearError } from "../../../redux/actions/error.ac";
 
 const SignUp = () => {
+  const error = useSelector((state) => state.error);
 
   const [userSignUp, setUserSignUp] = useState({
     name: "",
@@ -15,8 +16,6 @@ const SignUp = () => {
     password: "",
     password2: "",
   });
-
-  const error = useSelector((state) => state.error);
 
   let history = useHistory();
 
@@ -29,15 +28,15 @@ const SignUp = () => {
   const submitHandler = (e) => {
     e.preventDefault();
     if (!validator.isEmail(userSignUp.email)) {
-      dispatch(getError("Вы не ввели электронную почту, попробуйте еще раз"));
+      dispatch(getError("Некорректный адрес электронной почты"));
     } else if (!validator.isMobilePhone(userSignUp.phone)) {
-      dispatch(getError("Вы не ввели номер телефона, попробуйте еще раз"));
+      dispatch(getError("Некорректный номер телефона"));
     } else if (userSignUp.password !== userSignUp.password2) {
       dispatch(
         getError("Вы не правильно ввели повторно пароль, попробуйте еще раз")
       );
-      } else if(!validator.isStrongPassword(userSignUp.password, {minSymbols: 0})) {
-       dispatch(getError("Пароль должен содержать не менее 8-ми символов, в том числе цифры, прописные и строчные буквы"))
+      // } else if(!validator.isStrongPassword(userSignUp.password, {minSymbols: 0})) {
+      //  dispatch(getError("Пароль должен содержать не менее 8-ми символов, в том числе цифры, прописные и строчные буквы"))
     } else {
       dispatch(clearError());
       let payload = Object.entries(userSignUp).filter((el) =>
@@ -46,6 +45,7 @@ const SignUp = () => {
       if (payload.length) {
         payload = Object.fromEntries(payload);
         dispatch(signUp(payload, history));
+        setUserSignUp("")
       }
     }
   };

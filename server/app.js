@@ -1,5 +1,5 @@
-require('dotenv').config()
-const express = require('express');
+require("dotenv").config();
+const express = require("express");
 const app = express();
 const logger = require('morgan')
 const cors = require('cors');
@@ -33,6 +33,13 @@ app.use(cors({
 app.use(express.json())
 app.use(express.static(path.join(process.env.PWD, 'public')));
 
+app.use(
+  cors({
+    origin: true,
+    credentials: true,
+  })
+);
+app.use(express.json());
 app.use(
   session({
   name: app.get('cookieName'),

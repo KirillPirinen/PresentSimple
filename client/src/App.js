@@ -3,22 +3,29 @@ import NavBar from "./components/main/NavBar/NavBar";
 import Home from "./components/main/Home/Home";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { checkAuth } from "./redux/actions/user.ac";
+import { checkAuth, deleteUser } from "./redux/actions/user.ac";
 import PrivateRoute from "./components/main/PrivateRouter/PrivateRouter";
 import SignUp from "./components/main/SignUp/SignUp";
 import SignIn from "./components/main/SignIn/SignIn";
-import SignOut from "./components/main/SignOut/SignOut"
+import SignOut from "./components/main/SignOut/SignOut";
 import { SentForm } from "./components/SentForm/SentForm";
 import { FormContextProvider } from "./components/context/SentFormContext";
 import SentList from "./components/presents/SentList/SentList";
-import PersonalProfile from "./components/PersonalProfile/PersonalProfile"
 import WishList from "./components/WishList/WishList";
+import PersonalProfile from "./components/PersonalProfile/PersonalProfile";
+import { clearError } from "./redux/actions/error.ac";
+import { SentFormCheker } from "./components/SentForm/SentFormChecker";
 
 function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(checkAuth());
+    // dispatch(deleteUser())
+  }, []);
+
+  useEffect(() => {
+    dispatch(clearError());
   }, []);
 
   return (
@@ -32,10 +39,13 @@ function App() {
         <SentList />
       </PrivateRoute>
       <FormContextProvider>
-        <Route exact path="/sentform">
-            <SentForm/>
+        {/* <Route exact path="/sentform">
+          <SentForm />
+        </Route> */}
+        <Route exact path="/sentform/:uuid">
+          <SentFormCheker />
         </Route>
-       </FormContextProvider>
+      </FormContextProvider>
       <Route exact path="/lk" component={PersonalProfile} />
       <Route exact path="/mywishlist" component={WishList} />
     </Router>
