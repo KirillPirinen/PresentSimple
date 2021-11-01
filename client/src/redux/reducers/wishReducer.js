@@ -12,7 +12,7 @@ function wishReducer(state = [], action) {
 
     case EDIT_WISH:
       return state.map((wish) => {
-        if(action.payload.id ===Number(wish.id)) {
+        if(action.payload.id === Number(wish.id)) {
           return {...wish,
             photo: action.payload.photo,
             title: action.payload.title,
