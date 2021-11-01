@@ -4,4 +4,4 @@ const initiatorMessage = (friendname) => {
  `
 }
 
-module.export = initiatorMessage;
+module.exports = initiatorMessage;

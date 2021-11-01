@@ -103,17 +103,6 @@ const SignIn = () => {
           <div className="mb-3">
             <input
               onChange={changeHandler}
-              value={userSignIn.phone}
-              className="form-control"
-              type="text"
-              name="phone"
-              placeholder="Телефон"
-            />
-          </div>
-
-          <div className="mb-3">
-            <input
-              onChange={changeHandler}
               value={userSignIn.password}
               className="form-control"
               type="password"
