@@ -1,5 +1,5 @@
 import { useHistory } from "react-router";
-import { ADD_USER, CHECK_FORM, CREATE_URL_FORM, GET_EXAMPLE_FORM, USER_OR_FORM_NOTFOUND } from "../types/checkFormToPersonTypes";
+import { ADD_USER, CHECK_FORM, CLEAR_CHECKFORM_STATE, CREATE_URL_FORM, GET_EXAMPLE_FORM, USER_OR_FORM_NOTFOUND } from "../types/checkFormToPersonTypes";
 import { getError } from "./error.ac";
 
 export const getCheckedForm = (response) => ({
@@ -39,10 +39,12 @@ export const checkForm =
       else if (response.status === 404) {
       const contacts = {phone, email};
       dispatch(userOrFormNotFound(data, contacts))
+      dispatch(getError(data.message))
       //dispatch(getExampleForm(true));
       }
       else if(response.status === 500) {
-      dispatch(userOrFormNotFound(data))
+      //dispatch(userOrFormNotFound(data))
+      dispatch(getError(data.message))
       }
     else {
       dispatch(getError("Произошла ошибка"));
@@ -67,3 +69,5 @@ export const createForm = values => async dispatch => {
     console.log(err)
   }
 }
+
+export const clearCheckForm = () => ({type:CLEAR_CHECKFORM_STATE})

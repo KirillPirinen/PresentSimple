@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, useLocation } from "react-router-dom";
 import NavBar from "./components/main/NavBar/NavBar";
 import Home from "./components/main/Home/Home";
 import { useEffect } from "react";
@@ -18,10 +18,10 @@ import { SentFormCheker } from "./components/SentForm/SentFormChecker";
 import "./index.css";
 import CheckFormToPerson from "./components/CheckFormToPerson/CheckFormToPerson";
 import { SuccessAdded } from "./components/SuccessAdded/SuccessAdded";
+import { clearCheckForm } from "./redux/actions/checkFormToPerson";
 
 function App() {
   const dispatch = useDispatch();
-
   useEffect(() => {
     dispatch(checkAuth());
     // dispatch(deleteUser())
@@ -29,6 +29,7 @@ function App() {
 
   useEffect(() => {
     dispatch(clearError());
+    //dispatch(clearCheckForm())
   }, []);
 
   return (

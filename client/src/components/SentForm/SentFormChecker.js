@@ -38,7 +38,7 @@ export const SentFormCheker = () => {
           </ErrorMessage>
         }
         {error && 
-          <ErrorMessage error={error}>
+          <ErrorMessage message={error}>
             <Button onClick={clickHandler} color="success">На главную</Button>
           </ErrorMessage>
         }

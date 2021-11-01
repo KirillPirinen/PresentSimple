@@ -1,28 +1,28 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { checkForm, createForm } from "../../redux/actions/checkFormToPerson";
+import { checkForm, clearCheckForm, createForm } from "../../redux/actions/checkFormToPerson";
 import { RecipientInfoBlock } from "./subComponents/recipientInfoBlock";
 import { ListOfForms } from "./subComponents/ListOfForms";
 import ModalInfo from "../ModalInfo/ModalInfo";
 import { infoModalActivate, infoModalDeactivate } from "../../redux/actions/modalInfoAC";
 import { ErrorMessage } from "./subComponents/ErrorMessage";
-import { useHistory } from "react-router";
+import { useHistory, useLocation } from "react-router";
 import { Button } from "reactstrap";
 
 export default function CheckFormToPerson() {
-  const {recipient, forms, message, contacts, form} = useSelector(state=>state.checkform)
+  const {recipient, forms, isFound, contacts, form} = useSelector(state=>state.checkform)
+  const error = useSelector(state=>state.error)
   const initialState = contacts ? contacts : {name: '', lname: '', phone: '', email: ''};
   const [inputFormToPerson, setInputFormToPerson] = useState(initialState);
   const history = useHistory()
   if(form?.id) history.push('/success')
   const dispatch = useDispatch();
 
-
   useEffect(()=>{
-    if(recipient || forms || message) {
+    if(recipient || forms || error) {
       dispatch(infoModalActivate())
     }
-  },[recipient, forms, message])
+  },[recipient, forms, error])
 
 
   const changeHandler = (e) => {
@@ -109,10 +109,9 @@ export default function CheckFormToPerson() {
             <RecipientInfoBlock recipient={recipient}/>
         }
         {forms && <ListOfForms forms={forms}/>}
-
-        {message && 
-          <ErrorMessage message={message}>
-            <Button onClick={()=>dispatch(infoModalDeactivate())} color="success">Заполнить форму</Button>
+        {error && 
+          <ErrorMessage message={error}>
+            {isFound===false ? <Button onClick={()=>dispatch(infoModalDeactivate())} color="success">Заполнить форму</Button> : null}
           </ErrorMessage>
         }
       </ModalInfo>

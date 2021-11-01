@@ -46,15 +46,16 @@ export const signIn = (payload, history, from) => async (dispatch) => {
     credentials: "include",
     body: JSON.stringify(payload),
   });
+  const user = await response.json();
   if (response.status === 200) {
     dispatch(clearError());
-    const user = await response.json();
     dispatch(setUser(user));
     history.replace("/");
   } else if (response.status === 401) {
-    dispatch(getError("Такого пользователя не существует, зарегистрируйтесь"));
-    history.replace("/auth/signup");
-  } else {
+    dispatch(getError(user.message));
+    //history.replace("/auth/signup");
+  } 
+  else {
     history.replace("/auth/signin");
   }
   dispatch(disableLoader());

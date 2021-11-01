@@ -2,7 +2,6 @@
 const initState = {
   user: null,
   loader: false,
-  error: "",
   wishes: [],
   exampleForm: false,
   showAnswerFromBack: false,
@@ -13,7 +12,8 @@ const initState = {
 export const initStateWithoutLS = {
   sentForm:{},
   checkform: {},
-  modalInfo:false
+  modalInfo:false,
+  error: false,
 };
 
 const getInitState = () => {
