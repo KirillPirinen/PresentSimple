@@ -2,7 +2,7 @@ const { User, Form, Sequelize } = require("../../db/models");
 const {Op} = Sequelize;
 const {checkInput} = require('../functions/validateBeforeInsert')
 const appError = require('../Errors/errors');
-
+const { uuid } = require('uuidv4');
 const check = async (req, res, next) => {
   const input = checkInput(req.body, ['email', 'phone'], true)
   if(input) {
@@ -16,7 +16,7 @@ const check = async (req, res, next) => {
         return res.status(200).json(personInDataBase);
       } else {
           const formInDataBase = await Form.findAll({ 
-            where: {[Op.or]: [{email}, {phone}]}
+            where: {[Op.or]: [{email}, {phone}], status:true}
           }); 
           if(formInDataBase.length) {
             return res.status(201).json(formInDataBase);
@@ -31,18 +31,20 @@ const check = async (req, res, next) => {
   } else {
     next(new appError(500, 'Вы не ввели данных для поиска'))
   }
-  
+
 }
 
 const addNewForm = async (req, res, next) => {
   const input = checkInput(req.body, ['name', 'lname', 'email', 'phone'], true)
   if (input) {
     try {
-      const form = await Form.create(input);
-      return res.status(201).json(form);
+      const form = await Form.create({id:uuid(), ...input, user_id:req.session.user.id});
+      return res.status(200).json(form);
     } catch (error) {
-      next(new Error(`Ошибка добавления:${error.message}` ))
+      next(new appError(500, `Произошла ошибка добавления:${error.message}`))
     }
+  } else {
+    next(new Error(404, 'Вы не ввели все необходимые данные для добавления'))
   }
 };
 
@@ -51,6 +53,7 @@ module.exports = {
   check,
   addNewForm
 };
+
 // // const { v4: uuidv4 } = require("uuid");
 // // const { User } = require("../../db/models");
 // // const { Form } = require("../../db/models");

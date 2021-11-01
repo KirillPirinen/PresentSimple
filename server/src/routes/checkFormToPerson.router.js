@@ -1,9 +1,11 @@
 const { Router } = require('express')
 const checkFormToPersonController = require('../controllers/checkFormToPerson.controller')
 
-const checkFormToPersonRouter = Router()
+const router = Router()
 
-checkFormToPersonRouter.post('/addPresentRecipient', checkFormToPersonController.check)
+router.post('/addPresentRecipient', checkFormToPersonController.check)
+        .post('/addPresentRecipient/new', checkFormToPersonController.addNewForm)
+
 // checkFormToPersonRouter.post('/sendFormToPresentRecipient', checkFormToPersonController.sendFormToPerson)
 
-module.exports = checkFormToPersonRouter
+module.exports = router

@@ -17,6 +17,7 @@ import { clearError } from "./redux/actions/error.ac";
 import { SentFormCheker } from "./components/SentForm/SentFormChecker";
 import "./index.css";
 import CheckFormToPerson from "./components/CheckFormToPerson/CheckFormToPerson";
+import { SuccessAdded } from "./components/SuccessAdded/SuccessAdded";
 
 function App() {
   const dispatch = useDispatch();
@@ -53,6 +54,7 @@ function App() {
       </FormContextProvider>
       <Route exact path="/lk" component={PersonalProfile} />
       <Route exact path="/mywishlist" component={WishList} />
+      <Route exact path="/success" component={SuccessAdded} />
     </Router>
   );
 }

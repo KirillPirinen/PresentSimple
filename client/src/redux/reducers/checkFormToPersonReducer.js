@@ -1,4 +1,4 @@
-import { ADD_USER, CHECK_FORM, GET_EXAMPLE_FORM, USER_OR_FORM_NOTFOUND } from "../types/checkFormToPersonTypes";
+import { ADD_USER, CHECK_FORM, CREATE_URL_FORM, GET_EXAMPLE_FORM, USER_OR_FORM_NOTFOUND } from "../types/checkFormToPersonTypes";
 
 export const checkFormToPersonReducer = (state = {}, action) => {
   const { type, payload } = action;
@@ -8,11 +8,15 @@ export const checkFormToPersonReducer = (state = {}, action) => {
       return {status:true, forms:payload};
 
     case USER_OR_FORM_NOTFOUND:
-      return {status:false, message:payload.message, contacts:payload.contacts};
+      console.log(payload)
+      return {status:false, ...payload}
 
     case ADD_USER:
       return {status:true, recipient:payload};
 
+    case CREATE_URL_FORM:
+      return {status:true, form:payload} 
+      
     default:
       return state;
   }
