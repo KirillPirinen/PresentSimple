@@ -18,15 +18,15 @@ export const checkFormToPersonReducer = (state = {}, action) => {
   }
 };
 
-export const getExampleFormReducer = (state = false, action) => {
-  const { type, payload } = action;
+// export const getExampleFormReducer = (state = false, action) => {
+//   const { type, payload } = action;
 
-  switch (type) {
-    case GET_EXAMPLE_FORM:
-      return payload;
-    case SHOW_ANSWER_FROM_BACK:
-      return payload;
-    default:
-      return state;
-  }
-};
+//   switch (type) {
+//     case GET_EXAMPLE_FORM:
+//       return payload;
+//     case SHOW_ANSWER_FROM_BACK:
+//       return payload;
+//     default:
+//       return state;
+//   }
+// };

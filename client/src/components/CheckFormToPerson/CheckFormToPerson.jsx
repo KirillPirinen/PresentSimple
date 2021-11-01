@@ -1,14 +1,23 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { checkForm } from "../../redux/actions/checkFormToPerson";
 import { RecipientInfoBlock } from "./subComponents/recipientInfoBlock";
 import { ListOfForms } from "./subComponents/ListOfForms";
+import ModalInfo from "../ModalInfo/ModalInfo";
+import { infoModalActivate, infoModalDeactivate } from "../../redux/actions/modalInfoAC";
 
 export default function CheckFormToPerson() {
   const [inputFormToPerson, setInputFormToPerson] = useState({name: '', lname: '', phone: '', email: ''});
   const {recipient, forms, message} = useSelector(state=>state.checkform)
   
   const dispatch = useDispatch();
+
+
+  useEffect(()=>{
+    if(recipient || forms || message) {
+      dispatch(infoModalActivate())
+    }
+  },[recipient, forms, message])
 
 
   const changeHandler = (e) => {
@@ -79,16 +88,16 @@ export default function CheckFormToPerson() {
     </button>
     </form>
     </div>
-    <div className="container-glass">
-    {recipient &&
-        <RecipientInfoBlock recipient={recipient}/>
-    }
-    {forms && <ListOfForms forms={forms}/>}
+      <ModalInfo>
+        {recipient &&
+            <RecipientInfoBlock recipient={recipient}/>
+        }
+        {forms && <ListOfForms forms={forms}/>}
 
-    {message && 
-      <h2>{message}</h2>
-    }
-    </div>
+        {message && 
+          <h2>{message}</h2>
+        }
+      </ModalInfo>
     </>
   )
 }
