@@ -19,7 +19,7 @@ import WishListPerson from "./components/WishList/WishListPerson/WishListPerson"
 import ModalGroup from "./components/WishList/ModalGroup/ModalGroup";
 import ProgressBar from "./components/main/Progrssbar/Progrssbar";
 import CheckFormToPerson from "./components/CheckFormToPerson/CheckFormToPerson";
-import WishList from "./components/WishList/WishList";
+// import WishList from "./components/WishList/WishList";
 
 function App() {
   const dispatch = useDispatch();
@@ -57,7 +57,7 @@ function App() {
       <Route exact path="/lk" component={PersonalProfile} />
       <Route exact path="/wishListPerson" component={WishListPerson} />
       <Route exact path="/modalGroup" component={ModalGroup} />
-      <Route exact path="/mywishlist" component={WishList} />
+      {/* <Route exact path="/mywishlist" component={WishList} /> */}
     </Router>
   );
 }

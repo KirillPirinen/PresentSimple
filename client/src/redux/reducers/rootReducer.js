@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
 //import wishReducer from './taskReducer.js'
 import errorAuthReducer from "./errorAuthReducer";
-import wishReducer from './wishReducer'
+// import wishReducer from './wishReducer'
 import loaderReducer from "./loaderReducer";
 import userReducer from "./userReducer";
 import { SentFormReducer } from "./SentFormReducer";
@@ -12,7 +12,7 @@ import {
 import { groupModalReducer, groupReducer } from "./groupModalReducer";
 
 const rootReducer = combineReducers({
-  wishes: wishReducer,
+  // wishes: wishReducer,
   user: userReducer,
   loader: loaderReducer,
   errorAuth: errorAuthReducer,
