@@ -3,7 +3,7 @@ import NavBar from "./components/main/NavBar/NavBar";
 import Home from "./components/main/Home/Home";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { checkAuth } from "./redux/actions/user.ac";
+import { checkAuth, deleteUser } from "./redux/actions/user.ac";
 import PrivateRoute from "./components/main/PrivateRouter/PrivateRouter";
 import SignUp from "./components/main/SignUp/SignUp";
 import SignIn from "./components/main/SignIn/SignIn";
@@ -14,12 +14,15 @@ import SentList from "./components/presents/SentList/SentList";
 import PersonalProfile from "./components/PersonalProfile/PersonalProfile";
 import { clearError } from "./redux/actions/error.ac";
 import { SentFormCheker } from "./components/SentForm/SentFormChecker";
+import "./index.css";
+import CheckFormToPerson from "./components/CheckFormToPerson/CheckFormToPerson";
 
 function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(checkAuth());
+    // dispatch(deleteUser())
   }, []);
 
   useEffect(() => {
@@ -35,6 +38,9 @@ function App() {
       <Route exact path="/auth/signout" component={SignOut} />
       <PrivateRoute path="/sentList">
         <SentList />
+      </PrivateRoute>
+      <PrivateRoute exact path="/search">
+        <CheckFormToPerson/>
       </PrivateRoute>
       <FormContextProvider>
         <Route exact path="/sentform">

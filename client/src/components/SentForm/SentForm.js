@@ -26,7 +26,7 @@ export const SentForm = ({guest}) => {
       {data?.map(range => <PriceRange key={range.id} range={range} />)}
 
   <Button>
-    Submit
+    Отправить форму
   </Button>
 </Form>
 </div>

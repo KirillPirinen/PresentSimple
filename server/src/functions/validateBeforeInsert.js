@@ -1,16 +1,21 @@
-const checkInput = (input, propArr) => {
+const checkInput = (input, propArr, forced=false) => {
   const props = {}
   propArr.forEach(prop=> {
     if(input.hasOwnProperty(prop)) {
        if(input[prop].length) props[prop] = input[prop]
     }
   })
-    if(Object.keys(props).length) return props
-  return false
+    switch (forced) {
+      case false:
+        if(Object.keys(props).length) return props
+      case true:
+        if(Object.keys(props).length === propArr.length) return props
+      default: 
+      return false
+    } 
 }
 
 const validateBeforeInsert = (arr, form_id, user_id) => {
-  if(arr)
   return arr.reduce((a, e) => {
     if(e.payload.length) {
       e.payload.forEach(input => {
@@ -25,4 +30,7 @@ const validateBeforeInsert = (arr, form_id, user_id) => {
     }
   },[])
 }
-module.exports = validateBeforeInsert;
+module.exports = {
+  validateBeforeInsert,
+  checkInput
+};

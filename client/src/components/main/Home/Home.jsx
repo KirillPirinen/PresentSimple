@@ -1,29 +1,28 @@
-import PresentForm from "../../presents/PresentForm/PresentForm"
+import { useDispatch, useSelector } from "react-redux"
+import PresentForm from "../../presents/PresentForm/PresentForm";
+import { useState, useEffect } from "react";
+import { getExampleForm } from "../../../redux/actions/checkFormToPerson";
+import { Main } from "./Main";
 
 export default function Home() {
+
+  const [showForm, setShowForm] = useState(false)
+  const dispatch = useDispatch()
+  const user = useSelector(state=>state.user)
+  useEffect(() => {
+    setShowForm(false)
+    dispatch(getExampleForm(false))
+  }, [])
+
+    const exampleForm = useSelector(state => state.exampleForm);
+
   return (
+    <div className="container-glass">
+    <Main user={user}/>
+     {/* <WishListPerson/> */}
+    {exampleForm ?
+    
     <>
-    <h1>Добро пожаловать на сайт подарков Present Simple!</h1>
-    <div>
-    <h2>Хотите составить список своих желаний подарков?</h2>
-     <button>Очень хочу!!!</button>
-    </div>
-    <div>
-    <h2>Выбираете подарок и не знаете, что подарить?</h2>
-     <button>Да</button>
-    </div>
-    <div>
-    <h2>Впишите имя и телефон того человека, кому хотите подарить подарок</h2>
-    <form>
-      <input 
-      type="text"
-      placeholder="Имя" />
-      <input 
-      type="text"
-      placeholder="Телефон" />
-    </form>
-    </div>
-    {/* <WishListPerson/> */}
     <h2>Мы не нашли его список желаний</h2>
     <h2>Готовы ли Вы отправить ему эту анкету?</h2>
     <div>
@@ -31,5 +30,12 @@ export default function Home() {
     <PresentForm/>
     </div>
     </>
+     : '' }
+    </div>
   )
 }
+
+// {showForm || <Main setShowForm={setShowForm} user={user}/>}
+//     <CSSTransition in={showForm} classNames="transitions" timeout={400} unmountOnExit>
+//       <CheckFormToPerson/>
+//     </CSSTransition>

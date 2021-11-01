@@ -1,3 +1,13 @@
+html {
+  /* background-image: url('./bird-g3977d05a9_1920.jpg');
+  background-size: 90% 100%;
+  background-repeat:no-repeat;
+  background-position: center;
+  position: relative;
+  min-height: 100%;
+  background-color: black;
+  min-width: 100%; */
+}
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,9 +15,53 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /*background-color: #7F8C8D;*/
+  background: none;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.transitions-enter {
+  opacity: 0;
+}
+.transitions-enter-active {
+  opacity: 0.7;
+  transition: opacity 200ms;
+}
+
+.transitions-exit {
+  opacity: 0.7;
+}
+.transitions-exit-active {
+  opacity: 0;
+  transition: opacity 200ms;
+}
+
+#large-header {
+  top:0;
+  right:0;
+  z-index: -100;
+  position: absolute;
+}
+canvas {
+  top:100px;
+  right: 0;
+  position: absolute;
+}
+.container-glass {
+  padding: 20px;
+  margin: 20px;
+  background: rgba(255, 255, 255, 0.2) !important; 
+  width: 80%;
+-webkit-box-shadow: -4px 4px 51px 10px rgba(34, 60, 80, 0.24);
+-moz-box-shadow: -4px 4px 51px 10px rgba(34, 60, 80, 0.24);
+box-shadow: -4px 4px 51px 10px rgba(34, 60, 80, 0.24);
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.container-info {
+ background-color: yellowgreen; 
 }
