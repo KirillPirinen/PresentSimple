@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { infoModalDeactivate } from '../../redux/actions/modalInfoAC';
-import './modal.css';
+import styles from './styles.module.css';
 
 function ModalInfo({children}) {
   const modal = useSelector(state=>state.modalInfo)
@@ -11,8 +11,10 @@ function ModalInfo({children}) {
   }
 
   return (
-    <div onClick={clickBodyHandler} className={modal ? 'modal active' : 'modal'}> 
-      {children}
+    <div onClick={clickBodyHandler} className={modal ? `${styles['info-modal']} ${styles.active}` : styles['info-modal']}> 
+      <div onClick={(e) => e.stopPropagation()} className={styles['info-modal_content']}>
+          {children}
+      </div>
     </div>
   );
 }

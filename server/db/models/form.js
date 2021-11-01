@@ -22,14 +22,12 @@ module.exports = (sequelize, DataTypes) => {
       type:DataTypes.STRING,
     },
     phone: {
-      unique:true,
       type:DataTypes.STRING,
       validate:{
         len: 11,
       }
     },
     email: {
-      unique:true,
       type:DataTypes.STRING,
       validate:{
         isEmail:true

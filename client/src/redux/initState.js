@@ -4,7 +4,6 @@ const initState = {
   loader: false,
   error: "",
   wishes: [],
-  sentForm:{},
   exampleForm: false,
   showAnswerFromBack: false,
 };
@@ -12,6 +11,7 @@ const initState = {
 //состояния не подписанные на LocalStorage
 
 export const initStateWithoutLS = {
+  sentForm:{},
   checkform: {},
   modalInfo:false
 };

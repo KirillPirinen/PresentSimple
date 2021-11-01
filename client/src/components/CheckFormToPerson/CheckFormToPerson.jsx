@@ -1,15 +1,20 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { checkForm } from "../../redux/actions/checkFormToPerson";
+import { checkForm, createForm } from "../../redux/actions/checkFormToPerson";
 import { RecipientInfoBlock } from "./subComponents/recipientInfoBlock";
 import { ListOfForms } from "./subComponents/ListOfForms";
 import ModalInfo from "../ModalInfo/ModalInfo";
 import { infoModalActivate, infoModalDeactivate } from "../../redux/actions/modalInfoAC";
+import { ErrorMessage } from "./subComponents/ErrorMessage";
+import { useHistory } from "react-router";
+import { Button } from "reactstrap";
 
 export default function CheckFormToPerson() {
-  const [inputFormToPerson, setInputFormToPerson] = useState({name: '', lname: '', phone: '', email: ''});
-  const {recipient, forms, message} = useSelector(state=>state.checkform)
-  
+  const {recipient, forms, message, contacts, form} = useSelector(state=>state.checkform)
+  const initialState = contacts ? contacts : {name: '', lname: '', phone: '', email: ''};
+  const [inputFormToPerson, setInputFormToPerson] = useState(initialState);
+  const history = useHistory()
+  if(form?.id) history.push('/success')
   const dispatch = useDispatch();
 
 
@@ -26,17 +31,25 @@ export default function CheckFormToPerson() {
 
   const checkFormHandler = (e) => {
     e.preventDefault();
-    if (inputFormToPerson) {
-      dispatch(checkForm(inputFormToPerson.name, inputFormToPerson.lname, inputFormToPerson.phone, inputFormToPerson.email))
+    if(contacts) {
+      dispatch(createForm(inputFormToPerson))
+    } else {
+      if (inputFormToPerson) {
+        dispatch(checkForm(inputFormToPerson.phone, inputFormToPerson.email))
+      }
     }
   };
 
   return(
     <>
     <div className='container-glass'>
-    <h2>Возможно твой друг уже зарегистрирован здесь и оставил список желаний. Давай проверим</h2>
+    {
+      contacts ? <h3>Отправка пользователю анкеты-приглашения</h3> :<h3>Возможно твой друг уже зарегистрирован здесь и оставил список желаний. Давай проверим</h3>
+    }
     <form onSubmit={checkFormHandler} className="d-flex flex-column align-items-center bg-light text-dark p-3 border rounded-3">
       
+      {contacts && 
+      <>
       <div className="mb-3">
       <input 
       name="name"
@@ -45,19 +58,22 @@ export default function CheckFormToPerson() {
       placeholder="Имя" 
       value={inputFormToPerson.name}
       onChange={changeHandler}
+      required
       />
       </div>
       
       <div className="mb-3">
-      <input 
+      <input
       name="lname"
       className="form-control"
       type="text"
       placeholder="Фамилия" 
       value={inputFormToPerson.lname}
       onChange={changeHandler}
+      required 
       />
       </div>
+      </>}
 
       <div className="mb-3">
       <input 
@@ -84,8 +100,8 @@ export default function CheckFormToPerson() {
       </div>
 
       <button type="submit" className="btn btn-primary">
-      Добавить
-    </button>
+        {contacts ? "Сгенерировать ссылку" : "Искать"}
+      </button>
     </form>
     </div>
       <ModalInfo>
@@ -95,7 +111,9 @@ export default function CheckFormToPerson() {
         {forms && <ListOfForms forms={forms}/>}
 
         {message && 
-          <h2>{message}</h2>
+          <ErrorMessage message={message}>
+            <Button onClick={()=>dispatch(infoModalDeactivate())} color="success">Заполнить форму</Button>
+          </ErrorMessage>
         }
       </ModalInfo>
     </>
