@@ -7,13 +7,11 @@ const allUserWishes = async (req, res) => {
   const allWishes = await Wish.findAll({
     where: { user_id },
   });
-  console.log("зашел в контроллер", allWishes);
   res.json(allWishes);
 };
 
 const addNewWish = async (req, res) => {
   try {
-    console.log(req.body);
     const { title, description, price } = req.body;
     let price_id = price > 3000 ? 1 : 2;
     // const user_id = req.session.user.id

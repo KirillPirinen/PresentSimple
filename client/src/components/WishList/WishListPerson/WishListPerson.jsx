@@ -1,50 +1,62 @@
 import Wish from '../Wish/Wish';
 import {Button} from 'reactstrap';
-import { useHistory } from 'react-router';
+import { useHistory, useParams } from 'react-router';
 import { donateToYourself, joinGroup } from '../../../redux/actions/groupModal';
 import { useDispatch, useSelector } from 'react-redux';
 import ProgressBar from '../../main/Progrssbar/Progrssbar';
+import { useEffect } from 'react';
+import { getWishesPersonWatchPeople } from '../../../redux/actions/groupModal';
 
 export default function WishListPerson() {
+
+  const { id } = useParams()
+  const wishesGroupAlone = useSelector(state => state.wishesGroupAlone);
+
+  useEffect(() => {
+     dispatch(getWishesPersonWatchPeople(id))
+  }, [])
+
   const dispatch = useDispatch()
   const history = useHistory()
 
-  const group = useSelector(state => state.group);
-  console.log('group', group)
-  const user = useSelector(state => state.user);
-  
-  const wishes = useSelector(state => state.wishes)
+  const groups = useSelector(state => state.groups);
 
-  const groupData = [
-    { bgcolor: "#6a1b9a", completed: group?.group?.currentusers, width: group?.group?.maxusers },
-  ];
+  console.log('groups', groups)
+
+  const user = useSelector(state => state.user);
+
+  
+  const groupData = (el) => [{ bgcolor: "#6a1b9a", completed: el.currentusers, width: el.maxusers }];
 
   return (
 
     <>
-    {wishes ?
-    wishes?.map(el =>
-      <li><Wish/>
-      {!group?.group && !group?.wish ?
-
-      <>
-    <Button onClick={() => dispatch(donateToYourself(el.id))}>Подарить самому</Button>
-    <Button onClick={() => {history.push('/modalGroup')}}>Подарить группой(создать группу)</Button>
-     </>
+    {wishesGroupAlone ?
+    (wishesGroupAlone?.map(el =>
+      <li key={el.id}><Wish photo={el.photo} title={el.title} description={el.description} isBinded={el.isBinded} />
      
-     : 
+     {el.isBinded ? 
+       <h5>Забронировано</h5>  : 
+            <>
+            <Button onClick={() => dispatch(donateToYourself(el.id, user.id))}>Подарить самому</Button>
 
-    <Button>Забронировано</Button>    
+             {groups ?
+                  groups?.map(group => group.wish_id === el.id ?  
+                  <Button onCLick={() => dispatch(joinGroup(el.id))}>Подарить группой(вступить в группу)</Button> 
+                  : 
+                  <Button onClick={() => history.push(`/modalGroup/${el.id}`)}>Подарить группой(создать группу)</Button> 
+                  )
+                    : ''}
+            </> 
+     }
+       </li>)) : ''}
 
-
-      }
-    </li>) : ''}
     </>
-    // group?.wish || group?.group ?
-    // :
-    // group?.group ?
-    //    <>
-    // {groupData.map((item, idx) => (
+
+  
+
+      
+    // {groupData(el).map((item, idx) => (
     //   <ProgressBar
     //     key={idx}
     //     bgcolor={item.bgcolor}

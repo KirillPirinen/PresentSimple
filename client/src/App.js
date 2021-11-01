@@ -45,7 +45,7 @@ function App() {
         <SentList />
       </PrivateRoute>
       <PrivateRoute exact path="/search">
-        <CheckFormToPerson/>
+        <CheckFormToPerson />
       </PrivateRoute>
       <FormContextProvider>
         {/* <Route exact path="/sentform">
@@ -56,8 +56,8 @@ function App() {
         </Route>
       </FormContextProvider>
       <Route exact path="/lk" component={PersonalProfile} />
-      <Route exact path="/wishListPerson" component={WishListPerson} />
-      <Route exact path="/modalGroup" component={ModalGroup} />
+      <Route exact path="/wishListPerson/:id" component={WishListPerson} />
+      <Route exact path="/modalGroup/:wish_id" component={ModalGroup} />
       <Route exact path="/mywishlist" component={WishList} />
     </Router>
   );

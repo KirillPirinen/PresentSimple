@@ -5,7 +5,6 @@ import { useSentFormContext } from "../context/SentFormContext";
 import { PriceRange } from "./PriceRange/PriceRange";
 
 export const SentForm = ({guest}) => {
-  console.log('guest', guest)
   const { data } = useSentFormContext()
   const dispatch = useDispatch()
 

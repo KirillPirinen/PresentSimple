@@ -5,7 +5,7 @@ import loaderReducer from "./loaderReducer";
 import userReducer from "./userReducer";
 import { SentFormReducer } from "./SentFormReducer";
 import { checkFormToPersonReducer } from "./checkFormToPersonReducer";
-import { groupModalReducer, groupReducer } from "./groupModalReducer";
+import { groupsReducer, wishesGroupAloneReducer } from "./groupModalReducer";
 import wishlistReducer from "./wishlistReducer";
 import { modalInfoReducer } from "./modalInfoReducer";
 
@@ -17,11 +17,10 @@ const rootReducer = combineReducers({
   sentForm: SentFormReducer,
   checkform: checkFormToPersonReducer,
   // exampleForm: getExampleFormReducer,
-  modalGroup: groupModalReducer,
-  group: groupReducer,
+  groups: groupsReducer,
   wishlist: wishlistReducer,
-  //exampleForm: getExampleFormReducer,
   modalInfo: modalInfoReducer,
+  wishesGroupAlone: wishesGroupAloneReducer,
 });
 
 export default rootReducer;

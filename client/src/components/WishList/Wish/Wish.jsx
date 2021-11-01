@@ -8,13 +8,13 @@ function Wish({photo, title, description, isBinded}) {
         <img src={photo} alt='моё желание'></img>
         <div className='wish_title'><p>{title}</p></div>
         <div className='wish_description'><p>{description}</p></div>
-        <div className='wish_bind'><p>{isBinded ? 'Уже подарили' : 'Не дарили'}</p></div>
+        {/* <div className='wish_bind'><p>{isBinded ? 'Уже подарили' : 'Не дарили'}</p></div> */}
      </div>
-     <div className="wish_btn">
+     {/* <div className="wish_btn">
        <button className="btn_del">Удалить</button>
        <button className="btn_edit">Редактировать</button>
        <button className="btn_got">Подарили</button>
-     </div>
+     </div> */}
    </div>
   )
 }

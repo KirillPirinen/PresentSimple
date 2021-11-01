@@ -18,7 +18,6 @@ function Modal({ active, setActive }) {
     const data = new FormData()
     data.append('photo', photo)
     dispatch(addNewWish({title, description, prise, photo}))
-    console.log('run AC');
     setActive(false)
   };
 

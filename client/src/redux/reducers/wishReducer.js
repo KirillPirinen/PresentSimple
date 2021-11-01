@@ -1,3 +1,4 @@
+import { WISH_BINDED } from "../types/groupModalTypes";
 import { ALL_WISHES, ADD_WISH, EDIT_WISH, DELETE_WISH } from "../types/types";
 
 function wishReducer(state = [], action) {

@@ -1,10 +1,11 @@
-const { Router } = require('express')
-const groupController = require('../controllers/group.controller')
+const { Router } = require("express");
+const groupController = require("../controllers/group.controller");
 
-const groupRouter = Router()
+const groupRouter = Router();
 
-groupRouter.post('/add', groupController.addGroup)
-groupRouter.post('/alone', groupController.addAlone)
-groupRouter.post('/join', groupController.joinGroup)
+groupRouter.get("/:id", groupController.allWishes);
+groupRouter.post("/add/:wish_id", groupController.addGroup);
+groupRouter.post("/alone/:phone", groupController.addAlone);
+groupRouter.post("/join", groupController.joinGroup);
 
-module.exports = groupRouter
+module.exports = groupRouter;

@@ -24,7 +24,7 @@ export default function NavBar() {
         <Link to="/sentList" className={styles.link}>
           Отправленные анкеты
         </Link> 
-        <Link to="/wishListPerson" className={styles.link}>
+        <Link to={`/wishListPerson/${user?.id}`} className={styles.link}>
           Мои желания, которые видны всем
         </Link> 
         { user ?

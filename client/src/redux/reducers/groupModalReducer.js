@@ -1,23 +1,24 @@
-import { GROUP_MODAL, GROUP, DONATE_TO_YOURSELF } from "../types/groupModalTypes";
+import {
+  GROUP,
+  ALL_WISHES_PERSON,
+} from "../types/groupModalTypes";
 
-export const groupModalReducer = (state=null, action) => {
-  const {type, payload} = action;
-  switch (type) {
-    case GROUP_MODAL:
-      return payload;
-    default:
-      return state;
-  }
-}
-
-export const groupReducer = (state={}, action) => {
-  const {type, payload} = action;
+export const groupsReducer = (state = [], action) => {
+  const { type, payload } = action;
   switch (type) {
     case GROUP:
       return payload;
-    case DONATE_TO_YOURSELF:
+    default:
+      return state;
+  }
+};
+
+export const wishesGroupAloneReducer = (state = [], action) => {
+  const { type, payload } = action;
+  switch (type) {
+    case ALL_WISHES_PERSON:
       return payload;
     default:
       return state;
   }
-}
+};

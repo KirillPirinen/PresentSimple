@@ -1,3 +1,3 @@
-export const GROUP_MODAL = "GROUP_MODAL"
-export const GROUP = "GROUP"
-export const DONATE_TO_YOURSELF = "DONATE_TO_YOURSELF"
+export const GROUP = "GROUP";
+export const WISH_BINDED = "WISH_BINDED";
+export const ALL_WISHES_PERSON = "ALL_WISHES_PERSON";

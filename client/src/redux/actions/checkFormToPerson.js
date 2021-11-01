@@ -27,8 +27,6 @@ export const checkForm =
       body:JSON.stringify({name,lname,phone,email})
     })
     const data = await response.json()
-    console.log('я дошел сюда')
-    console.log(response.status)
     if (response.status === 200) {
       dispatch(getCheckedUser(data));
     } else if (response.status === 201) {

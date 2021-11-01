@@ -7,7 +7,7 @@ const initState = {
   sentForm:{},
   exampleForm: false,
   showAnswerFromBack: false,
-  group: {},
+  groups: [],
   alone: {},
   wishlist: [],
 };

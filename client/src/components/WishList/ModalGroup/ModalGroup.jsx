@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import { useHistory } from 'react-router';
+import { useHistory, useParams } from 'react-router';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, Label, Input} from 'reactstrap';
-import { groupModal, addGroup } from '../../../redux/actions/groupModal';
+import { addGroup } from '../../../redux/actions/groupModal';
 
 export default function ModalGroup() {
 
@@ -10,23 +10,28 @@ export default function ModalGroup() {
   const history = useHistory();
 
    const [inputGroup, setInputGroup] = useState({numberPerson: '', linktelegram: ''})
+   const [groupModal, setGroupModal] = useState(true)
 
    const persons = [2,3,4,5,6,7,8,9,10];
 
-  // const toggle = () => dispatch(groupModal(false));
+   const user = useSelector(state => state.user);
+
+   const { wish_id } = useParams()
+
+   console.log('wish_id', wish_id)
+  // const toggle = () => setGroupModal(false);
 
   const addGroupHandler = (e) => {
     e.preventDefault()
     if(inputGroup){
-      dispatch(addGroup(inputGroup.numberPerson, inputGroup.linktelegram))
+      dispatch(addGroup(inputGroup.numberPerson, inputGroup.linktelegram, wish_id, user.id ))
       setInputGroup('');
       history.goBack();
     }
   }
 
   return (
-    <div>
-      <Modal isOpen={groupModal}> 
+    <Modal isOpen={groupModal}> 
         <ModalHeader>Стоимость подарка будет разделена между участниками поровну</ModalHeader>
         <ModalBody>
           <Form>
@@ -57,6 +62,5 @@ export default function ModalGroup() {
           <Button color="secondary" onClick={() => history.goBack()}>Отмена</Button>
         </ModalFooter>
       </Modal>
-    </div>
   );
 }

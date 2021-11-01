@@ -4,7 +4,7 @@ export function getAllWishes() {
   return async (dispatch) => {
     let response = await fetch("http://localhost:3001/wish");
     let result = await response.json();
-    console.log(result);
+
     return dispatch({
       type: ALL_WISHES,
       payload: result,
@@ -13,7 +13,7 @@ export function getAllWishes() {
 }
 
 export function addNewWish(wish) {
-  console.log(wish, "<<<<<<IZOOOOOOO");
+
   return async (dispatch) => {
     let response = await fetch("http://localhost:3001/wish", {
       method: "POST",

@@ -13,8 +13,6 @@ function WishList() {
 
   const [modalActive, setActive] = useState(false)
 
-  console.log(wishes, 'THIS IS WISHEEEEESSSS');
-
   useEffect(() => dispatch(getAllWishes()), [])
 
   return (

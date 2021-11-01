@@ -1,7 +1,5 @@
 const ProgressBar = (props) => {
   const { bgcolor, completed, width } = props;
-  console.log('completed', completed)
-  console.log('width', width)
 
   function getProcent(num, max) {
      return num * 100 / max
