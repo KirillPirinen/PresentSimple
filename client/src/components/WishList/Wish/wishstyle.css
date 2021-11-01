@@ -1,3 +1,12 @@
 .wish {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   border: 1px solid greenyellow;
+  width: 300px;
+  background-color: aquamarine;
+}
+
+.btn_group {
+  
 }

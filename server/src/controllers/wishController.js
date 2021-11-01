@@ -2,24 +2,33 @@ const { Wish } = require('../../db/models')
 const { Wishlist } = require('../../db/models')
 
 const allUserWishes = async (req, res) => {
-  const userId = req.session.userId
-  const allWishes = await Wish.findall({
-    where: { userId }
+  const user_id = 1
+  const allWishes = await Wish.findAll({
+    where: { user_id }
   })
+  console.log('зашел в контроллер', allWishes);
   res.json(allWishes)
 }
 
 const addNewWish = async (req, res) => {
-  const { title, description, price_id } = req.body
-  const user_id = req.session.userId
-  const wishlist_id = await Wishlist.findOne({
-    where: { user_id }
-  })
-  const newWish = Wish.create({
-    title, description, price_id, user_id, wishlist_id
-  })
-
-  res.json(newWish)
+  try {
+    console.log(req.body);
+    const { title, description, price } = req.body
+    let price_id = price > 3000 ? 1 : 2
+    // const user_id = req.session.user.id
+    // const wishlist_id = await Wishlist.findOne({
+    //   where: { user_id }
+    // })
+    const user_id = 1
+    const newWish = await Wish.create({
+      title, description, price_id, user_id
+    })
+  
+    res.json(newWish)
+    
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 const editWish = async (req, res) => {

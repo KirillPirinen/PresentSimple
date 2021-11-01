@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-//import wishReducer from './taskReducer.js'
+import wishReducer from './wishReducer'
 import errorReducer from "./errorReducer";
 import loaderReducer from "./loaderReducer";
 import userReducer from "./userReducer";
@@ -7,7 +7,7 @@ import {SentFormReducer} from "./SentFormReducer";
 import { checkFormToPersonReducer, getExampleFormReducer } from './checkFormToPersonReducer';
 
 const rootReducer = combineReducers({
-  //wishes: wishReducer,
+  wishes: wishReducer,
   user: userReducer,
   loader: loaderReducer,
   error: errorReducer,
