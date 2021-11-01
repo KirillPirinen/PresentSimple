@@ -5,6 +5,7 @@ const logger = require('morgan')
 const cors = require('cors');
 // const rootRouter = require('./src/routes/rootRouter')
 const authRouter = require('./src/routes/auth.router')
+const path = require('path')
 
 const redis = require('redis')
 const session = require('express-session')
@@ -18,7 +19,7 @@ const wishRouter = require('./src/routes/wishRouter');
 
 
 app.use(logger('dev'))
-// app.use(cors({origin:'http://localhost:3000'}))
+app.use(cors({origin:'http://localhost:3000'}))
 
 
 
@@ -30,6 +31,7 @@ app.use(cors({
 }))
 
 app.use(express.json())
+app.use(express.static(path.join(process.env.PWD, 'public')));
 
 app.use(
   session({
@@ -48,6 +50,7 @@ app.use(
 app.use('/api/v1/auth', authRouter)
 app.use('/sentform', sentFormRouter)
 app.use('/wish', wishRouter)
+
 
 
 app.listen(SERVER_PORT, () => console.log("Server has been started on port ", SERVER_PORT))

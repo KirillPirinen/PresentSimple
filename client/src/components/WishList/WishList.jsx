@@ -1,4 +1,5 @@
 import Wish from "./Wish/Wish";
+import './wishliststyle.css'
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { getAllWishes } from "../../redux/actions/wishAC";
@@ -10,15 +11,16 @@ function WishList() {
 
   const wishes = useSelector((state) => state.wishes);
 
-  const [modalActive, setActive] = useState(true)
+  const [modalActive, setActive] = useState(false)
 
   console.log(wishes, 'THIS IS WISHEEEEESSSS');
 
   useEffect(() => dispatch(getAllWishes()), [])
 
   return (
-    <div className='wish_item'>
+    <div className='wishes'>
     <button onClick={() => setActive(true)} className="add_wish_btn">Добавить хотелку</button>
+    <div className="wish_wrapper">
       {
         wishes?.map((wish) => 
         <Wish 
@@ -26,12 +28,12 @@ function WishList() {
            img={wish.photo}
            title={wish.title}
            description={wish.description}
-           bind={wish.bind}
+           isBinded={wish.isBinded}
            setActive={setActive}
        />)
       }
       <Modal active={modalActive} setActive={setActive}/>
-       
+      </div>
     </div>
   )
     }
