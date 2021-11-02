@@ -1,32 +1,57 @@
 import './modal.css';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
-import { addNewWish } from '../../redux/actions/wishAC'
+import { addNewWish, editWish } from '../../redux/actions/wishAC';
 
-function Modal({ active, setActive }) {
-
+function Modal({ active, setActive, wishValue, setModalValue }) {
   const dispatch = useDispatch();
-
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [prise, setPrice] = useState('')
-  const [photo, setPhoto] = useState()
+  const [price, setPrice] = useState('');
+  const [photo, setPhoto] = useState();
+
+  useEffect(() => {
+    setTitle(wishValue.title ? wishValue.title : '');
+    setDescription(wishValue.description ? wishValue.description : '');
+    setPrice(wishValue.price ? wishValue.price : '');
+  }, [wishValue]);
 
   const submitAction = (e) => {
-    e.preventDefault();
-    const data = new FormData()
-    data.append('photo', photo)
-    dispatch(addNewWish({title, description, prise, photo}))
-    setActive(false)
+    if (wishValue.id) {
+      e.preventDefault();
+      const data = new FormData();
+      data.append('photo', photo);
+      data.append('title', title);
+      data.append('description', description);
+      data.append('price', price);
+      data.append('id', wishValue.id);
+      console.log(wishValue);
+      dispatch(editWish(data));
+      e.target.photo.value = null;
+      setActive(false);
+    } else {
+      e.preventDefault();
+      const data = new FormData();
+      data.append('photo', photo);
+      data.append('title', title);
+      data.append('description', description);
+      data.append('price', price);
+      dispatch(addNewWish(data));
+      e.target.photo.value = null;
+      setTitle('');
+      setDescription('');
+      console.log(wishValue, price, 'WICHVALUE AND PRICE');
+      setPrice('');
+      setActive(false);
+    }
   };
 
   return (
     <div
       className={active ? 'modal active' : 'modal'}
       onClick={() => setActive(false)}
-    > 
-    
+    >
       <div className="modal_content" onClick={(e) => e.stopPropagation()}>
         <form
           enctype="multipart/form-data"
@@ -39,12 +64,14 @@ function Modal({ active, setActive }) {
               type="text"
               className="form-control"
               placeholder="Желаемый подарок"
+              value={title}
             />
             <input
               onChange={(e) => setDescription(e.target.value)}
               type="text"
               className="form-control"
               placeholder="Описание/ссылка"
+              value={description}
             />
             <input
               onChange={(e) => setPrice(e.target.value)}
@@ -53,8 +80,8 @@ function Modal({ active, setActive }) {
               placeholder="Примерная стоимость"
             />
             <input
-            name="photo"
-            onChange={(e) => setPhoto(e.target.value)}
+              name="photo"
+              onChange={(e) => setPhoto(e.target.files[0])}
               type="file"
               className="form-control"
             />
@@ -69,3 +96,4 @@ function Modal({ active, setActive }) {
 }
 
 export default Modal;
+ 

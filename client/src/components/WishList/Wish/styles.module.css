@@ -1,0 +1,32 @@
+.wish {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  border: 1px solid rgb(212, 184, 56);
+  width: 300px;
+  background-color: rgb(255, 236, 127);
+  margin: 5px;
+  border-radius: 10px;
+  z-index: 1;
+  position: relative;
+  animation: show 0.4s;;
+}
+
+img {
+  width: 250px;
+  margin-top: 10px;
+  border-radius: 10px;
+}
+
+.btn_group {
+  
+}
+
+@keyframes show{
+  0%{
+  opacity:0;
+  }
+  100% {
+  opacity:1;
+  }
+  }

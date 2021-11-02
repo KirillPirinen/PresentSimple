@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import styles from "./styles.module.css";
 import { useSelector } from "react-redux";
-import {Navbar, NavbarBrand, NavbarToggler, Collapse, Nav, NavItem, NavLink, DropdownMenu, UncontrolledDropdown, DropdownToggle, DropdownItem, NavbarText } from 'reactstrap';
+import {Navbar, NavbarToggler, Collapse, Nav, DropdownMenu, UncontrolledDropdown, DropdownToggle, DropdownItem } from 'reactstrap';
 import { useState } from "react";
 import { useParams } from "react-router";
 
@@ -12,10 +12,7 @@ export default function NavBar() {
 
   const [open, setOpen] = useState(false)
 
-  const toggle = () => setOpen(true)
-
   return (
-<div>
   <Navbar
     color="light"
     container="fluid"
@@ -84,6 +81,5 @@ export default function NavBar() {
       </Nav>
     </Collapse>
   </Navbar>
-</div>
   );
 };

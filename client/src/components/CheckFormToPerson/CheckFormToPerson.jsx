@@ -5,7 +5,8 @@ import { RecipientInfoBlock } from "./subComponents/recipientInfoBlock";
 import { ListOfForms } from "./subComponents/ListOfForms";
 import ModalInfo from "../ModalInfo/ModalInfo";
 import { infoModalActivate, infoModalDeactivate } from "../../redux/actions/modalInfoAC";
-import { useHistory, useLocation } from "react-router";
+import { useHistory } from "react-router";
+import {Button} from 'reactstrap';
 //import { ErrorMessage } from "../ModalInfo/subComponents/ErrorMessage";
 
 export default function CheckFormToPerson() {
@@ -98,9 +99,9 @@ export default function CheckFormToPerson() {
       />
       </div>
 
-      <button type="submit" className="btn btn-primary">
+      <Button type="submit" className="btn btn-primary">
         {contacts ? "Сгенерировать ссылку" : "Искать"}
-      </button>
+      </Button>
     </form>
     </div>
       <ModalInfo>

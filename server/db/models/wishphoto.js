@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate({Wish}) {
-      this.belongsTo(Wish, {foreignKey:"wish_id"})
+      this.belongsTo(Wish, {foreignKey:"wish_id", onDelete: 'cascade'})
     }
   };
   WishPhoto.init({

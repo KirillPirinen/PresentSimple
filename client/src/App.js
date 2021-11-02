@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, useLocation } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import NavBar from "./components/main/NavBar/NavBar";
 import Home from "./components/main/Home/Home";
 import { useEffect } from "react";
@@ -18,7 +18,6 @@ import { SentFormCheker } from "./components/SentForm/SentFormChecker";
 import "./index.css";
 import WishListPerson from "./components/WishList/WishListPerson/WishListPerson";
 import ModalGroup from "./components/WishList/ModalGroup/ModalGroup";
-import ProgressBar from "./components/main/Progrssbar/Progrssbar";
 import CheckFormToPerson from "./components/CheckFormToPerson/CheckFormToPerson";
 // import WishList from "./components/WishList/WishList";
 import { SuccessAdded } from "./components/SuccessAdded/SuccessAdded";

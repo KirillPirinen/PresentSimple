@@ -5,11 +5,16 @@ import loaderReducer from "./loaderReducer";
 import userReducer from "./userReducer";
 import { SentFormReducer } from "./SentFormReducer";
 import { checkFormToPersonReducer } from "./checkFormToPersonReducer";
-import { groupsReducer, wishesGroupAloneReducer } from "./groupModalReducer";
+import {
+  buttonsAddGroupReducer,
+  buttonsAloneReducer,
+  buttonsJoinGroupReducer,
+  wishesGroupAloneReducer,
+} from "./groupModalReducer";
 import wishlistReducer from "./wishlistReducer";
 import { modalInfoReducer } from "./modalInfoReducer";
 import progressbarReducer from "./progressbarReducer";
-import infoReducer from './infoReducer';
+import infoReducer from "./infoReducer";
 import errorReducer from "./errorReducer";
 
 const rootReducer = combineReducers({
@@ -21,12 +26,14 @@ const rootReducer = combineReducers({
   sentForm: SentFormReducer,
   checkform: checkFormToPersonReducer,
   // exampleForm: getExampleFormReducer,
-  groups: groupsReducer,
   wishlist: wishlistReducer,
   modalInfo: modalInfoReducer,
   wishesGroupAlone: wishesGroupAloneReducer,
-  progressbar: progressbarReducer,
   info: infoReducer,
-})
+  progressbar: progressbarReducer,
+  buttonsAlone: buttonsAloneReducer,
+  buttonsAddGroup: buttonsAddGroupReducer,
+  buttonsJoinGroup: buttonsJoinGroupReducer,
+});
 
-export default rootReducer
+export default rootReducer;

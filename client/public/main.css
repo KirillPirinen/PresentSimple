@@ -1,8 +1,9 @@
 body {
-  background-image: url("background.jpeg");
+  background-image: url("background.jpeg") !important;
   background-repeat: no-repeat;
   background-size: cover;
   height: 98vh;
   background-position: top center;
-  color: white
+  color: rgb(252, 249, 249);
+  text-align:center;
 }

@@ -2,6 +2,8 @@ nav {
   font-size: 25px;
   display: flex;
   justify-content: flex-start;
+  width: 100%;
+  position: relative !important;
 }
 .link {
   padding: 10px;

@@ -1,8 +1,8 @@
 import Wish from "./Wish/Wish";
-import './wishliststyle.css'
+import style from './styles.module.css'
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { getAllWishes } from "../../redux/actions/wishAC";
+import { getAllWishes, delWish } from "../../redux/actions/wishAC";
 import Modal from "../Modal/Modal";
 
 function WishList() {
@@ -12,25 +12,46 @@ function WishList() {
   const wishes = useSelector((state) => state.wishes);
 
   const [modalActive, setActive] = useState(false)
+  const [modalValue, setModalValue] = useState({})
 
-  useEffect(() => dispatch(getAllWishes()), [])
+  useEffect(() => dispatch(getAllWishes()), [dispatch])
+
+  function deleteAction(id) {
+    dispatch(delWish(id))
+    console.log(modalValue);
+    setModalValue({})
+  }
+
 
   return (
     <div className='wishes'>
-    <button onClick={() => setActive(true)} className="add_wish_btn">Добавить хотелку</button>
-    <div className="wish_wrapper">
+    <div className={style['add_wish_btn']}>
+    <button onClick={() => (setActive(true),setModalValue(''))} >Добавить хотелку</button>
+    </div>
+    <div className={style['wish_wrapper']}>
       {
         wishes?.map((wish) => 
-        <Wish 
+        <Wish
            key={wish.id}
-           img={wish.photo}
            title={wish.title}
            description={wish.description}
            isBinded={wish.isBinded}
            setActive={setActive}
-       />)
+           wishPhoto={wish.WishPhoto?.image}>
+           <div className={style['btn_cud']}>
+           <button onClick={() => (
+             setActive(true),
+             setModalValue(wish)
+           )}>Изменить</button>
+           <button onClick={() => deleteAction(wish.id)} >Удалить</button>
+           <button>Подарили!</button>
+           </div>
+           </Wish>
+       
+       )
+       
       }
-      <Modal active={modalActive} setActive={setActive}/>
+      <Modal wishValue={modalValue} setModalValue={setModalValue} active={modalActive} setActive={setActive} />
       </div>
     </div>
   )

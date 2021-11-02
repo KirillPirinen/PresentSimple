@@ -1,2 +1,4 @@
-export const GROUP = "GROUP";
 export const ALL_WISHES_PERSON = "ALL_WISHES_PERSON";
+export const BUTTON_ALONE = "BUTTON_ALONE";
+export const BUTTON_ADD_GROUP = "BUTTON_ADD_GROUP";
+export const BUTTON_JOIN_GROUP = "BUTTON_JOIN_GROUP";
