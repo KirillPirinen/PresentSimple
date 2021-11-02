@@ -49,7 +49,7 @@ const signIn = async (req, res) => {
   if (password && email) {
     try {
       const currentUser = await User.findOne({ where: { email: email } });
-      console.log("currentUser", currentUser);
+      
       if (
         currentUser &&
         (await bcrypt.compare(password, currentUser.password))
@@ -59,7 +59,7 @@ const signIn = async (req, res) => {
           name: currentUser.name,
         };
 
-        console.log("req.session.user", req.session.user);
+        
 
         return res.json({ id: currentUser.id, name: currentUser.name });
       }
@@ -91,7 +91,7 @@ const signIn = async (req, res) => {
 };
 
 const signOut = async (req, res) => {
-  console.log("reeeeq.session", req.session);
+  
   req.session.destroy((err) => {
     if (err) return res.sendStatus(500);
 
@@ -102,10 +102,10 @@ const signOut = async (req, res) => {
 };
 
 const checkAuth = async (req, res) => {
-  console.log("checkAuth", checkAuth);
+  
   try {
     const user = await User.findOne({ where: { id: req.session?.user?.id } });
-    console.log("user", user);
+    
     return res.json(user);
   } catch (error) {
     console.log("error222", error);

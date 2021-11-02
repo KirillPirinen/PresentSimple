@@ -17,13 +17,12 @@ const sentFormRouter = require('./src/routes/sentForm.router');
 const wishRouter = require('./src/routes/wishRouter');
 
 
+app.set('cookieName', COOKIE_NAME)
 
 app.use(logger('dev'))
-app.use(cors({origin:'http://localhost:3000'}))
 
 
 
-app.set('cookieName', COOKIE_NAME)
 
 app.use(cors({
   origin: true,
