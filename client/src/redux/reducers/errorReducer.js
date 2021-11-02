@@ -1,4 +1,4 @@
-import { ERROR, CLEAR_ERROR } from "../types/errorTypes";
+import { ERROR, CLEAR_ERROR} from "../types/errorTypes";
 
 const errorReducer = (state = '', action) => {
   switch (action.type) {

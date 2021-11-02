@@ -1,28 +1,26 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { checkForm, createForm } from "../../redux/actions/checkFormToPerson";
+import { checkForm, clearCheckForm, createForm } from "../../redux/actions/checkFormToPerson";
 import { RecipientInfoBlock } from "./subComponents/recipientInfoBlock";
 import { ListOfForms } from "./subComponents/ListOfForms";
 import ModalInfo from "../ModalInfo/ModalInfo";
 import { infoModalActivate, infoModalDeactivate } from "../../redux/actions/modalInfoAC";
-import { ErrorMessage } from "./subComponents/ErrorMessage";
-import { useHistory } from "react-router";
-import { Button } from "reactstrap";
+import { useHistory, useLocation } from "react-router";
+//import { ErrorMessage } from "../ModalInfo/subComponents/ErrorMessage";
 
 export default function CheckFormToPerson() {
-  const {recipient, forms, message, contacts, form} = useSelector(state=>state.checkform)
+  const {recipient, forms, contacts, form} = useSelector(state=>state.checkform)
   const initialState = contacts ? contacts : {name: '', lname: '', phone: '', email: ''};
   const [inputFormToPerson, setInputFormToPerson] = useState(initialState);
   const history = useHistory()
   if(form?.id) history.push('/success')
   const dispatch = useDispatch();
 
-
   useEffect(()=>{
-    if(recipient || forms || message) {
+    if(recipient || forms) {
       dispatch(infoModalActivate())
     }
-  },[recipient, forms, message])
+  },[recipient, forms])
 
 
   const changeHandler = (e) => {
@@ -34,6 +32,7 @@ export default function CheckFormToPerson() {
     if(contacts) {
       dispatch(createForm(inputFormToPerson))
     } else {
+      dispatch(clearCheckForm())
       if (inputFormToPerson) {
         dispatch(checkForm(inputFormToPerson.phone, inputFormToPerson.email))
       }
@@ -105,16 +104,8 @@ export default function CheckFormToPerson() {
     </form>
     </div>
       <ModalInfo>
-        {recipient &&
-            <RecipientInfoBlock recipient={recipient}/>
-        }
+        {recipient && <RecipientInfoBlock recipient={recipient}/>}
         {forms && <ListOfForms forms={forms}/>}
-
-        {message && 
-          <ErrorMessage message={message}>
-            <Button onClick={()=>dispatch(infoModalDeactivate())} color="success">Заполнить форму</Button>
-          </ErrorMessage>
-        }
       </ModalInfo>
     </>
   )
