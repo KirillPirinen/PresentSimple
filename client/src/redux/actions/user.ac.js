@@ -50,9 +50,10 @@ export const signIn = (payload, history, from) => async (dispatch) => {
   if (response.status === 200) {
     dispatch(clearError());
     dispatch(setUser(user));
-    history.replace("/");
-  } else if (response.status === 401) {
-    dispatch(getError(user.message));
+    return history.replace("/");
+  } 
+  else if (response.status === 401) {
+    dispatch(setUser(user));
     //history.replace("/auth/signup");
   } 
   else {

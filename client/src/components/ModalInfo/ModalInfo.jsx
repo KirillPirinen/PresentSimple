@@ -1,23 +1,39 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearError } from '../../redux/actions/error.ac';
-import { infoModalDeactivate } from '../../redux/actions/modalInfoAC';
+import { clearError, clearInfo } from '../../redux/actions/error.ac';
+import { infoModalActivate, infoModalDeactivate } from '../../redux/actions/modalInfoAC';
+
 import styles from './styles.module.css';
+import { ErrorMessage } from './subComponents/ErrorMessage';
 
 function ModalInfo({children}) {
   const modal = useSelector(state=>state.modalInfo)
+  const error = useSelector(state=>state.error)
+  const info  = useSelector(state=>state.info)
+ 
   const dispatch = useDispatch()
+  
   useEffect(()=>{
-    return dispatch(clearError())
-  },[])
+    if(error || info) {
+      dispatch(infoModalActivate())
+    }
+  },[error, info])
+
   const clickBodyHandler = () => {
     dispatch(clearError())
+    dispatch(clearInfo())
     dispatch(infoModalDeactivate())
   }
+
   return (
     <div onClick={clickBodyHandler} className={modal ? `${styles['info-modal']} ${styles.active}` : styles['info-modal']}> 
       <div onClick={(e) => e.stopPropagation()} className={styles['info-modal_content']}>
-          {children}
+          {error ? 
+          <ErrorMessage message={error}/> :
+          info ?
+          <ErrorMessage message={info}/> :
+          children
+          }
       </div>
     </div>
   );

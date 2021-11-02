@@ -5,13 +5,11 @@ import { RecipientInfoBlock } from "./subComponents/recipientInfoBlock";
 import { ListOfForms } from "./subComponents/ListOfForms";
 import ModalInfo from "../ModalInfo/ModalInfo";
 import { infoModalActivate, infoModalDeactivate } from "../../redux/actions/modalInfoAC";
-import { ErrorMessage } from "./subComponents/ErrorMessage";
 import { useHistory, useLocation } from "react-router";
-import { Button } from "reactstrap";
+//import { ErrorMessage } from "../ModalInfo/subComponents/ErrorMessage";
 
 export default function CheckFormToPerson() {
-  const {recipient, forms, isFound, contacts, form} = useSelector(state=>state.checkform)
-  const error = useSelector(state=>state.error)
+  const {recipient, forms, contacts, form} = useSelector(state=>state.checkform)
   const initialState = contacts ? contacts : {name: '', lname: '', phone: '', email: ''};
   const [inputFormToPerson, setInputFormToPerson] = useState(initialState);
   const history = useHistory()
@@ -19,10 +17,10 @@ export default function CheckFormToPerson() {
   const dispatch = useDispatch();
 
   useEffect(()=>{
-    if(recipient || forms || error) {
+    if(recipient || forms) {
       dispatch(infoModalActivate())
     }
-  },[recipient, forms, error])
+  },[recipient, forms])
 
 
   const changeHandler = (e) => {
@@ -109,11 +107,6 @@ export default function CheckFormToPerson() {
             <RecipientInfoBlock recipient={recipient}/>
         }
         {forms && <ListOfForms forms={forms}/>}
-        {error && 
-          <ErrorMessage message={error}>
-            {isFound===false ? <Button onClick={()=>dispatch(infoModalDeactivate())} color="success">Заполнить форму</Button> : null}
-          </ErrorMessage>
-        }
       </ModalInfo>
     </>
   )

@@ -3,18 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useLocation } from "react-router";
 import { infoModalActivate } from "../../../redux/actions/modalInfoAC";
 import { signIn } from "../../../redux/actions/user.ac";
-import { ErrorMessage } from "../../CheckFormToPerson/subComponents/ErrorMessage";
 import ModalInfo from "../../ModalInfo/ModalInfo";
+import { ErrorMessage } from "../../ModalInfo/subComponents/ErrorMessage";
 
 const SignIn = () => {
   const dispatch = useDispatch();
-  const error = useSelector((state) => state.error);
-  console.log(error)
-  useEffect(() => {
-    if(error) {
-      dispatch(infoModalActivate())
-    }
-  },[error])
   
   const [userSignIn, setUserSignIn] = useState({
     email: "",
@@ -75,17 +68,19 @@ const SignIn = () => {
         Войти
       </button>
     </form>
-    <ModalInfo>
-    {error && 
-      <ErrorMessage message={error}/>
-    }
-    </ModalInfo>
     </div>
+    <ModalInfo/>
     </>
   );
 };
 
 export default SignIn;
+
+{/* <ModalInfo>
+    {error && 
+      <ErrorMessage message={error}/>
+    }
+    </ModalInfo> */}
 
 // {error ? (
 //   <>

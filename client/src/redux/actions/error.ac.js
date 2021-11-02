@@ -1,4 +1,4 @@
-import { ERROR, CLEAR_ERROR } from "../types/errorTypes";
+import { ERROR, CLEAR_ERROR, CLEAR_INFO, INFO } from "../types/errorTypes";
 
 export const getError = (value) => ({
   type: ERROR,
@@ -7,4 +7,13 @@ export const getError = (value) => ({
 
 export const clearError = () => ({
   type: CLEAR_ERROR
+});
+
+export const getInfo = (value) => ({
+  type: INFO,
+  payload: value,
+});
+
+export const clearInfo = () => ({
+  type: CLEAR_INFO
 });

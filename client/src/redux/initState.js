@@ -14,6 +14,7 @@ export const initStateWithoutLS = {
   checkform: {},
   modalInfo:false,
   error: false,
+  info: false,
 };
 
 const getInitState = () => {

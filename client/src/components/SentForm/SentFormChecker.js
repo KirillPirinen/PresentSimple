@@ -4,9 +4,9 @@ import { useHistory, useParams } from "react-router"
 import { Button } from "reactstrap"
 import { infoModalActivate, infoModalDeactivate } from "../../redux/actions/modalInfoAC"
 import { CheckUUID } from "../../redux/actions/SentForm.ac"
-import { ErrorMessage } from "../CheckFormToPerson/subComponents/ErrorMessage"
 import Loader from "../Loader/Loader"
 import ModalInfo from "../ModalInfo/ModalInfo"
+import { ErrorMessage } from "../ModalInfo/subComponents/ErrorMessage"
 import { SentForm } from "./SentForm"
 
 
