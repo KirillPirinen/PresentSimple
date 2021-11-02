@@ -1,6 +1,9 @@
-import { CHECK_FORM_UUID, ERR_INTERNAL, SEND_FILLING_FORM, SEND_FILLING_FORM_ERROR } from "../types/sentform.types"
+import { CHECK_FORM_UUID, CLEAR_SENTFORM, ERR_INTERNAL, FORM_DELIVERED, SEND_FILLING_FORM, SEND_FILLING_FORM_ERROR } from "../types/sentform.types"
+import { getError } from "./error.ac"
+import { disableLoader, enableLoader } from "./loader.ac"
 
 export const CheckUUID = (uuid) => async (dispatch) => {
+  dispatch(enableLoader())
   try {
     const response = await fetch(`http://localhost:3001/sentform/${uuid}`)
     const {status, data, message, guest} = await response.json()
@@ -10,13 +13,14 @@ export const CheckUUID = (uuid) => async (dispatch) => {
     } else {
       dispatch({type:CHECK_FORM_UUID, payload:{status, message}})
     }
-
+    dispatch(disableLoader())
   } catch (err) {
       dispatch({type:ERR_INTERNAL, payload:err})
   }
 }
 
 export const SendForm = (uuid, data) => async (dispatch) => {
+  dispatch(enableLoader())
   try {
     const response = await fetch(`http://localhost:3001/sentform/${uuid}`, {
       method:"PATCH",
@@ -33,7 +37,20 @@ export const SendForm = (uuid, data) => async (dispatch) => {
         dispatch({type:SEND_FILLING_FORM_ERROR, payload:{status, message}})
         break;
     }
+    dispatch(disableLoader())
   } catch (err) {
       dispatch({type:ERR_INTERNAL, payload:err})
   }
 }
+
+export const deliverForm = uuid => async dispatch => {
+  try {
+    const response = await fetch(`http://localhost:3001/sentform/delivery/${uuid}`)
+    const data = await response.json()
+    dispatch({type:FORM_DELIVERED, payload:data})
+    dispatch({type:CLEAR_SENTFORM})
+  } catch (err) {
+    dispatch(getError(err.message))
+  }
+}
+

@@ -6,6 +6,8 @@ const cors = require('cors');
 // const rootRouter = require('./src/routes/rootRouter')
 const authRouter = require('./src/routes/auth.router')
 const path = require('path')
+const checkFormToPersonRouter = require('./src/routes/checkFormToPerson.router')
+const errorHanlder = require('./src/controllers/error.controller'); 
 
 const redis = require('redis')
 const session = require('express-session')
@@ -16,28 +18,15 @@ const { SERVER_PORT, COOKIE_SECRET, COOKIE_NAME} = process.env
 const sentFormRouter = require('./src/routes/sentForm.router');
 const wishRouter = require('./src/routes/wishRouter');
 
-
 app.set('cookieName', COOKIE_NAME)
 
 app.use(logger('dev'))
+app.use(cors({origin:'http://localhost:3000', credentials: true,}))
 
-
-
-
-app.use(cors({
-  origin: true,
-  credentials: true,
-}))
 
 app.use(express.json())
 app.use(express.static(path.join(process.env.PWD, 'public')));
 
-app.use(
-  cors({
-    origin: true,
-    credentials: true,
-  })
-);
 app.use(express.json());
 app.use(
   session({
@@ -56,7 +45,9 @@ app.use(
 app.use('/api/v1/auth', authRouter)
 app.use('/sentform', sentFormRouter)
 app.use('/wish', wishRouter)
+app.use("/api/v1/form", checkFormToPersonRouter);
 
-
+//обработчик ошибок
+app.use(errorHanlder)
 
 app.listen(SERVER_PORT, () => console.log("Server has been started on port ", SERVER_PORT))

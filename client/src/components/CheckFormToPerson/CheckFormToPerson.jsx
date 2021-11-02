@@ -1,14 +1,27 @@
-import { useDispatch } from "react-redux";
-import { useState } from "react";
-import { checkForm } from "../../redux/actions/checkFormToPerson";
-import { useHistory } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { checkForm, clearCheckForm, createForm } from "../../redux/actions/checkFormToPerson";
+import { RecipientInfoBlock } from "./subComponents/recipientInfoBlock";
+import { ListOfForms } from "./subComponents/ListOfForms";
+import ModalInfo from "../ModalInfo/ModalInfo";
+import { infoModalActivate, infoModalDeactivate } from "../../redux/actions/modalInfoAC";
+import { useHistory, useLocation } from "react-router";
+//import { ErrorMessage } from "../ModalInfo/subComponents/ErrorMessage";
 
 export default function CheckFormToPerson() {
-
-  const [inputFormToPerson, setInputFormToPerson] = useState({name: '', lname: '', phone: '', email: ''});
-
+  const {recipient, forms, contacts, form} = useSelector(state=>state.checkform)
+  const initialState = contacts ? contacts : {name: '', lname: '', phone: '', email: ''};
+  const [inputFormToPerson, setInputFormToPerson] = useState(initialState);
+  const history = useHistory()
+  if(form?.id) history.push('/success')
   const dispatch = useDispatch();
-  const history = useHistory();
+
+  useEffect(()=>{
+    if(recipient || forms) {
+      dispatch(infoModalActivate())
+    }
+  },[recipient, forms])
+
 
   const changeHandler = (e) => {
     setInputFormToPerson((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -16,17 +29,26 @@ export default function CheckFormToPerson() {
 
   const checkFormHandler = (e) => {
     e.preventDefault();
-    if (inputFormToPerson) {
-      dispatch(checkForm(inputFormToPerson.name, inputFormToPerson.lname, inputFormToPerson.phone, inputFormToPerson.email, history))
-      setInputFormToPerson("");
+    if(contacts) {
+      dispatch(createForm(inputFormToPerson))
+    } else {
+      dispatch(clearCheckForm())
+      if (inputFormToPerson) {
+        dispatch(checkForm(inputFormToPerson.phone, inputFormToPerson.email))
+      }
     }
   };
 
   return(
-    <div>
-    <h2>Введите данные того человека, кому хотите подарить подарок</h2>
+    <>
+    <div className='container-glass'>
+    {
+      contacts ? <h3>Отправка пользователю анкеты-приглашения</h3> :<h3>Возможно твой друг уже зарегистрирован здесь и оставил список желаний. Давай проверим</h3>
+    }
     <form onSubmit={checkFormHandler} className="d-flex flex-column align-items-center bg-light text-dark p-3 border rounded-3">
       
+      {contacts && 
+      <>
       <div className="mb-3">
       <input 
       name="name"
@@ -35,26 +57,30 @@ export default function CheckFormToPerson() {
       placeholder="Имя" 
       value={inputFormToPerson.name}
       onChange={changeHandler}
+      required
       />
       </div>
       
       <div className="mb-3">
-      <input 
+      <input
       name="lname"
       className="form-control"
       type="text"
       placeholder="Фамилия" 
       value={inputFormToPerson.lname}
       onChange={changeHandler}
+      required 
       />
       </div>
+      </>}
 
       <div className="mb-3">
       <input 
       name="phone"
       className="form-control"
       type="text"
-      placeholder="Телефон" 
+      placeholder="Телефон"
+      required 
       value={inputFormToPerson.phone}
       onChange={changeHandler}
       />
@@ -65,6 +91,7 @@ export default function CheckFormToPerson() {
       name="email"
       className="form-control"
       type="email"
+      required
       placeholder="Электронная почта" 
       value={inputFormToPerson.email}
       onChange={changeHandler}
@@ -72,10 +99,14 @@ export default function CheckFormToPerson() {
       </div>
 
       <button type="submit" className="btn btn-primary">
-      Добавить
-    </button>
-
+        {contacts ? "Сгенерировать ссылку" : "Искать"}
+      </button>
     </form>
     </div>
+      <ModalInfo>
+        {recipient && <RecipientInfoBlock recipient={recipient}/>}
+        {forms && <ListOfForms forms={forms}/>}
+      </ModalInfo>
+    </>
   )
 }

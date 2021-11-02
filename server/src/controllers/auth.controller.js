@@ -1,5 +1,8 @@
 const bcrypt = require("bcrypt");
+// const { noExtendLeft } = require("sequelize/types/lib/operators");
 const { User } = require("../../db/models");
+const {checkInput} = require('../functions/validateBeforeInsert');
+const appError = require('../Errors/errors');
 
 const signUp = async (req, res) => {
   const { name, lname, email, phone, password } = req.body;
@@ -35,7 +38,6 @@ const signUp = async (req, res) => {
       ) {
         return res.sendStatus(411);
       } else {
-        console.log("error11111", error);
         return res.sendStatus(401);
       }
     }
@@ -43,55 +45,33 @@ const signUp = async (req, res) => {
   return res.sendStatus(400);
 };
 
-const signIn = async (req, res) => {
-  const { password, email, phone } = req.body;
+const signIn = async (req, res, next) => {
+  const input = checkInput(req.body, ['password', 'email'], true);
 
-  if (password && email) {
+  if (input) {
+    const {email, password} = input;
     try {
-      const currentUser = await User.findOne({ where: { email: email } });
-      
-      if (
-        currentUser &&
-        (await bcrypt.compare(password, currentUser.password))
-      ) {
-        req.session.user = {
-          id: currentUser.id,
-          name: currentUser.name,
-        };
-
-        
-
-        return res.json({ id: currentUser.id, name: currentUser.name });
-      }
-      return res.sendStatus(401);
+      const currentUser = await User.findOne({ where: { email } });
+      if (currentUser) {
+        if(await bcrypt.compare(password, currentUser.password)) {
+          req.session.user = {
+            id: currentUser.id,
+            name: currentUser.name,
+          };
+          return res.json({ id: currentUser.id, name: currentUser.name });
+        } else {
+          next(new appError(401, "Неверный пароль"));
+        }
+      } 
     } catch (error) {
-      return res.sendStatus(500);
-    }
-  } else if (password && phone) {
-    try {
-      const currentUser = await User.findOne({ where: { phone: phone } });
-      if (
-        currentUser &&
-        (await bcrypt.compare(password, currentUser.password))
-      ) {
-        req.session.user = {
-          id: currentUser.id,
-          name: currentUser.name,
-        };
-
-        return res.json({ id: currentUser.id, name: currentUser.name });
-      }
-      return res.sendStatus(401);
-    } catch (error) {
-      return res.sendStatus(500);
+      next(new Error(error));
     }
   } else {
-    return res.sendStatus(400);
+     next(new appError(400, "Не заполнены необходимые поля"))
   }
 };
 
 const signOut = async (req, res) => {
-  
   req.session.destroy((err) => {
     if (err) return res.sendStatus(500);
 
@@ -102,13 +82,10 @@ const signOut = async (req, res) => {
 };
 
 const checkAuth = async (req, res) => {
-  
   try {
     const user = await User.findOne({ where: { id: req.session?.user?.id } });
-    
     return res.json(user);
   } catch (error) {
-    console.log("error222", error);
     return res.sendStatus(500);
   }
 };
@@ -119,3 +96,22 @@ module.exports = {
   signUp,
   checkAuth,
 };
+
+// } else if (password && phone) {
+  //   try {
+  //     const currentUser = await User.findOne({ where: { phone: phone } });
+  //     if (
+  //       currentUser &&
+  //       (await bcrypt.compare(password, currentUser.password))
+  //     ) {
+  //       req.session.user = {
+  //         id: currentUser.id,
+  //         name: currentUser.name,
+  //       };
+
+  //       return res.json({ id: currentUser.id, name: currentUser.name });
+  //     }
+  //     return res.sendStatus(401);
+  //   } catch (error) {
+  //     return res.sendStatus(500);
+  //   }

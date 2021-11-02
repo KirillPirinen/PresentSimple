@@ -1,17 +1,21 @@
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router";
 import {Form, Label, Input, Button} from "reactstrap";
 import { SendForm } from "../../redux/actions/SentForm.ac";
 import { useSentFormContext } from "../context/SentFormContext";
 import { PriceRange } from "./PriceRange/PriceRange";
 
 export const SentForm = ({guest}) => {
-  console.log('guest', guest)
   const { data } = useSentFormContext()
   const dispatch = useDispatch()
+  const history = useHistory()
 
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(SendForm(guest.id, data))
+    setInterval(() => {
+      history.push('/')
+    }, 2000);
   }
   
   return (
@@ -27,7 +31,7 @@ export const SentForm = ({guest}) => {
       {data?.map(range => <PriceRange key={range.id} range={range} />)}
 
   <Button>
-    Submit
+    Отправить форму
   </Button>
 </Form>
 </div>

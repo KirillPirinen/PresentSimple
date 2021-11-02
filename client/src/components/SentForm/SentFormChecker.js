@@ -1,19 +1,50 @@
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { useParams } from "react-router"
+import { useHistory, useParams } from "react-router"
+import { Button } from "reactstrap"
+import { infoModalActivate, infoModalDeactivate } from "../../redux/actions/modalInfoAC"
 import { CheckUUID } from "../../redux/actions/SentForm.ac"
+import Loader from "../Loader/Loader"
+import ModalInfo from "../ModalInfo/ModalInfo"
+import { ErrorMessage } from "../ModalInfo/subComponents/ErrorMessage"
 import { SentForm } from "./SentForm"
 
 
 export const SentFormCheker = () => {
-
+  const history = useHistory()
   const {uuid} = useParams()
   const dispatch = useDispatch()
-  const {status, message, guest} = useSelector(state => state.sentForm)
-
-  useEffect(() => 
+  const {status, message, guest, error} = useSelector(state => state.sentForm)
+  const loader = useSelector(state=>state.loader)
+  useEffect(() =>
     dispatch(CheckUUID(uuid))
   ,[dispatch])
 
-  return status ? <SentForm guest = {guest} /> : <h1>Error:{message}</h1>;
+  useEffect(()=>{
+    if(error || message) {
+      dispatch(infoModalActivate())
+    }
+  },[error, message])
+  const clickHandler = () => {
+    dispatch(infoModalDeactivate())
+    history.push('/')
+  }
+  return (
+    <>
+      <ModalInfo>
+        {message && 
+          <ErrorMessage message={message}>
+            <Button onClick={clickHandler} color="success">На главную</Button>
+          </ErrorMessage>
+        }
+        {error && 
+          <ErrorMessage message={error}>
+            <Button onClick={clickHandler} color="success">На главную</Button>
+          </ErrorMessage>
+        }
+      </ModalInfo>
+      {loader ? <Loader/> : 
+      status ? <SentForm guest = {guest} /> : null}
+    </>
+    )
 }

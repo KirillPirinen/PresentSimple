@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, useLocation } from "react-router-dom";
 import NavBar from "./components/main/NavBar/NavBar";
 import Home from "./components/main/Home/Home";
 import { useEffect } from "react";
@@ -15,10 +15,13 @@ import WishList from "./components/WishList/WishList";
 import PersonalProfile from "./components/PersonalProfile/PersonalProfile";
 import { clearError } from "./redux/actions/error.ac";
 import { SentFormCheker } from "./components/SentForm/SentFormChecker";
+import "./index.css";
+import CheckFormToPerson from "./components/CheckFormToPerson/CheckFormToPerson";
+import { SuccessAdded } from "./components/SuccessAdded/SuccessAdded";
+import { clearCheckForm } from "./redux/actions/checkFormToPerson";
 
 function App() {
   const dispatch = useDispatch();
-
   useEffect(() => {
     dispatch(checkAuth());
     // dispatch(deleteUser())
@@ -26,6 +29,7 @@ function App() {
 
   useEffect(() => {
     dispatch(clearError());
+    //dispatch(clearCheckForm())
   }, []);
 
   return (
@@ -38,6 +42,9 @@ function App() {
       <PrivateRoute path="/sentList">
         <SentList />
       </PrivateRoute>
+      <PrivateRoute exact path="/search">
+        <CheckFormToPerson/>
+      </PrivateRoute>
       <FormContextProvider>
         {/* <Route exact path="/sentform">
           <SentForm />
@@ -48,6 +55,7 @@ function App() {
       </FormContextProvider>
       <Route exact path="/lk" component={PersonalProfile} />
       <Route exact path="/mywishlist" component={WishList} />
+      <Route exact path="/success" component={SuccessAdded} />
     </Router>
   );
 }
