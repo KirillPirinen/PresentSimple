@@ -3,10 +3,12 @@ import styles from "./styles.module.css";
 import { useSelector } from "react-redux";
 import {Navbar, NavbarBrand, NavbarToggler, Collapse, Nav, NavItem, NavLink, DropdownMenu, UncontrolledDropdown, DropdownToggle, DropdownItem, NavbarText } from 'reactstrap';
 import { useState } from "react";
+import { useParams } from "react-router";
 
 export default function NavBar() {
 
   const user = useSelector(state => state.user)
+  const {user_id} = useParams()
 
   const [open, setOpen] = useState(false)
 
@@ -64,7 +66,7 @@ export default function NavBar() {
           </DropdownMenu>
         </UncontrolledDropdown>
 
-          <Link to={`/wishListPerson/${user?.id}`} className={styles.link}>
+          <Link to={`/wishListPerson/${user_id}`} className={styles.link}>
             Мои желания, которые видны всем
         </Link> 
 

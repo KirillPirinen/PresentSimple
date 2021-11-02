@@ -14,8 +14,6 @@ export default function ModalGroup() {
 
    const persons = [2,3,4,5,6,7,8,9,10];
 
-   const user = useSelector(state => state.user);
-
    const { wish_id } = useParams()
 
    console.log('wish_id', wish_id)
@@ -24,7 +22,7 @@ export default function ModalGroup() {
   const addGroupHandler = (e) => {
     e.preventDefault()
     if(inputGroup){
-      dispatch(addGroup(inputGroup.numberPerson, inputGroup.linktelegram, wish_id, user.id ))
+      dispatch(addGroup(inputGroup.numberPerson, inputGroup.linktelegram, wish_id))
       setInputGroup('');
       history.goBack();
     }

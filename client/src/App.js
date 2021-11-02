@@ -56,7 +56,7 @@ function App() {
         </Route>
       </FormContextProvider>
       <Route exact path="/lk" component={PersonalProfile} />
-      <Route exact path="/wishListPerson/:id" component={WishListPerson} />
+      <Route exact path="/wishListPerson/:user_id" component={WishListPerson} />
       <Route exact path="/modalGroup/:wish_id" component={ModalGroup} />
       <Route exact path="/mywishlist" component={WishList} />
     </Router>

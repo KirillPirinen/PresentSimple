@@ -8,6 +8,7 @@ import { checkFormToPersonReducer } from "./checkFormToPersonReducer";
 import { groupsReducer, wishesGroupAloneReducer } from "./groupModalReducer";
 import wishlistReducer from "./wishlistReducer";
 import { modalInfoReducer } from "./modalInfoReducer";
+import progressbarReducer from "./progressbarReducer";
 
 const rootReducer = combineReducers({
   wishes: wishReducer,
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   wishlist: wishlistReducer,
   modalInfo: modalInfoReducer,
   wishesGroupAlone: wishesGroupAloneReducer,
+  progressbar: progressbarReducer,
 });
 
 export default rootReducer;
