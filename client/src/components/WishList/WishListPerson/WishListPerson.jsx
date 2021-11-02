@@ -21,8 +21,6 @@ export default function WishListPerson() {
 
   const groups = useSelector(state => state.groups);
 
-  console.log('groups', groups)
-
   const user = useSelector(state => state.user);
 
   
@@ -40,9 +38,9 @@ export default function WishListPerson() {
             <>
             <Button onClick={() => dispatch(donateToYourself(el.id, user.id))}>Подарить самому</Button>
 
-             {groups ?
+             {!groups ?
                   groups?.map(group => group.wish_id === el.id ?  
-                  <Button onCLick={() => dispatch(joinGroup(el.id))}>Подарить группой(вступить в группу)</Button> 
+                  <Button onClick={() => history.push(`/modalGroupJoin/${el.id}`)}>Подарить группой(вступить в группу)</Button> 
                   : 
                   <Button onClick={() => history.push(`/modalGroup/${el.id}`)}>Подарить группой(создать группу)</Button> 
                   )

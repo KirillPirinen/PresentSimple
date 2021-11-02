@@ -1,7 +1,8 @@
-/* body {
-  background-image: url("backgroundSimple.jpg");
+body {
+  background-image: url("background.jpeg");
   background-repeat: no-repeat;
   background-size: cover;
   height: 98vh;
   background-position: top center;
-} */
+  color: white
+}

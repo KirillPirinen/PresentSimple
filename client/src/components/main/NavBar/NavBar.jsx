@@ -1,42 +1,87 @@
 import { Link } from "react-router-dom";
 import styles from "./styles.module.css";
 import { useSelector } from "react-redux";
-import {Navbar, NavbarBrand, NavbarToggler, Collapse, Nav, NavItem, NavLink } from 'reactstrap';
+import {Navbar, NavbarBrand, NavbarToggler, Collapse, Nav, NavItem, NavLink, DropdownMenu, UncontrolledDropdown, DropdownToggle, DropdownItem, NavbarText } from 'reactstrap';
+import { useState } from "react";
 
 export default function NavBar() {
 
   const user = useSelector(state => state.user)
 
+  const [open, setOpen] = useState(false)
+
+  const toggle = () => setOpen(true)
+
   return (
-    <nav>
-        <Link to="/">
-        Главная
-      </Link>
-        <Link to="/myWishes" className={styles.link}>
-          Мои хотелки
-        </Link>
-        <Link to="/donatedWishList" className={styles.link}>
-        Подаренные подарки
-        </Link> 
-        <Link to="/lk" className={styles.link}>
+<div>
+  <Navbar
+    color="light"
+    container="fluid"
+    expand="sm"
+    fixed="top"
+    light
+  >
+    <NavbarToggler />
+    <Collapse navbar>
+      <Nav
+        className="me-auto"
+        navbar
+      >
+         <UncontrolledDropdown
+          inNavbar
+          nav
+        >
+          <DropdownToggle
+            caret
+            nav
+          >
         Личный кабинет
-      </Link>
-        <Link to="/sentList" className={styles.link}>
+          </DropdownToggle>
+          <DropdownMenu right>
+            <DropdownItem>
+            <Link to="/lk" className={styles.link}>
+            Личный кабинет
+              </Link>
+            </DropdownItem>
+
+            <DropdownItem>
+            <Link to="/myWishes" className={styles.link}>
+                Мои хотелки
+              </Link>
+            </DropdownItem>
+
+            <DropdownItem>
+            <Link to="/donatedWishList" className={styles.link}>
+              Мне подарили
+            </Link> 
+            </DropdownItem>
+
+            <DropdownItem>
+            <Link to="/sentList" className={styles.link}>
           Отправленные анкеты
+            </Link> 
+            </DropdownItem>
+          </DropdownMenu>
+        </UncontrolledDropdown>
+
+          <Link to={`/wishListPerson/${user?.id}`} className={styles.link}>
+            Мои желания, которые видны всем
         </Link> 
-        <Link to={`/wishListPerson/${user?.id}`} className={styles.link}>
-          Мои желания, которые видны всем
-        </Link> 
+
+        <Link to="/" className={styles.link}>
+         Главная
+       </Link>
+
         { user ?
-        <Link exact to="/auth/signout">Выйти</Link>
+        <Link exact to="/auth/signout" className={styles.link}>Выйти</Link>
             :
           <>
       <Link to="/auth/signup" className={styles.link}>Зарегистрироваться</Link>
-      <Link exact to="/auth/signin" className={styles.link}>
-        Войти
-      </Link>
-          </>
-        }
-  </nav>
+      <Link exact to="/auth/signin" className={styles.link}>Войти</Link>
+          </>}
+      </Nav>
+    </Collapse>
+  </Navbar>
+</div>
   );
 };
