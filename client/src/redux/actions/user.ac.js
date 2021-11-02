@@ -76,10 +76,8 @@ export const checkAuth = () => async (dispatch) => {
   const response = await fetch(endPoints.checkAuth(), {
     credentials: "include",
   });
-  console.log('response', response)
   if (response.status === 200) {
     const user = await response.json();
-    console.log("user", user);
     dispatch(setUser(user));
   } else if (response.status === 401) {
     console.log("lalala");
