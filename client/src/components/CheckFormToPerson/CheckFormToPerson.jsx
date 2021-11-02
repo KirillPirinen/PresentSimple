@@ -32,6 +32,7 @@ export default function CheckFormToPerson() {
     if(contacts) {
       dispatch(createForm(inputFormToPerson))
     } else {
+      dispatch(clearCheckForm())
       if (inputFormToPerson) {
         dispatch(checkForm(inputFormToPerson.phone, inputFormToPerson.email))
       }
@@ -103,9 +104,7 @@ export default function CheckFormToPerson() {
     </form>
     </div>
       <ModalInfo>
-        {recipient &&
-            <RecipientInfoBlock recipient={recipient}/>
-        }
+        {recipient && <RecipientInfoBlock recipient={recipient}/>}
         {forms && <ListOfForms forms={forms}/>}
       </ModalInfo>
     </>

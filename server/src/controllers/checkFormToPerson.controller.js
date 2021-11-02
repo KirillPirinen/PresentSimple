@@ -23,7 +23,7 @@ const check = async (req, res, next) => {
           }
       } 
       
-    return res.status(404).json({isFound:false, message:"Пользователь не найден, хотите отправить ему анкету?"});
+    return res.status(404).json({message:"Пользователь не найден, хотите отправить ему анкету?"});
   
     } catch (error) {
       next(new Error(`Ошибка поиска:${error.message}` ))

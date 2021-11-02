@@ -1,4 +1,4 @@
-import { ADD_USER, CHECK_FORM, CLEAR_CHECKFORM_STATE, CREATE_URL_FORM, GET_EXAMPLE_FORM, USER_OR_FORM_NOTFOUND } from "../types/checkFormToPersonTypes";
+import { ADD_USER, CHECK_FORM, CLEAR_CHECKFORM_STATE, CREATE_URL_FORM, GET_EXAMPLE_FORM, SET_CONTACTS, USER_OR_FORM_NOTFOUND } from "../types/checkFormToPersonTypes";
 import { getError } from "./error.ac";
 
 export const getCheckedForm = (response) => ({
@@ -16,9 +16,13 @@ export const getExampleForm = (value) => ({
   payload: value,
 });
 
-export const userOrFormNotFound = (value, contacts) => {
-  return {type:USER_OR_FORM_NOTFOUND, payload:{...value, contacts}}
+export const userOrFormNotFound = (value) => {
+  return {type:USER_OR_FORM_NOTFOUND, payload:value}
 }
+
+export const clearCheckForm = () => ({type:CLEAR_CHECKFORM_STATE})
+
+export const setContacts = (contacts) => ({type:SET_CONTACTS, payload:contacts})
 
 export const checkForm =
   (phone, email) => async (dispatch) => {
@@ -37,12 +41,10 @@ export const checkForm =
     }
       else if (response.status === 404) {
       const contacts = {phone, email};
-      dispatch(userOrFormNotFound(data, contacts))
-      //dispatch(getError(data.message))
-      //dispatch(getExampleForm(true));
+      dispatch(userOrFormNotFound(data))
+      dispatch(setContacts(contacts))
       }
       else if(response.status === 500) {
-      //dispatch(userOrFormNotFound(data))
       dispatch(getError(data.message))
       }
     else {
@@ -69,4 +71,3 @@ export const createForm = values => async dispatch => {
   }
 }
 
-export const clearCheckForm = () => ({type:CLEAR_CHECKFORM_STATE})
