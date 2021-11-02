@@ -19,6 +19,10 @@ import "./index.css";
 import CheckFormToPerson from "./components/CheckFormToPerson/CheckFormToPerson";
 import { SuccessAdded } from "./components/SuccessAdded/SuccessAdded";
 import { clearCheckForm } from "./redux/actions/checkFormToPerson";
+import { FormRoot } from "./components/FormRoot/FormRoot";
+import moment from 'moment';
+import 'moment/locale/ru'
+moment.locale('ru')
 
 function App() {
   const dispatch = useDispatch();
@@ -41,6 +45,9 @@ function App() {
       <Route exact path="/auth/signout" component={SignOut} />
       <PrivateRoute path="/sentList">
         <SentList />
+      </PrivateRoute>
+      <PrivateRoute exact path="/presents/:uuid">
+        <FormRoot/>
       </PrivateRoute>
       <PrivateRoute exact path="/search">
         <CheckFormToPerson/>
