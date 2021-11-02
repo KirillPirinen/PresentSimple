@@ -4,7 +4,6 @@ const initState = {
   loader: false,
   errorAuth: "",
   wishes: [],
-  sentForm:{},
   exampleForm: false,
   showAnswerFromBack: false,
   groups: [],
@@ -16,8 +15,11 @@ const initState = {
 //состояния не подписанные на LocalStorage
 
 export const initStateWithoutLS = {
+  sentForm:{},
   checkform: {},
-  modalInfo:false
+  modalInfo:false,
+  error: false,
+  info: false,
 };
 
 const getInitState = () => {

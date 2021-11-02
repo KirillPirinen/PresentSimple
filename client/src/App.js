@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, useLocation } from "react-router-dom";
 import NavBar from "./components/main/NavBar/NavBar";
 import Home from "./components/main/Home/Home";
 import { useEffect } from "react";
@@ -21,10 +21,11 @@ import ModalGroup from "./components/WishList/ModalGroup/ModalGroup";
 import ProgressBar from "./components/main/Progrssbar/Progrssbar";
 import CheckFormToPerson from "./components/CheckFormToPerson/CheckFormToPerson";
 // import WishList from "./components/WishList/WishList";
+import { SuccessAdded } from "./components/SuccessAdded/SuccessAdded";
+import { clearCheckForm } from "./redux/actions/checkFormToPerson";
 
 function App() {
   const dispatch = useDispatch();
-
   useEffect(() => {
     dispatch(checkAuth());
     // dispatch(deleteUser())
@@ -59,6 +60,7 @@ function App() {
       <Route exact path="/wishListPerson/:user_id" component={WishListPerson} />
       <Route exact path="/modalGroup/:wish_id" component={ModalGroup} />
       <Route exact path="/mywishlist" component={WishList} />
+      <Route exact path="/success" component={SuccessAdded} />
     </Router>
   );
 }

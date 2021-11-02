@@ -26,7 +26,7 @@ app.use("/", rootRouter);
 
 // const rootRouter = require('./src/routes/rootRouter')
 
-app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
+app.use(cors({ credentials: true, origin: true }));
 
 app.use(express.json());
 app.use(express.static(path.join(process.env.PWD, "public")));

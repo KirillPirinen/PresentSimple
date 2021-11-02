@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import ProgressBar from '../../main/Progrssbar/Progrssbar';
 import { useEffect } from 'react';
 import { getWishesPersonWatchPeople } from '../../../redux/actions/groupModal';
-import { getProgressbar } from '../../../redux/actions/Progressbar.ac';
+import { getProgressbar, deleteProgressbar } from '../../../redux/actions/Progressbar.ac';
 
 export default function WishListPerson() {
 
@@ -40,14 +40,15 @@ export default function WishListPerson() {
       <li key={el.id}><Wish photo={el.photo} title={el.title} description={el.description} isBinded={el.isBinded} />
      
      {el.isBinded ? 
-       <h5>Забронировано</h5>  : 
+       <h5 style={{color:'brown'}}>Забронировано</h5>  : 
             <>
             <Button onClick={() => dispatch(addAlone(el.id, user_id))}>Подарить самому</Button>
             <Button onClick={() => history.push(`/modalGroup/${el.id}`)}>Подарить группой(создать группу)</Button> 
-            <Button onClick={() => dispatch(joinGroup(el.id))}>Подарить группой(вступить в группу)</Button> 
+            <Button onClick={() => dispatch(joinGroup(el.id, user_id))}>Подарить группой(вступить в группу)</Button> 
 
             {progressbar ?
                progressbar?.map(progress => progress.wish_id === el.id ?
+                progress.maxusers !== progress.currentusers ?
                 progressbarData(progress.maxusers, progress.currentusers).map((item, idx) => (
                   <>
                     <ProgressBar
@@ -59,7 +60,7 @@ export default function WishListPerson() {
                     <p>Можете пообщаться насчет подарка в этой группе в Телеграм</p>
                     <a href={progress.telegram}>Группа в Телеграме</a>
                     </>
-                    ))
+                    )) : dispatch(deleteProgressbar(progress.id))
                      : '')
             : ''}
 {/* 

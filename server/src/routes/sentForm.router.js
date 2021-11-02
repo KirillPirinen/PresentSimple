@@ -4,7 +4,7 @@ const router = require('express').Router()
 
 router
   .get('/:uuid', SentFormController.checkForm, SentFormController.getPriceRanges)
-    .patch('/:uuid', SentFormController.checkForm, SentFormController.fillingForm)
-  
+    .get('/delivery/:uuid', SentFormController.checkForm, SentFormController.deliverForm)
+      .patch('/:uuid', SentFormController.checkForm, SentFormController.fillingForm)
 
 module.exports = router;

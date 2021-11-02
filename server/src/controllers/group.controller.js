@@ -1,5 +1,6 @@
 const { v4: uuidv4 } = require("uuid");
-const { Group } = require("../../db/models");
+const { Group, Sequelize } = require("../../db/models");
+const Op = Sequelize.Op;
 const { Wish } = require("../../db/models");
 const { UserGroup } = require("../../db/models");
 
@@ -9,6 +10,7 @@ const allWishes = async (req, res, next) => {
     where: { user_id: user_id },
     order: [["id", "ASC"]],
   });
+  console.log("req.session", req?.session?.user?.id);
   res.json(wishes);
 };
 
@@ -32,6 +34,7 @@ const addAlone = async (req, res, next) => {
 };
 
 const addGroup = async (req, res, next) => {
+  console.log("req.session.user.idADDGROUp", req.session?.user?.id);
   const { wish_id } = req.params;
   try {
     const group = await Group.create({
@@ -43,7 +46,9 @@ const addGroup = async (req, res, next) => {
       user_id: req.session?.user?.id,
       group_id: group.id,
     });
-    const userGroups = await UserGroup.findAll({ where: { user_id: req.session?.user?.id } });
+    const userGroups = await UserGroup.findAll({
+      where: { user_id: req.session?.user?.id },
+    });
     const groups = await Group.findAll({
       where: { id: userGroups.map((el) => el.group_id) },
     });
@@ -54,52 +59,58 @@ const addGroup = async (req, res, next) => {
 };
 
 const joinGroup = async (req, res, next) => {
-  console.log('lalala')
-  console.log('req.session', req?.session)
-  console.log('req.session.user.id', req.session?.user?.id)
-  const { wish_id } = req.params;
+  const { wish_id } = req.body;
+  const { user_id } = req.params
   const groupFind = await Group.findOne({ where: { wish_id: wish_id } });
   const nextuser = (await groupFind.currentusers) + 1;
   try {
-      if (nextuser < groupFind.maxusers) {
-        await groupFind.update(
-          { currentusers: nextuser },
-          { where: { id: wish_id } }
-        );
-        const userGroups = await UserGroup.findAll({
-          where: { user_id: req.session?.user?.id },
-        });
-        console.log('userGroups', userGroups)
-        const groups = await Group.findAll({
-          where: { id: userGroups.map((el) => el.group_id) },
-        });
-        console.log('groups200', groups)
-        return res.status(200).json(groups);
+    if (nextuser < groupFind.maxusers) {
+      await groupFind.update(
+        { currentusers: nextuser },
+        { where: { id: wish_id } }
+      );
+      const userGroups = await UserGroup.findAll({
+        where: { user_id: req.session?.user?.id },
+      });
+      console.log("userGroups", userGroups);
+      const groups = await Group.findAll({
+        where: { id: userGroups.map((el) => el.group_id) },
+      });
+      console.log("groups200", groups);
+      return res.status(200).json(groups);
+    } else if (nextuser === groupFind.maxusers) {
+      await groupFind.update(
+        { currentusers: nextuser },
+        { where: { id: wish_id } }
+      );
+      await Wish.update({ isBinded: true }, { where: { id: wish_id } });
+      const wishes = await Wish.findAll({
+        where: { user_id: user_id },
+        order: [["id", "ASC"]],
+      });
+      const userGroups = await UserGroup.findAll({
+        where: { user_id: req.session?.user?.id },
+      });
 
-      } else if (nextuser === groupFind.maxusers) {
-        await groupFind.update(
-          { currentusers: nextuser },
-          { where: { id: wish_id } }
-        );
-        await Wish.update(
-          { isBinded: true },
-          { where: { id: wish_id } }
-        );
-        const wishes = await Wish.findAll({
-          where: { user_id: user_id },
-          order: [["id", "ASC"]],
-        });
-        const userGroups = await UserGroup.findAll({
-          where: { user_id: req.session?.user?.id },
-        });
-        const groups = await Group.findAll({
-          where: {
-            id: userGroups.map((el) => el.group_id && maxusers !== currentusers),
-          },
-        });
-        console.log("groups201", groups);
-        return res.status(201).json({ wishes: wishes, groups: groups });
+      // const groups = await Group.findAll({
+      //   where:
+      // where: {
+      //   currentusers: {
+      //     [Op.ne]: { [Op.col]: "maxusers" },
+      //   },
+      //   include: {
+      //     model: User,
+      //     attributes: ["id"],
+      //   },
+      // },
+      // });
 
+      const groups = await Group.findAll({
+        where: { id: userGroups.map((el) => el.group_id) },
+      });
+
+      console.log("groups201", groups);
+      return res.status(201).json({ wishes: wishes, groups: groups });
     } else {
       // await Wish.update(
       //   { isBinded: true },
@@ -118,7 +129,7 @@ const joinGroup = async (req, res, next) => {
       //   },
       // });
       // console.log("groups202", groups);
-      return res.sendStatus(202)
+      return res.sendStatus(202);
       // return res.status(202).json({ wishes: wishes, groups: groups });
     }
   } catch (error) {

@@ -2,6 +2,7 @@ import { DELETE_USER, SET_USER } from "../types/userTypes";
 import * as endPoints from "../../config/endPoints";
 import { disableLoader, enableLoader } from "./loader.ac";
 import { clearErrorAuth, getErrorAuth } from "./errorAuth.ac";
+import { clearError, getError } from "./error.ac";
 import { setWishList } from "./wishlist.ac";
 
 export const setUser = (user) => ({
@@ -50,17 +51,17 @@ export const signIn = (payload, history, from) => async (dispatch) => {
     credentials: "include",
     body: JSON.stringify(payload),
   });
+  const user = await response.json();
   if (response.status === 200) {
-    dispatch(clearErrorAuth());
-    const user = await response.json();
+    dispatch(clearError());
     dispatch(setUser(user));
-    history.replace("/");
-  } else if (response.status === 401) {
-    dispatch(
-      getErrorAuth("Такого пользователя не существует, зарегистрируйтесь")
-    );
-    history.replace("/auth/signup");
-  } else {
+    return history.replace("/");
+  } 
+  else if (response.status === 401) {
+    dispatch(setUser(user));
+    //history.replace("/auth/signup");
+  } 
+  else {
     history.replace("/auth/signin");
   }
   dispatch(disableLoader());

@@ -12,7 +12,8 @@ export const addGroupFromBack = (value) => {
 
 export const getWishesPersonWatchPeople = (user_id) => async (dispatch) => {
   let response = await axios.get(
-    `http://localhost:3001/api/v1/group/${user_id}`
+    `http://localhost:3001/api/v1/group/${user_id}`,
+    { withCredentials: true }
   );
   if (response.status === 200) {
     dispatch(getAllWishes(response.data));
@@ -48,9 +49,10 @@ export const addGroup = (maxusers, telegram, wish_id) => async (dispatch) => {
   }
 };
 
-export const joinGroup = (wish_id) => async (dispatch) => {
+export const joinGroup = (wish_id, user_id) => async (dispatch) => {
   let response = await axios.post(
-    `http://localhost:3001/api/v1/group/join/${wish_id}`,
+    `http://localhost:3001/api/v1/group/join/${user_id}`,
+    { wish_id },
     { withCredentials: true }
   );
   console.log("response.data", response.data);

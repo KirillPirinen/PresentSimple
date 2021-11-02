@@ -16,6 +16,9 @@ export default function Home() {
   }, [])
 
     const exampleForm = useSelector(state => state.exampleForm);
+    const checkform = useSelector(state => state.checkform)
+
+    const showAnswerFromBack = useSelector(state => state.showAnswerFromBack);
 
   return (
     <div className="container-glass">

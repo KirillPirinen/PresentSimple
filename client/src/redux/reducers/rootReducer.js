@@ -9,12 +9,15 @@ import { groupsReducer, wishesGroupAloneReducer } from "./groupModalReducer";
 import wishlistReducer from "./wishlistReducer";
 import { modalInfoReducer } from "./modalInfoReducer";
 import progressbarReducer from "./progressbarReducer";
+import infoReducer from './infoReducer';
+import errorReducer from "./errorReducer";
 
 const rootReducer = combineReducers({
   wishes: wishReducer,
   user: userReducer,
   loader: loaderReducer,
   errorAuth: errorAuthReducer,
+  error: errorReducer,
   sentForm: SentFormReducer,
   checkform: checkFormToPersonReducer,
   // exampleForm: getExampleFormReducer,
@@ -23,6 +26,7 @@ const rootReducer = combineReducers({
   modalInfo: modalInfoReducer,
   wishesGroupAlone: wishesGroupAloneReducer,
   progressbar: progressbarReducer,
-});
+  info: infoReducer,
+})
 
-export default rootReducer;
+export default rootReducer
