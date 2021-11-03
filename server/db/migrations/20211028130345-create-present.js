@@ -21,6 +21,10 @@ module.exports = {
         defaultValue:false,
         type: Sequelize.BOOLEAN,
       },
+      isGiven: {
+        defaultValue:false,
+        type: Sequelize.BOOLEAN
+      },
       form_id: {
         allowNull:false,
         type: Sequelize.UUID,

@@ -19,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
     title: DataTypes.STRING,
     description: DataTypes.STRING,
     isBinded: DataTypes.BOOLEAN,
+    isGiven: DataTypes.BOOLEAN,
     form_id: DataTypes.UUID,
     pricerange_id: DataTypes.INTEGER,
     user_id: {
