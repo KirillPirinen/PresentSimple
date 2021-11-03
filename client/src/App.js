@@ -22,6 +22,7 @@ import { clearCheckForm } from "./redux/actions/checkFormToPerson";
 import { FormRoot } from "./components/FormRoot/FormRoot";
 import moment from 'moment';
 import 'moment/locale/ru'
+import ModalInfo from "./components/ModalInfo/ModalInfo";
 moment.locale('ru')
 
 function App() {

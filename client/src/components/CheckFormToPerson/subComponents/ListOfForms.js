@@ -11,13 +11,23 @@ export const ListOfForms = ({forms}) => {
     dispatch(setContacts(forms[0]))
     dispatch(infoModalDeactivate())
   }
+  console.log(forms)
   return (
     <div className="container-info">
     <h3>Хорошая новость! Пользователь уже заполнял анкет{forms.length === 1 ? 'у' : 'ы'}.</h3>
       <ol>
-        {forms.map(e=> <li><b>Имя:  </b>{e.name} <b>Фамилия:  </b>{e.lname} <b>Дата заполнения анкеты:  </b> {moment(e.createdAt).format('ll')} <Link to={`/formroot/${e.id}`}>перейти в анкету</Link></li>)}
+        {forms?.map(e => (
+          <li key={e.id}>&nbsp;
+            <b>Имя:  </b>{e.name} &nbsp;
+            <b>Фамилия:  </b>{e.lname} &nbsp;
+            <b>Дата заполнения анкеты:  
+            </b> {moment(e.createdAt).format('ll')} 
+            {e.isActive ? <Link to={`/presents/${e.id}`}>перейти в анкету</Link> : 
+            <p>Анкета отправлена, но не заполнена пользователем. Ссылка на неё будет доступна после заполнения</p>}
+          </li>))}
       </ol>
-      <Button onClick={clickHandler} type="success" outline>Данные устарели? Отправить новую</Button>
+      <hr/>
+      <Button onClick={clickHandler} color="success" outline>Данные устарели? Отправить новую</Button>
     </div>
   )
 }

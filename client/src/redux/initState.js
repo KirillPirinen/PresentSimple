@@ -5,7 +5,6 @@ const initState = {
   wishes: [],
   exampleForm: false,
   showAnswerFromBack: false,
-  presents:[]
 };
 
 //состояния не подписанные на LocalStorage
@@ -16,6 +15,7 @@ export const initStateWithoutLS = {
   modalInfo:false,
   error: false,
   info: false,
+  presents:[]
 };
 
 const getInitState = () => {
