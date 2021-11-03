@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useHistory, useLocation } from "react-router";
 import { infoModalActivate } from "../../../redux/actions/modalInfoAC";
 import { signIn } from "../../../redux/actions/user.ac";

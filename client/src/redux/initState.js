@@ -5,23 +5,29 @@ const initState = {
   wishes: [],
   exampleForm: false,
   showAnswerFromBack: false,
+  groups: [],
+  alone: {},
+  wishlist: [],
+  progressbar: [],
+  wishesGroupAlone: [],
 };
 
 //состояния не подписанные на LocalStorage
 
 export const initStateWithoutLS = {
-  sentForm:{},
+  sentForm: {},
   checkform: {},
-  modalInfo:false,
+  modalInfo: false,
   error: false,
   info: false,
   presents:[]
 };
 
 const getInitState = () => {
-  const stateFromLS = JSON.parse(window.localStorage.getItem('redux'))
-  return stateFromLS ? {...stateFromLS, ...initStateWithoutLS} : {...initState, ...initStateWithoutLS}
-}
+  const stateFromLS = JSON.parse(window.localStorage.getItem("redux"));
+  return stateFromLS
+    ? { ...stateFromLS, ...initStateWithoutLS }
+    : { ...initState, ...initStateWithoutLS };
+};
 
-
-export default getInitState
+export default getInitState;

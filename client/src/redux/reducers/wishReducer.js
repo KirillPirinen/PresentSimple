@@ -1,14 +1,13 @@
-import {ALL_WISHES, ADD_WISH, EDIT_WISH, DELETE_WISH} from '../types/types'
-
+import { WISH_BINDED } from "../types/groupModalTypes";
+import { ALL_WISHES, ADD_WISH, EDIT_WISH, DELETE_WISH } from "../types/types";
 
 function wishReducer(state = [], action) {
-  switch(action.type) {
-
+  switch (action.type) {
     case ALL_WISHES:
-      return action.payload
+      return action.payload;
 
     case ADD_WISH:
-      return [...state, action.payload]
+      return [...state, action.payload];
 
     case EDIT_WISH:
       return state.map((wish) => {
@@ -17,17 +16,17 @@ function wishReducer(state = [], action) {
             WishPhoto: action.payload.WishPhoto,
             title: action.payload.title,
             description: action.payload.description,
-          }
+          };
         }
-        return wish
-      })
+        return wish;
+      });
 
     case DELETE_WISH:
-      return state.filter((wish) => wish.id !== action.payload)
-      
+      return state.filter((wish) => wish.id !== action.payload);
+
     default:
-      return state
+      return state;
   }
 }
 
-export default wishReducer
+export default wishReducer;

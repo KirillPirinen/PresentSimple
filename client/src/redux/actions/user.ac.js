@@ -1,7 +1,8 @@
 import { DELETE_USER, SET_USER } from "../types/userTypes";
 import * as endPoints from "../../config/endPoints";
 import { disableLoader, enableLoader } from "./loader.ac";
-import { clearError, getError } from "../actions/error.ac";
+import { clearError, getError } from "./error.ac";
+import { setWishList } from "./wishlist.ac";
 
 export const setUser = (user) => ({
   type: SET_USER,
@@ -62,7 +63,7 @@ export const signOut = () => async (dispatch) => {
   const response = await fetch(endPoints.signOut(), {
     credentials: "include",
   });
-  console.log("response", response);
+
   if (response.status === 200) {
     dispatch(deleteUser());
   }
@@ -76,7 +77,7 @@ export const checkAuth = () => async (dispatch) => {
     const user = await response.json();
     dispatch(setUser(user));
   } else if (response.status === 401) {
-    console.log("lalala");
+
   }
 };
 

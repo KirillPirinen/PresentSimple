@@ -35,8 +35,7 @@ export const checkForm =
     const data = await response.json()
     if (response.status === 200) {
       dispatch(getCheckedUser(data));
-    } 
-    else if (response.status === 201) {
+    } else if (response.status === 201) {
       dispatch(getCheckedForm(data));
     }
       else if (response.status === 404) {
@@ -48,7 +47,7 @@ export const checkForm =
       dispatch(getError(data.message))
       }
     else {
-      dispatch(getError("Произошла ошибка"));
+      dispatch(userOrFormNotFound(data))
     }
   };
 

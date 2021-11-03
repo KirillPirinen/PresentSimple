@@ -37,94 +37,99 @@ const SignUp = () => {
       //  dispatch(getError("Пароль должен содержать не менее 8-ми символов, в том числе цифры, прописные и строчные буквы"))
     } else {
       //dispatch(clearError());
-        dispatch(signUp(userSignUp, history));
-      }
+      dispatch(signUp(userSignUp, history));
+    }
   };
 
   return (
     <div className="d-flex justify-content-center">
-        <form
-          onSubmit={submitHandler}
-          className="d-flex flex-column align-items-center bg-light text-dark p-3 border rounded-3"
+      <form
+        onSubmit={submitHandler}
+        className="d-flex flex-column align-items-center bg-light text-dark p-3 border rounded-3"
+      >
+        <legend className="text-center mb-4">Регистрация</legend>
+
+        <div className="mb-3">
+          <input
+            onChange={changeHandler}
+            className="form-control"
+            value={userSignUp.name}
+            type="text"
+            name="name"
+            placeholder="Имя"
+          />
+        </div>
+
+        <div className="mb-3">
+          <input
+            onChange={changeHandler}
+            className="form-control"
+            value={userSignUp.lname}
+            type="text"
+            name="lname"
+            placeholder="Фамилия"
+          />
+        </div>
+
+        <div className="mb-3">
+          <input
+            onChange={changeHandler}
+            className="form-control"
+            value={userSignUp.email}
+            type="email"
+            name="email"
+            placeholder="Email"
+          />
+        </div>
+
+        <div className="mb-3">
+          <input
+            onChange={changeHandler}
+            className="form-control"
+            value={userSignUp.phone}
+            type="phone"
+            name="phone"
+            placeholder="Телефон"
+          />
+        </div>
+
+        <div className="mb-3">
+          <input
+            onChange={changeHandler}
+            className="form-control"
+            value={userSignUp.password}
+            type="password"
+            name="password"
+            placeholder="Пароль"
+          />
+        </div>
+
+        <div className="mb-3">
+          <input
+            onChange={changeHandler}
+            className="form-control"
+            value={userSignUp.password2}
+            type="password"
+            name="password2"
+            placeholder="Повторите пароль"
+          />
+        </div>
+
+        <button type="submit" className="btn btn-primary">
+          Зарегистрироваться
+        </button>
+        <a
+          href="/auth/signin"
+          onClick={(e) => {
+            e.preventDefault();
+            history.push("/auth/signin");
+          }}
         >
-          <legend className="text-center mb-4">Регистрация</legend>
-
-          <div className="mb-3">
-            <input
-              onChange={changeHandler}
-              className="form-control"
-              value={userSignUp.name}
-              type="text"
-              name="name"
-              placeholder="Имя"
-            />
-          </div>
-
-          <div className="mb-3">
-            <input
-              onChange={changeHandler}
-              className="form-control"
-              value={userSignUp.lname}
-              type="text"
-              name="lname"
-              placeholder="Фамилия"
-            />
-          </div>
-
-          <div className="mb-3">
-            <input
-              onChange={changeHandler}
-              className="form-control"
-              value={userSignUp.email}
-              type="email"
-              name="email"
-              placeholder="Email"
-            />
-          </div>
-
-          <div className="mb-3">
-            <input
-              onChange={changeHandler}
-              className="form-control"
-              value={userSignUp.phone}
-              type="phone"
-              name="phone"
-              placeholder="Телефон"
-            />
-          </div>
-
-          <div className="mb-3">
-            <input
-              onChange={changeHandler}
-              className="form-control"
-              value={userSignUp.password}
-              type="password"
-              name="password"
-              placeholder="Пароль"
-            />
-          </div>
-
-          <div className="mb-3">
-            <input
-              onChange={changeHandler}
-              className="form-control"
-              value={userSignUp.password2}
-              type="password"
-              name="password2"
-              placeholder="Повторите пароль"
-            />
-          </div>
-
-          <button type="submit" className="btn btn-primary">
-            Зарегистрироваться
-          </button>
-          <a href="/auth/signin" onClick={(e)=> {
-            e.preventDefault()
-            history.push('/auth/signin')
-          }}>У меня уже есть аккаунт</a>
-        </form>
+          У меня уже есть аккаунт
+        </a>
+      </form>
       )
-      <ModalInfo/>
+      <ModalInfo />
     </div>
   );
 };

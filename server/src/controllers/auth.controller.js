@@ -43,7 +43,14 @@ const signUp = async (req, res, next) => {
         name: newUser.name,
       };
 
-      return res.json({ id: newUser.id, name: newUser.name });
+      const wishlist = await Wishlist.create({
+        user_id: req.session.user.id,
+      });
+
+      return res.json({
+        user: { id: newUser.id, name: newUser.name },
+        wishlist: wishlist,
+      });
     } catch (error) {
       return res.status(401).json(error)
     }

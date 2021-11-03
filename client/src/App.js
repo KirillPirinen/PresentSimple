@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, useLocation } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import NavBar from "./components/main/NavBar/NavBar";
 import Home from "./components/main/Home/Home";
 import { useEffect } from "react";
@@ -13,10 +13,12 @@ import { FormContextProvider } from "./components/context/SentFormContext";
 import SentList from "./components/presents/SentList/SentList";
 import WishList from "./components/WishList/WishList";
 import PersonalProfile from "./components/PersonalProfile/PersonalProfile";
-import { clearError } from "./redux/actions/error.ac";
 import { SentFormCheker } from "./components/SentForm/SentFormChecker";
 import "./index.css";
+import WishListPerson from "./components/WishList/WishListPerson/WishListPerson";
+import ModalGroup from "./components/WishList/ModalGroup/ModalGroup";
 import CheckFormToPerson from "./components/CheckFormToPerson/CheckFormToPerson";
+// import WishList from "./components/WishList/WishList";
 import { SuccessAdded } from "./components/SuccessAdded/SuccessAdded";
 import { clearCheckForm } from "./redux/actions/checkFormToPerson";
 import { FormRoot } from "./components/FormRoot/FormRoot";
@@ -32,10 +34,9 @@ function App() {
     // dispatch(deleteUser())
   }, []);
 
-  useEffect(() => {
-    dispatch(clearError());
-    //dispatch(clearCheckForm())
-  }, []);
+  // useEffect(() => {
+  //   dispatch(clearErrorAuth());
+  // }, []);
 
   return (
     <Router>
@@ -51,7 +52,7 @@ function App() {
         <FormRoot/>
       </PrivateRoute>
       <PrivateRoute exact path="/search">
-        <CheckFormToPerson/>
+        <CheckFormToPerson />
       </PrivateRoute>
       <FormContextProvider>
         {/* <Route exact path="/sentform">
@@ -62,6 +63,12 @@ function App() {
         </Route>
       </FormContextProvider>
       <Route exact path="/lk" component={PersonalProfile} />
+      <Route exact path="/wishListPerson/:user_id" component={WishListPerson} />
+      <Route
+        exact
+        path="/modalGroup/:wish_id/:user_id"
+        component={ModalGroup}
+      />
       <Route exact path="/mywishlist" component={WishList} />
       <Route exact path="/success" component={SuccessAdded} />
     </Router>
