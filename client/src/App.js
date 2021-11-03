@@ -39,6 +39,7 @@ function App() {
   // }, []);
 
   return (
+    <>
     <Router>
       <NavBar />
       <Route exact path="/" component={Home} />
@@ -69,6 +70,8 @@ function App() {
       <Route exact path="/mywishlist" component={WishList} />
       <Route exact path="/success" component={SuccessAdded} />
     </Router>
+    {/*<ModalInfo/>*/}
+    </>
   );
 }
 

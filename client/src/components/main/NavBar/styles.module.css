@@ -19,9 +19,9 @@ nav ul li {
 nav ul li a {
   padding: 10px 30px;
   font-family: "Comic Sans MS", arial, serif;
-  text-transform:uppercase;
+  /* text-transform:uppercase; */
   color: rgba(0, 0, 0, 0.8);
-  font-size: 14px;
+  font-size: 15px;
   text-decoration: none;
   display: block;
 }
@@ -40,7 +40,6 @@ nav ul li a:hover {
 
 body {
 	height: 100vh;
-	overflow: hidden;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -71,10 +70,10 @@ button {
   border-radius: 10px;
 	box-shadow: inset 0px 3px 5px rgba(255,255,255,0.5), 0px 0px 10px rgba(0,0,0,0.15);
 	background: rgb(2,0,36);
-  background: linear-gradient(45deg, rgba(2,0,36,0) 5%, rgba(255,255,255,.5) 6%, rgba(255,255,255,0) 9%, rgba(255,255,255,.5) 10%, rgba(255,255,255,0) 17%, rgba(255,255,255,.5) 19%, rgba(255,255,255,0) 21%);
+  background: linear-gradient(45deg, rgba(2,0,36,0.3) 5%, rgba(255,255,255,.5) 6%, rgba(255,255,255,0) 9%, rgba(255,255,255,.5) 20%, rgba(255,255,255,0) 17%, rgba(255,255,255,.5) 19%, rgba(255,255,255,0) 21%);
 	background-size: 150%;
 	background-position: right;
-	transition: 1s;
+	transition: 0.5s;
 }
 button:hover {
 	background-position: left;

@@ -19,7 +19,7 @@ export const CheckUUID = (uuid) => async (dispatch) => {
   }
 }
 
-export const SendForm = (uuid, data) => async (dispatch) => {
+export const SendForm = (uuid, data, history) => async (dispatch) => {
   dispatch(enableLoader())
   try {
     const response = await fetch(`http://localhost:3001/sentform/${uuid}`, {
@@ -32,6 +32,10 @@ export const SendForm = (uuid, data) => async (dispatch) => {
     switch (status) {
       case "success":
         dispatch({type:SEND_FILLING_FORM, payload:{status, message, count}})
+        setTimeout(() => {
+          history.push('/')
+          dispatch({type:CLEAR_SENTFORM})
+        }, 2000);
         break;
       case "empty":
         dispatch({type:SEND_FILLING_FORM_ERROR, payload:{status, message}})

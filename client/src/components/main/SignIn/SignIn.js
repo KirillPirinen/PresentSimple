@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory, useLocation } from "react-router";
-import { infoModalActivate } from "../../../redux/actions/modalInfoAC";
+import {Link} from "react-router-dom";
 import { signIn } from "../../../redux/actions/user.ac";
 import ModalInfo from "../../ModalInfo/ModalInfo";
-import { ErrorMessage } from "../../ModalInfo/subComponents/ErrorMessage";
 
 const SignIn = () => {
   const dispatch = useDispatch();
@@ -66,6 +65,8 @@ const SignIn = () => {
       <button type="submit" className="btn">
         Войти
       </button>
+      <br/>
+      <Link to="/auth/signup">Зарегистрироваться</Link>
     </form>
     </div>
     <ModalInfo/>
@@ -74,3 +75,4 @@ const SignIn = () => {
 };
 
 export default SignIn;
+

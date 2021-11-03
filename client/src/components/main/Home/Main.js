@@ -50,8 +50,24 @@ export const Main = ({ setShowForm, user }) => {
           Да
         </button>
       </div>
+      <div className="m-3 d-flex flex-column container-glass-light">
+        <h6>Cвязаться с нами</h6>
+        <br/>
+        <button>
+          К контактам
+        </button>
+      </div>
       <div className="m-3 d-flex flex-column container-glass-light container-in-progress">
-        <h6>Предсказать подарок, по предпочтениям</h6>
+        <h6>Предсказать подарок по интересам</h6>
+        <br/>
+        <button disabled="disabled"
+        >
+          
+        </button>
+        <img src={image}/>
+      </div>
+      <div className="m-3 d-flex flex-column container-glass-light container-in-progress">
+        <h6>Статистика самых востребованых подарков</h6>
         <br/>
         <button disabled="disabled"
         >
