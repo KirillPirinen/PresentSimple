@@ -13,6 +13,7 @@ import { modalInfoReducer } from "./modalInfoReducer";
 import progressbarReducer from "./progressbarReducer";
 import infoReducer from "./infoReducer";
 import errorReducer from "./errorReducer";
+import { presentReducer } from './presentsReducer';
 
 const rootReducer = combineReducers({
   wishes: wishReducer,
@@ -28,6 +29,7 @@ const rootReducer = combineReducers({
   wishesGroupAlone: wishesGroupAloneReducer,
   info: infoReducer,
   progressbar: progressbarReducer,
-});
+  presents:presentReducer,
+})
 
-export default rootReducer;
+export default rootReducer

@@ -25,6 +25,7 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue:null,
       type: DataTypes.INTEGER
     },
+    isGiven: DataTypes.BOOLEAN,
     pricerange_id: DataTypes.INTEGER,
     wishlist_id: DataTypes.INTEGER
   }, {

@@ -10,6 +10,7 @@ const errorHandler = require("./src/controllers/error.controller");
 const checkFormToPersonRouter = require("./src/routes/checkFormToPerson.router");
 const path = require("path");
 const wishRouter = require("./src/routes/wishRouter");
+const presentsRouter = require('./src/routes/presentsRouter')
 
 const redis = require("redis");
 const session = require("express-session");
@@ -51,6 +52,7 @@ app.use("/sentform", sentFormRouter);
 app.use("/api/v1/form", checkFormToPersonRouter);
 app.use("/api/v1/group", groupRouter);
 app.use("/wish", wishRouter);
+app.use('/presents', presentsRouter)
 
 //обработчик ошибок
 app.use(errorHandler);
