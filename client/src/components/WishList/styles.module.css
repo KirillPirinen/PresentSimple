@@ -1,0 +1,17 @@
+.wish_wrapper {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn_cud {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.add_wish_btn {
+  display: flex;
+  justify-content: center;
+  padding: 30px;
+}
