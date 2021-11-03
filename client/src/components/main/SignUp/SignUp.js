@@ -4,10 +4,9 @@ import { useHistory } from "react-router";
 import { signUp } from "../../../redux/actions/user.ac";
 import validator from "validator";
 import { getError, clearError } from "../../../redux/actions/error.ac";
-
+import ModalInfo from "../../ModalInfo/ModalInfo";
 const SignUp = () => {
   const error = useSelector((state) => state.error);
-
   const [userSignUp, setUserSignUp] = useState({
     name: "",
     lname: "",
@@ -22,9 +21,7 @@ const SignUp = () => {
   const changeHandler = (e) => {
     setUserSignUp((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
-
   const dispatch = useDispatch();
-
   const submitHandler = (e) => {
     e.preventDefault();
     if (!validator.isEmail(userSignUp.email)) {
@@ -38,16 +35,9 @@ const SignUp = () => {
       // } else if(!validator.isStrongPassword(userSignUp.password, {minSymbols: 0})) {
       //  dispatch(getError("Пароль должен содержать не менее 8-ми символов, в том числе цифры, прописные и строчные буквы"))
     } else {
-      dispatch(clearError());
-      let payload = Object.entries(userSignUp).filter((el) =>
-        el[1] ? el[1].trim() : el[1]
-      );
-      if (payload.length) {
-        payload = Object.fromEntries(payload);
-        dispatch(signUp(payload, history));
-        setUserSignUp("")
+      //dispatch(clearError());
+        dispatch(signUp(userSignUp, history));
       }
-    }
   };
 
   return (
@@ -214,6 +204,7 @@ const SignUp = () => {
           }}>У меня уже есть аккаунт</a>
         </form>
       )}
+      <ModalInfo/>
     </div>
   );
 };
