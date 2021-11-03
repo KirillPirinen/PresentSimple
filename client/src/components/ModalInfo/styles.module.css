@@ -1,4 +1,4 @@
-.info-modal {
+ .info-modal {
   /* height: 100vh;
   width: 100vw;  */
   min-height: 100%;
@@ -35,4 +35,4 @@
   100% {
     top:20%;
   }
-} 
+}  

@@ -5,13 +5,13 @@ export const checkFormToPersonReducer = (state = {}, action) => {
 
   switch (type) {
     case CHECK_FORM:
-      return {status:true, forms:payload};
+      return { status: true, forms: payload };
 
     case USER_OR_FORM_NOTFOUND:
       return {status:false, ...payload}
 
     case ADD_USER:
-      return {status:true, recipient:payload};
+      return { status: true, recipient: payload };
 
     case CREATE_URL_FORM:
       return {status:true, form:payload}

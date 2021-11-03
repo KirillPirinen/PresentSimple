@@ -8,7 +8,7 @@ function Wish({children, wishPhoto, title, description, isBinded}) {
         <img src={wishPhoto ? `http://localhost:3001/${wishPhoto.replace('public/', '')}` : '#'} alt='#'></img>
         <div className='wish_title'><p>{title}</p></div>
         <div className='wish_description'><p>{description}</p></div>
-        <div className='wish_bind'><p>{isBinded ? 'Уже подарили' : 'Не дарили'}</p></div>
+        {/* <div className='wish_bind'><p>{isBinded ? 'Уже подарили' : 'Не дарили'}</p></div> */}
      </div>
      {children}
    </div>
