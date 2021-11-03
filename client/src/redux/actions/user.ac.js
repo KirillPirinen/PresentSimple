@@ -1,7 +1,6 @@
 import { DELETE_USER, SET_USER } from "../types/userTypes";
 import * as endPoints from "../../config/endPoints";
 import { disableLoader, enableLoader } from "./loader.ac";
-import { clearErrorAuth, getErrorAuth } from "./errorAuth.ac";
 import { clearError, getError } from "./error.ac";
 import { setWishList } from "./wishlist.ac";
 
@@ -20,22 +19,15 @@ export const signUp = (payload, history) => async (dispatch) => {
     credentials: "include",
     body: JSON.stringify(payload),
   });
+  const data = await response.json();
   if (response.status === 200) {
-    const data = await response.json();
-    dispatch(setUser(data.user));
-    dispatch(setWishList(data.wishlist));
-    history.replace("/");
+    dispatch(setUser(data));
+    history.replace('/');
   } else if (response.status === 403) {
-    dispatch(
-      getErrorAuth(
-        "Такой пользователь уже существует, попробуйте авторизоваться"
-      )
-    );
+    dispatch(getError(data));
     history.replace("/auth/signin");
-  } else if (response.status === 411) {
-    dispatch(getErrorAuth("Номер телефона должен содержать 11 символов"));
   } else {
-    dispatch(getErrorAuth("Зарегистрируйтесь"));
+    dispatch(getError(data));
     history.replace("/auth/signup");
   }
   dispatch(disableLoader());

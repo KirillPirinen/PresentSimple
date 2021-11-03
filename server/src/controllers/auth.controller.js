@@ -1,30 +1,42 @@
 const bcrypt = require("bcrypt");
 // const { noExtendLeft } = require("sequelize/types/lib/operators");
-const { User } = require("../../db/models");
+const { User, Sequelize, Wishlist } = require("../../db/models");
+const {Op} = Sequelize;
 const {checkInput} = require('../functions/validateBeforeInsert');
 const appError = require('../Errors/errors');
 
-const signUp = async (req, res) => {
-  const { name, lname, email, phone, password } = req.body;
-
-  const personInDataBasePhone = await User.findOne({ where: { phone: phone } });
-  const personInDataBaseEmail = await User.findOne({ where: { email: email } });
-
-  if (personInDataBasePhone || personInDataBaseEmail) {
-    return res.sendStatus(403);
-  }
-
-  if (name && password && email && phone) {
+const signUp = async (req, res, next) => {
+  const input = checkInput(req.body, ['password', 'email', 'name', 'lname', 'phone'], true);
+  if(input) {
+    //если инпут валиден
+    phone = input.phone.slice(1)
     try {
-      const hashPassword = await bcrypt.hash(password, 10);
-
+      const personInDataBase = await User.findOne({ 
+        where: {[Op.or]: [
+          {email:{[Op.like]:input.email}},
+          {phone:{[Op.like]:`%${input.phone}`}} 
+          ]}
+      });
+      //проверка на наличие такого в базе
+    if(personInDataBase){
+      const reg = new RegExp(input.phone);
+      const coincidence = personInDataBase.email === input.email ? 'c такой почтой' : reg.test(personInDataBase.phone) ? `с таким телефоном (ваша почта: ${personInDataBase.email})` : 'с такими данными';
+      return next(new appError(403, `Пользователь ${coincidence} уже существует авторизируйтесь`))
+      }
+    } catch (err) {
+      return next(new Error(err))
+    }
+    //создаём пользователя
+    if(input.phone.length !== 11) return next(new appError(411, 'Телефон должен быть длиной 11 символов'))
+    try {
+      let {email, phone, password, lname, name} = input
+      const hashPassword = await bcrypt.hash(password, 4);
       const newUser = await User.create({
-        name,
-        lname,
-        phone: phone,
-        email,
+        name,lname,phone,email,
         password: hashPassword,
       });
+
+      await Wishlist.create({user_id:newUser.id})
 
       req.session.user = {
         id: newUser.id,
@@ -40,21 +52,15 @@ const signUp = async (req, res) => {
         wishlist: wishlist,
       });
     } catch (error) {
-      if (
-        error.message == "Validation error: Phone number should be 11 symbols"
-      ) {
-        return res.sendStatus(411);
-      } else {
-        return res.sendStatus(401);
-      }
+      return res.status(401).json(error)
     }
+  } else {
+    return next(new appError(500, 'Вы не ввели всех необходимых данных для регистрации'))
   }
-  return res.sendStatus(400);
 };
 
 const signIn = async (req, res, next) => {
   const input = checkInput(req.body, ['password', 'email'], true);
-
   if (input) {
     const {email, password} = input;
     try {
@@ -90,7 +96,8 @@ const signOut = async (req, res) => {
 
 const checkAuth = async (req, res) => {
   try {
-    const user = await User.findOne({ where: { id: req.session?.user?.id } });
+    const user = await User.findOne({ where: { id: req.session?.user?.id }, 
+    attributes:['name', 'lname', 'id', 'email', 'phone'] });
     return res.json(user);
   } catch (error) {
     return res.sendStatus(500);
@@ -103,22 +110,3 @@ module.exports = {
   signUp,
   checkAuth,
 };
-
-// } else if (password && phone) {
-  //   try {
-  //     const currentUser = await User.findOne({ where: { phone: phone } });
-  //     if (
-  //       currentUser &&
-  //       (await bcrypt.compare(password, currentUser.password))
-  //     ) {
-  //       req.session.user = {
-  //         id: currentUser.id,
-  //         name: currentUser.name,
-  //       };
-
-  //       return res.json({ id: currentUser.id, name: currentUser.name });
-  //     }
-  //     return res.sendStatus(401);
-  //   } catch (error) {
-  //     return res.sendStatus(500);
-  //   }

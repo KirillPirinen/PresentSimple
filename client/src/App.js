@@ -13,7 +13,6 @@ import { FormContextProvider } from "./components/context/SentFormContext";
 import SentList from "./components/presents/SentList/SentList";
 import WishList from "./components/WishList/WishList";
 import PersonalProfile from "./components/PersonalProfile/PersonalProfile";
-import { clearErrorAuth } from "./redux/actions/errorAuth.ac";
 import { SentFormCheker } from "./components/SentForm/SentFormChecker";
 import "./index.css";
 import WishListPerson from "./components/WishList/WishListPerson/WishListPerson";
@@ -35,9 +34,9 @@ function App() {
     // dispatch(deleteUser())
   }, []);
 
-  useEffect(() => {
-    dispatch(clearErrorAuth());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(clearErrorAuth());
+  // }, []);
 
   return (
     <Router>

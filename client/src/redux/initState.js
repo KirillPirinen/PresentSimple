@@ -2,7 +2,6 @@
 const initState = {
   user: null,
   loader: false,
-  errorAuth: "",
   wishes: [],
   exampleForm: false,
   showAnswerFromBack: false,

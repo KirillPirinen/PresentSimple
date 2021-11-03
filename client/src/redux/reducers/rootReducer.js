@@ -1,5 +1,4 @@
 import { combineReducers } from "redux";
-import errorAuthReducer from "./errorAuthReducer";
 import wishReducer from "./wishReducer";
 import loaderReducer from "./loaderReducer";
 import userReducer from "./userReducer";
@@ -17,7 +16,6 @@ const rootReducer = combineReducers({
   wishes: wishReducer,
   user: userReducer,
   loader: loaderReducer,
-  errorAuth: errorAuthReducer,
   error: errorReducer,
   sentForm: SentFormReducer,
   checkform: checkFormToPersonReducer,
