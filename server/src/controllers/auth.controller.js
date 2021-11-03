@@ -75,7 +75,9 @@ const signIn = async (req, res, next) => {
         } else {
           next(new appError(401, "Неверный пароль"));
         }
-      } 
+      } else {
+        next(new appError(401, "Пользователь не найден"));
+      }
     } catch (error) {
       next(new Error(error));
     }

@@ -98,9 +98,9 @@ export default function CheckFormToPerson() {
       />
       </div>
 
-      <Button type="submit" className="btn btn-primary">
+      <button type="submit">
         {contacts ? "Сгенерировать ссылку" : "Искать"}
-      </Button>
+      </button>
     </form>
     </div>
       <ModalInfo>

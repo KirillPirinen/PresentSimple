@@ -36,10 +36,10 @@ const SignIn = () => {
 
   return (
     <>
-    <div className="d-flex justify-content-center">
+    <div className="d-flex justify-content-center py-5">
       <form
       onSubmit={submitHandler}
-      className="d-flex flex-column align-items-center bg-light text-dark p-3 border rounded-3"
+      className="d-flex flex-column align-items-center bg-light text-dark p-3 border rounded-3 container-glass"
     >
       <legend className="text-center mb-4">Вход</legend>
       <div className="mb-3">
@@ -63,8 +63,7 @@ const SignIn = () => {
           placeholder="Пароль"
         />
       </div>
-
-      <button type="submit" className="btn btn-primary">
+      <button type="submit" className="btn">
         Войти
       </button>
     </form>
@@ -75,78 +74,3 @@ const SignIn = () => {
 };
 
 export default SignIn;
-
-{/* <ModalInfo>
-    {error && 
-      <ErrorMessage message={error}/>
-    }
-    </ModalInfo> */}
-
-// {error ? (
-//   <>
-//     <div className="container-glass">{error}</div>
-//     <form
-//       onSubmit={submitHandler}
-//       className="d-flex flex-column align-items-center bg-light text-dark p-3 border rounded-3"
-//     >
-//       <legend className="text-center mb-4">Вход</legend>
-//       <div className="mb-3">
-//         <input
-//           onChange={changeHandler}
-//           value={userSignIn.email}
-//           className="form-control"
-//           type="email"
-//           name="email"
-//           placeholder="Email"
-//         />
-//       </div>
-
-//       <div className="mb-3">
-//         <input
-//           onChange={changeHandler}
-//           value={userSignIn.password}
-//           className="form-control"
-//           type="password"
-//           name="password"
-//           placeholder="Пароль"
-//         />
-//       </div>
-
-//       <button type="submit" className="btn btn-primary">
-//         Войти
-//       </button>
-//     </form>
-//   </>
-// ) : (
-//   <form
-//     onSubmit={submitHandler}
-//     className="d-flex flex-column align-items-center bg-light text-dark p-3 border rounded-3"
-//   >
-//     <legend className="text-center mb-4">Вход</legend>
-//     <div className="mb-3">
-//       <input
-//         onChange={changeHandler}
-//         value={userSignIn.email}
-//         className="form-control"
-//         type="email"
-//         name="email"
-//         placeholder="Email"
-//       />
-//     </div>
-
-//     <div className="mb-3">
-//       <input
-//         onChange={changeHandler}
-//         value={userSignIn.password}
-//         className="form-control"
-//         type="password"
-//         name="password"
-//         placeholder="Пароль"
-//       />
-//     </div>
-
-//     <button type="submit" className="btn btn-primary">
-//       Войти
-//     </button>
-//   </form>
-// )}

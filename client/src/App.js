@@ -55,9 +55,6 @@ function App() {
         <CheckFormToPerson />
       </PrivateRoute>
       <FormContextProvider>
-        {/* <Route exact path="/sentform">
-          <SentForm />
-        </Route> */}
         <Route exact path="/sentform/:uuid">
           <SentFormCheker />
         </Route>

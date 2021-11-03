@@ -26,7 +26,8 @@ function ModalInfo({children}) {
   }
 
   return (
-    <div onClick={clickBodyHandler} className={modal ? `${styles['info-modal']} ${styles.active}` : styles['info-modal']}> 
+    <div onClick={clickBodyHandler} className={modal ? `${styles['info-modal']} ${styles.active}` : styles['info-modal']}>
+      <h2 className={styles.clickhere}>Кликни чтобы выйти</h2> 
       <div onClick={(e) => e.stopPropagation()} className={styles['info-modal_content']}>
           {error ? 
           <ErrorMessage message={error}/> :
