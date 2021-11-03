@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate({Form, PriceRange, User}) {
       this.belongsTo(Form, {foreignKey:"form_id"})
       this.belongsTo(PriceRange,{foreignKey:"pricerange_id"})
-      this.belongsTo(User, {foreignKey:"present_id"})
+      this.belongsTo(User, {foreignKey:"user_id"})
     }
   };
   Present.init({

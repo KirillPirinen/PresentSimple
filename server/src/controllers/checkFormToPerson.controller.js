@@ -6,18 +6,27 @@ const { uuid } = require('uuidv4');
 const check = async (req, res, next) => {
   const input = checkInput(req.body, ['email', 'phone'], true)
   if(input) {
-    const {email, phone} = input;
+    phone = input.phone.trim().slice(1)
+    email = input.email.trim()
     try {
       const personInDataBase = await User.findOne({ 
-        where: {[Op.or]: [{email}, {phone}]}
+        where: {[Op.or]: [
+          {email:{[Op.like]:email}},
+          {phone:{[Op.like]:`%${phone}`}} 
+          ]}
       });
   
       if(personInDataBase) {
         return res.status(200).json(personInDataBase);
       } else {
           const formInDataBase = await Form.findAll({ 
-            where: {[Op.or]: [{email}, {phone}], status:true}
-          }); 
+            where: {
+              [Op.or]: [
+                  {email:{[Op.like]:email}},
+                  {phone:{[Op.like]:`%${phone}`}} 
+                  ]} 
+            }); 
+          console.log(formInDataBase)
           if(formInDataBase.length) {
             return res.status(201).json(formInDataBase);
           }

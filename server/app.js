@@ -8,6 +8,7 @@ const authRouter = require('./src/routes/auth.router')
 const path = require('path')
 const checkFormToPersonRouter = require('./src/routes/checkFormToPerson.router')
 const errorHanlder = require('./src/controllers/error.controller'); 
+const presentsRouter = require('./src/routes/presentsRouter')
 
 const redis = require('redis')
 const session = require('express-session')
@@ -46,6 +47,7 @@ app.use('/api/v1/auth', authRouter)
 app.use('/sentform', sentFormRouter)
 app.use('/wish', wishRouter)
 app.use("/api/v1/form", checkFormToPersonRouter);
+app.use('/presents', presentsRouter)
 
 //обработчик ошибок
 app.use(errorHanlder)

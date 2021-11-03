@@ -67,7 +67,7 @@ export const createForm = values => async dispatch => {
       dispatch(userOrFormNotFound(data, values))
     }
   } catch(err) {
-    console.log(err)
+    dispatch(getError(err))
   }
 }
 
