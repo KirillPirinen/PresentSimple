@@ -18,19 +18,15 @@ export const signUp = (payload, history) => async (dispatch) => {
     credentials: "include",
     body: JSON.stringify(payload),
   });
+  const data = await response.json();
   if (response.status === 200) {
-    const user = await response.json();
-    dispatch(setUser(user));
+    dispatch(setUser(data));
     history.replace('/');
   } else if (response.status === 403) {
-    dispatch(
-      getError("Такой пользователь уже существует, попробуйте авторизоваться")
-    );
+    dispatch(getError(data));
     history.replace("/auth/signin");
-  } else if (response.status === 411) {
-    dispatch(getError("Номер телефона должен содержать 11 символов"));
   } else {
-    dispatch(getError("Зарегистрируйтесь"));
+    dispatch(getError(data));
     history.replace("/auth/signup");
   }
   dispatch(disableLoader());

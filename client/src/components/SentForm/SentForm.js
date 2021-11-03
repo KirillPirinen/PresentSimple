@@ -13,7 +13,7 @@ export const SentForm = ({guest}) => {
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(SendForm(guest.id, data))
-    setInterval(() => {
+    setTimeout(() => {
       history.push('/')
     }, 2000);
   }
