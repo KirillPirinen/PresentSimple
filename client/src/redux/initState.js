@@ -15,6 +15,7 @@ export const initStateWithoutLS = {
   modalInfo:false,
   error: false,
   info: false,
+  presents:[]
 };
 
 const getInitState = () => {

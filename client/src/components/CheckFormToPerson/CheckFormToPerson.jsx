@@ -4,9 +4,8 @@ import { checkForm, clearCheckForm, createForm } from "../../redux/actions/check
 import { RecipientInfoBlock } from "./subComponents/recipientInfoBlock";
 import { ListOfForms } from "./subComponents/ListOfForms";
 import ModalInfo from "../ModalInfo/ModalInfo";
-import { infoModalActivate, infoModalDeactivate } from "../../redux/actions/modalInfoAC";
-import { useHistory, useLocation } from "react-router";
-//import { ErrorMessage } from "../ModalInfo/subComponents/ErrorMessage";
+import { infoModalActivate} from "../../redux/actions/modalInfoAC";
+import { useHistory } from "react-router";
 
 export default function CheckFormToPerson() {
   const {recipient, forms, contacts, form} = useSelector(state=>state.checkform)
