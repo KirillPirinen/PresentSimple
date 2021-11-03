@@ -2,7 +2,6 @@
 const initState = {
   user: null,
   loader: false,
-  wishes: [],
   exampleForm: false,
   showAnswerFromBack: false,
 };
@@ -15,7 +14,8 @@ export const initStateWithoutLS = {
   modalInfo:false,
   error: false,
   info: false,
-  presents:[]
+  presents:[],
+  wishes: {},
 };
 
 const getInitState = () => {

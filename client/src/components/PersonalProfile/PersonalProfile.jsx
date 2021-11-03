@@ -6,6 +6,7 @@ import { getAllWishes } from '../../redux/actions/wishAC';
 
 function PersonalProfile() {
   
+
   const dispatch = useDispatch()
 
   useEffect(() => dispatch(getAllWishes()), [dispatch])

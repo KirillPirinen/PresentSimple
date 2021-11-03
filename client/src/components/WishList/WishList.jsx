@@ -5,11 +5,11 @@ import { useEffect, useState } from "react";
 import { getAllWishes, delWish, isGiven } from "../../redux/actions/wishAC";
 import Modal from "../Modal/Modal";
 
-function WishList() {
+function WishList({wishlist}) {
 
   const dispatch = useDispatch()
 
-  const wishes = useSelector((state) => state.wishes);
+  const wishes = useSelector((state) => state.wishes?.Wishlist?.Wishes);
 
   const [modalActive, setActive] = useState(false)
   const [modalValue, setModalValue] = useState({})

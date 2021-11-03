@@ -11,14 +11,11 @@ const allUserWishes = async (req, res) => {
       {model: Form},
       {model: Present}]
     });
-  
-    console.log(allWishes, 'ALLDATAAAA');
-    
+    res.json(allWishes);
   } catch (error) {
     console.log(error);
+    res.sendStatus(500)
   }
-
-  res.json(allWishes);
 };
 
 const addNewWish = async (req, res) => {
@@ -48,11 +45,16 @@ const addNewWish = async (req, res) => {
 
     const user_id = req.session.user.id;
 
+    const wishlist = await Wishlist.findOne({where: {user_id}})
+
+    wishlist_id = wishlist.id
+
     const newWish = await Wish.create({
       title,
       description,
       pricerange_id,
       user_id,
+      wishlist_id,
     });
 
     if(req.file) {

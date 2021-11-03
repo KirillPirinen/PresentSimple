@@ -4,6 +4,7 @@ export function getAllWishes() {
   return async (dispatch) => {
     let response = await fetch('http://localhost:3001/wish', {credentials: 'include'});
     let result = await response.json();
+    console.log(result, 'result')
     return dispatch({
       type: ALL_WISHES,
       payload: result,
@@ -19,10 +20,12 @@ export function addNewWish(wish) {
       body: wish,
     });
     const newWish = await response.json();
+    console.log(newWish);
     return dispatch({
       type: ADD_WISH,
       payload: newWish,
     });
+    // dispatch(getAllWishes())
   };
 }
 

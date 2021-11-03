@@ -1,12 +1,16 @@
 import { ALL_WISHES, ADD_WISH, EDIT_WISH, DELETE_WISH, WISH_IS_GIVEN } from '../types/types';
 
-function wishReducer(state = [], action) {
+function wishReducer(state = {}, action) {
   switch (action.type) {
     case ALL_WISHES:
       return action.payload;
 
     case ADD_WISH:
-      return [...state, action.payload];
+      {
+      const newState = {...state} 
+      newState.Wishlist = {...newState.Wishlist} 
+      newState.Wishlist.Wishes = [...newState.Wishlist.Wishes, action.payload]
+      return newState }
 
     case EDIT_WISH:
       return state.map((wish) => {
@@ -22,7 +26,11 @@ function wishReducer(state = [], action) {
       });
 
     case DELETE_WISH:
-      return state.filter((wish) => wish.id !== action.payload);
+      const newState = {...state}
+      newState.Wishlist = {...newState.Wishlist}
+      newState.Wishlist.Wishes = newState.Wishlist.Wishes.filter((wish) => wish.id !== action.payload);
+
+      return newState
 
     case WISH_IS_GIVEN:
       return state.map((wish) => {
