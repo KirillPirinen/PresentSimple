@@ -10,9 +10,7 @@ const initState = {
   alone: {},
   wishlist: [],
   progressbar: [],
-  buttonsAlone: true,
-  buttonsAddGroup: true,
-  buttonsJoinGroup: false,
+  wishesGroupAlone: [],
 };
 
 //состояния не подписанные на LocalStorage

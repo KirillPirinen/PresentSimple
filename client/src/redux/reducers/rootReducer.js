@@ -6,9 +6,6 @@ import userReducer from "./userReducer";
 import { SentFormReducer } from "./SentFormReducer";
 import { checkFormToPersonReducer } from "./checkFormToPersonReducer";
 import {
-  buttonsAddGroupReducer,
-  buttonsAloneReducer,
-  buttonsJoinGroupReducer,
   wishesGroupAloneReducer,
 } from "./groupModalReducer";
 import wishlistReducer from "./wishlistReducer";
@@ -31,9 +28,6 @@ const rootReducer = combineReducers({
   wishesGroupAlone: wishesGroupAloneReducer,
   info: infoReducer,
   progressbar: progressbarReducer,
-  buttonsAlone: buttonsAloneReducer,
-  buttonsAddGroup: buttonsAddGroupReducer,
-  buttonsJoinGroup: buttonsJoinGroupReducer,
 });
 
 export default rootReducer;
