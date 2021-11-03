@@ -1,9 +1,15 @@
-import { Link } from 'react-router-dom';
-import WishList from '../WishList/WishList';
 import './PersonalProfile.css';
 import Tabs from './Tabs/Tabs';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import { getAllWishes } from '../../redux/actions/wishAC';
 
 function PersonalProfile() {
+  
+  const dispatch = useDispatch()
+
+  useEffect(() => dispatch(getAllWishes()), [dispatch])
+
   return (
     <div className="lkdiv container-glass">
       <div className="user_info">
@@ -34,20 +40,4 @@ function PersonalProfile() {
 
 export default PersonalProfile;
 
-// <div className="wish_buttons">
-//   <div>
-//     <Link to="/mywishlist">
-//       <button className="persbtn" color="primary">Мои хотелки</button>
-//     </Link>
-//   </div>
-//   <div>
-//     <Link to="/mypresents">
-//       <button className="persbtn" color="primary">Мне подарили</button>
-//     </Link>
-//   </div>
-//   <div>
-//     <Link to="/forms">
-//       <button className="persbtn" color="primary">Анкеты</button>
-//     </Link>
-//   </div>
-// </div>
+

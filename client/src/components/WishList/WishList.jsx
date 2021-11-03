@@ -2,7 +2,7 @@ import Wish from "./Wish/Wish";
 import style from './styles.module.css'
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { getAllWishes, delWish } from "../../redux/actions/wishAC";
+import { getAllWishes, delWish, isGiven } from "../../redux/actions/wishAC";
 import Modal from "../Modal/Modal";
 
 function WishList() {
@@ -13,8 +13,6 @@ function WishList() {
 
   const [modalActive, setActive] = useState(false)
   const [modalValue, setModalValue] = useState({})
-
-  useEffect(() => dispatch(getAllWishes()), [dispatch])
 
   function deleteAction(id) {
     dispatch(delWish(id))
@@ -44,7 +42,7 @@ function WishList() {
              setModalValue(wish)
            )}>Изменить</button>
            <button onClick={() => deleteAction(wish.id)} >Удалить</button>
-           <button>Подарили!</button>
+           <button onClick={() => dispatch(isGiven(wish.id))}>Подарили!</button>
            </div>
            </Wish>
        

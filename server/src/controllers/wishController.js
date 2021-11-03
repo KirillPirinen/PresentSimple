@@ -1,13 +1,23 @@
-const { Wish } = require('../../db/models');
-const { Wishlist } = require('../../db/models');
-const { WishPhoto } = require('../../db/models');
+const { User, Form, Present, WishPhoto, Wish, Wishlist, Group } = require('../../db/models');
+
 
 const allUserWishes = async (req, res) => {
   const user_id = req.session.user.id;
-  const allWishes = await Wish.findAll({
-    where: { user_id },
-    include: { model: WishPhoto },
-  });
+  try {
+    const allWishes = await User.findOne({
+      where: { id: user_id },
+      include: [{ model: Wishlist, include: {model: Wish, required: false, include: {model: WishPhoto, required: false}}},
+      { model: Group},
+      {model: Form},
+      {model: Present}]
+    });
+  
+    console.log(allWishes, 'ALLDATAAAA');
+    
+  } catch (error) {
+    console.log(error);
+  }
+
   res.json(allWishes);
 };
 
@@ -112,9 +122,21 @@ const deleteWish = async (req, res) => {
   }
 };
 
+const wishIsGiven = async (req, res) => {
+  try {
+    const isGiven = true;
+    const id = req.params.id;
+    await Wish.update({ isGiven }, { where: { id }})
+    res.sendStatus(200)
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 module.exports = {
   allUserWishes,
   addNewWish,
   editWish,
   deleteWish,
+  wishIsGiven,
 };
