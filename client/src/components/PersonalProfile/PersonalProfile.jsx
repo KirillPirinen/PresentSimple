@@ -11,25 +11,24 @@ function PersonalProfile() {
 
   useEffect(() => dispatch(getAllWishes()), [dispatch])
 
+  const userData = useSelector(state => state.user)
+
+
   return (
     <div className="lkdiv container-glass">
       <div className="user_info">
       <div>
         <img
           className="user_pic"
-          src="https://s6.vcdn.biz/static/f/2315815251/image.jpg"
+          src="http://localhost:3001/avatars/default123321.png"
           alt="#"
         ></img>
         </div>
         <div className="user_info_body">
-          <p>Michael</p>
-          <p>Jackson</p>
-          <p>999 999 99 99</p>
-          <p>michael@jackson.com</p>
-          {/* {user.name}
-          {user.lname}
-          {user.phone}
-          {user.email} */}
+          <p>{userData.name}</p>
+          <p>{userData.lname}</p>
+          <p>{userData.phone}</p>
+          <p>{userData.email}</p>
         </div>
       </div>
         <div className="tabs">

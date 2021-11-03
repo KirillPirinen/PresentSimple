@@ -3,6 +3,7 @@ import './Tabs.css';
 import { Nav, NavItem, NavLink, TabContent, TabPane, Row, Col, Card, CardTitle, CardText, Button, Container } from 'reactstrap'
 import WishList from '../../WishList/WishList'
 import MyPresents from '../../PersonalProfile/MyPresents/MyPresents'
+import IGive from '../IGive/IGive';
 
 function Tabs() {
 
@@ -62,6 +63,7 @@ function Tabs() {
 
     active.tab1 === 'active' ? <WishList/> : 
     active.tab5 === 'active' ? <MyPresents/> : 
+    active.tab5 === 'active' ? <IGive/> :
     null
   }
     </div>
