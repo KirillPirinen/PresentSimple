@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import { getWishesPersonWatchPeople } from '../../../redux/actions/groupModal';
 import { getProgressbar, deleteProgressbar } from '../../../redux/actions/Progressbar.ac';
 import ModalInfo from '../../ModalInfo/ModalInfo';
+import styles from './styles.module.css'
 
 export default function WishListPerson() {
 
@@ -27,15 +28,16 @@ export default function WishListPerson() {
   const history = useHistory()
 
   
-  const progressbarData = (maxusers, currentusers) => [{ bgcolor: "#6a1b9a", completed: currentusers, width: maxusers }];
+  const progressbarData = (maxusers, currentusers) => [{ completed: currentusers, width: maxusers }];
 
   return (
+    <ul className={styles.listWish}>
 
     <>
     {wishesGroupAlone ?
     (wishesGroupAlone?.Wishes?.map(el =>
       <li key={el.id}>
-        <div style={{display:'flex'}}>
+        <div style={{display:'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '25px'}}>
         <Wish photo={el.photo} title={el.title} description={el.description} isBinded={el.isBinded} />
      
      {!el.isBinded ?
@@ -55,16 +57,19 @@ export default function WishListPerson() {
                 <div>
                 {progressbarData(progress.maxusers, progress.currentusers).map((item, idx) => (
                   <>
-                  <div>
+                  <div className={styles.progressbar}>
                     
                     <ProgressBar
                       key={idx}
-                      bgcolor={item.bgcolor}
                       completed={item.completed}
                       width={item.width}
                     />
+                    <div className={styles.telegram}>
+                    <p>В группу вступили: {progress.currentusers}</p>
+                    <p>Всего должно быть: {progress.maxusers}</p>
                     <p>Можете пообщаться насчет подарка в этой группе в Телеграм</p>
                     <a href={progress.telegram}>Группа в Телеграме</a>
+                    </div>
                     </div>
                     </>
                     // )) : dispatch(deleteProgressbar(progress?.id)) 
@@ -77,10 +82,11 @@ export default function WishListPerson() {
             </> 
      }
         </div>
-       </li>)) : ''}
+       </li>
+       )) : ''}
 
       <ModalInfo/>
     </>
-    
+    </ul>
   )
 }

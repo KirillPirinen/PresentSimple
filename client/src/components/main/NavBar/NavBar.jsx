@@ -13,12 +13,14 @@ export default function NavBar() {
   const [open, setOpen] = useState(false)
 
   return (
+    <div className={styles.navbarTop}>
+
   <Navbar
     color="light"
     container="fluid"
     expand="sm"
-    fixed="top"
     light
+    className={styles.navbarTop}
   >
     <NavbarToggler />
     <Collapse navbar>
@@ -29,49 +31,50 @@ export default function NavBar() {
          <UncontrolledDropdown
           inNavbar
           nav
+          // className={styles.navbarTop}
         >
           <DropdownToggle
             caret
             nav
+            // className={styles.navbarTop}
           >
-        Личный кабинет
+           Личный кабинет
           </DropdownToggle>
           <DropdownMenu right>
             <DropdownItem>
+           
             <Link to="/lk" className={styles.link}>
             Личный кабинет
               </Link>
-            </DropdownItem>
+              
+         </DropdownItem>
 
-            <DropdownItem>
-            <Link to="/myWishes" className={styles.link}>
-                Мои хотелки
-              </Link>
-            </DropdownItem>
+          <DropdownItem>
+          <Link to="/myWishes" className={styles.link}>
+            Мои хотелки
+          </Link>
+       </DropdownItem>
 
-            <DropdownItem>
-            <Link to="/donatedWishList" className={styles.link}>
-              Мне подарили
-            </Link> 
-            </DropdownItem>
+        <DropdownItem>
+             <Link to="/donatedWishList" className={styles.link}>
+               Мне подарили
+             </Link> 
+           </DropdownItem>
 
-            <DropdownItem>
-            <Link to="/sentList" className={styles.link}>
-          Отправленные анкеты
-            </Link> 
-            </DropdownItem>
-          </DropdownMenu>
-        </UncontrolledDropdown>
+             <DropdownItem>
+             <Link to="/sentList" className={styles.link}>
+           Отправленные анкеты
+             </Link> 
+             </DropdownItem>
+           </DropdownMenu>
+         </UncontrolledDropdown>
 
-          <Link to={`/wishListPerson/${user_id}`} className={styles.link}>
-            Мои желания, которые видны всем
-        </Link> 
+        
+         <Link to="/" className={styles.link}>
+          Главная
+        </Link>
 
-        <Link to="/" className={styles.link}>
-         Главная
-       </Link>
-
-        { user ?
+         { user ?
         <Link exact to="/auth/signout" className={styles.link}>Выйти</Link>
             :
           <>
@@ -81,5 +84,6 @@ export default function NavBar() {
       </Nav>
     </Collapse>
   </Navbar>
+          </div>
   );
 };

@@ -1,10 +1,3 @@
-nav {
-  font-size: 25px;
-  display: flex;
-  justify-content: flex-start;
-  width: 100%;
-  position: relative !important;
-}
 .link {
   padding: 10px;
   text-decoration: none;
@@ -12,8 +5,18 @@ nav {
 nav a {
   color: rgba(0, 0, 0, 0.55);
   font-weight: 600;
+  font-size: 25px;
+  margin-right: 100px;
 }
 
-.navbar-light .navbar-nav .nav-link {
-  color: rgba(0, 0, 0, 0.55);
+.navbarTop {
+  position:sticky;
+  z-index: 999;
+  width: 100%;
+  left: 0;
+  top: 0;
+  background: rgba(151, 104, 41, 0.801) !important;
+}
+.navbar.transparent.navbar-inverse .navbar-inner {
+  background: rgba(0,0,0,0.4);
 }
