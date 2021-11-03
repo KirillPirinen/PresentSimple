@@ -18,6 +18,10 @@ module.exports = {
         defaultValue:false,
         type: Sequelize.BOOLEAN
       },
+      isGiven: {
+        defaultValue:false,
+        type: Sequelize.BOOLEAN
+      },
       user_id: {
         defaultValue:null,
         type: Sequelize.INTEGER,

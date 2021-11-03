@@ -26,7 +26,7 @@ function WishList() {
   return (
     <div className='wishes'>
     <div className={style['add_wish_btn']}>
-    <button onClick={() => (setActive(true),setModalValue(''))} >Добавить хотелку</button>
+    <button className={`${style.btn} ${style.second}`} onClick={() => (setActive(true),setModalValue(''))} >Добавить хотелку</button>
     </div>
     <div className={style['wish_wrapper']}>
       {
@@ -38,7 +38,7 @@ function WishList() {
            isBinded={wish.isBinded}
            setActive={setActive}
            wishPhoto={wish.WishPhoto?.image}>
-           <div className={style['btn_cud']}>
+           <div className={style['btns']}>
            <button onClick={() => (
              setActive(true),
              setModalValue(wish)
