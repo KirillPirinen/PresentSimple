@@ -14,6 +14,7 @@ export default function WishListPerson() {
   const wishesGroupAlone = useSelector(state => state.wishesGroupAlone);
 
   const progressbar = useSelector(state => state.progressbar) //здесь все группы
+  const groups = progressbar?.map(el => el.Group)
 
   const {user_id} = useParams()
 
@@ -32,7 +33,7 @@ export default function WishListPerson() {
 
     <>
     {wishesGroupAlone ?
-    (wishesGroupAlone?.Wishes.map(el =>
+    (wishesGroupAlone?.Wishes?.map(el =>
       <li key={el.id}>
         <div style={{display:'flex'}}>
         <Wish photo={el.photo} title={el.title} description={el.description} isBinded={el.isBinded} />
@@ -45,14 +46,14 @@ export default function WishListPerson() {
           :
         el.isBinded && !el.Group ? 
        <h5>Забронировано</h5>  : 
-       
             <>
-             <Button onClick={() => dispatch(joinGroup(el.id, user_id))}>Подарить группой(вступить в группу)</Button> 
-
-            {progressbar ?
-               progressbar?.map(progress => progress.wish_id === el.id ?
-                progress.maxusers !== progress.currentusers ?
-                progressbarData(progress.maxusers, progress.currentusers).map((item, idx) => (
+              
+            {groups ?
+               groups?.map(progress => progress?.wish_id === el.id ?
+                progress?.maxusers !== progress?.currentusers ?
+                  
+                <div>
+                {progressbarData(progress.maxusers, progress.currentusers).map((item, idx) => (
                   <>
                   <div>
                     
@@ -66,7 +67,11 @@ export default function WishListPerson() {
                     <a href={progress.telegram}>Группа в Телеграме</a>
                     </div>
                     </>
-                    )) : dispatch(deleteProgressbar(progress.id))
+                    // )) : dispatch(deleteProgressbar(progress?.id)) 
+                ))}
+                   <Button onClick={() => dispatch(joinGroup(el.id, user_id))}>Подарить группой(вступить в группу)</Button>
+                </div>
+                 : <h5>Забронировано</h5> 
                      : '')
             : ''}
             </> 

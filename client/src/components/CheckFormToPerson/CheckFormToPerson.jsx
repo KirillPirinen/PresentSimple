@@ -6,6 +6,7 @@ import { ListOfForms } from "./subComponents/ListOfForms";
 import ModalInfo from "../ModalInfo/ModalInfo";
 import { infoModalActivate} from "../../redux/actions/modalInfoAC";
 import { useHistory } from "react-router";
+import {Button} from 'reactstrap'
 
 export default function CheckFormToPerson() {
   const {recipient, forms, contacts, form} = useSelector(state=>state.checkform)

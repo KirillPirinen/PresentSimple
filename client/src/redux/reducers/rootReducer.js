@@ -5,15 +5,13 @@ import loaderReducer from "./loaderReducer";
 import userReducer from "./userReducer";
 import { SentFormReducer } from "./SentFormReducer";
 import { checkFormToPersonReducer } from "./checkFormToPersonReducer";
-import {
-  wishesGroupAloneReducer,
-} from "./groupModalReducer";
+import { wishesGroupAloneReducer } from "./groupModalReducer";
 import wishlistReducer from "./wishlistReducer";
 import { modalInfoReducer } from "./modalInfoReducer";
 import progressbarReducer from "./progressbarReducer";
 import infoReducer from "./infoReducer";
 import errorReducer from "./errorReducer";
-import { presentReducer } from './presentsReducer';
+import { presentReducer } from "./presentsReducer";
 
 const rootReducer = combineReducers({
   wishes: wishReducer,
@@ -29,7 +27,7 @@ const rootReducer = combineReducers({
   wishesGroupAlone: wishesGroupAloneReducer,
   info: infoReducer,
   progressbar: progressbarReducer,
-  presents:presentReducer,
-})
+  presents: presentReducer,
+});
 
-export default rootReducer
+export default rootReducer;

@@ -11,7 +11,7 @@ const allWishes = async (req, res, next) => {
     where: { user_id: user_id },
     include: { model: Wish, include: { model: Group } },
     required: false,
-    order: [["id", "ASC"]],
+    order: [[Wish, "id", "ASC"]],
   });
   res.json(wishes);
 };
@@ -25,7 +25,7 @@ const addAlone = async (req, res, next) => {
       where: { user_id: user_id },
       include: { model: Wish, include: { model: Group } },
       required: false,
-      order: [["id", "ASC"]],
+      order: [[Wish, "id", "ASC"]],
     });
 
     return res.json(wishes);
@@ -44,8 +44,7 @@ const addGroup = async (req, res, next) => {
       currentusers: 1,
       wish_id: wish_id,
     });
-    console.log('before create', req.session?.user?.id, group.id)
-    const userGroup = await UserGroup.create({
+    await UserGroup.create({
       user_id: req.session?.user?.id,
       group_id: group.id,
     });
@@ -53,23 +52,17 @@ const addGroup = async (req, res, next) => {
       { isBinded: true, user_id: user_id },
       { where: { id: wish_id } }
     );
-    console.log("userGroup", userGroup);
-    // const userGroups = await UserGroup.findAll({
-    //   where: { user_id: req.session?.user?.id },
-    // });
-    // const groups = await Group.findAll({
-    //   where: { id: userGroups.map((el) => el.group_id) },
-    // });
 
     const wishes = await Wishlist.findOne({
       where: { user_id: user_id },
       include: { model: Wish, include: { model: Group } },
       required: false,
-      order: [["id", "ASC"]],
+      order: [[Wish, "id", "ASC"]],
     });
-    res.json({ message: "Вы успешно создали группу", wishes: wishes });
+    return res.json({ error: "Вы успешно создали группу", wishes: wishes });
   } catch (error) {
     console.log("error", error);
+    return res.json({ error: "Что-то пошло не так" });
   }
 };
 
@@ -80,50 +73,47 @@ const joinGroup = async (req, res, next) => {
     const groupFind = await Group.findOne({ where: { wish_id: wish_id } });
     const nextuser = (await groupFind.currentusers) + 1;
     if (nextuser < groupFind.maxusers) {
-      await Group.update(
+      const groupUpdate = await Group.update(
         { currentusers: nextuser },
         { where: { wish_id: wish_id } }
       );
+
       const userGroups = await UserGroup.findAll({
         where: { user_id: req.session?.user?.id },
       });
+
       const groups = await Group.findAll({
         where: { id: userGroups.map((el) => el.group_id) },
       });
-      return res.status(200).json(groups);
+
+      const wishes = await Wishlist.findOne({
+        where: { user_id: user_id },
+        include: { model: Wish, include: { model: Group } },
+        required: false,
+        order: [[Wish, "id", "ASC"]],
+      });
+
+      return res
+        .status(200)
+        .json({ error: "Вы успешно создали в группу", wishes: wishes });
     } else if (nextuser === groupFind.maxusers) {
       await Group.update(
         { currentusers: nextuser },
         { where: { wish_id: wish_id } }
       );
-      // await Wish.update({ isBinded: true }, { where: { id: wish_id } });
-      // const wishes = await Wish.findAll({
-      //   where: { user_id: user_id },
-      //   order: [["id", "ASC"]],
-      // });
-      // const userGroups = await UserGroup.findAll({
-      //   where: { user_id: req.session?.user?.id },
-      // });
 
-      // const groups = await Group.findAll({
-      //   where:
-      // where: {
-      //   currentusers: {
-      //     [Op.ne]: { [Op.col]: "maxusers" },
-      //   },
-      //   include: {
-      //     model: User,
-      //     attributes: ["id"],
-      //   },
-      // },
-      // });
+      const wishes = await Wishlist.findOne({
+        where: { user_id: user_id },
+        include: { model: Wish, include: { model: Group } },
+        required: false,
+        order: [[Wish, "id", "ASC"]],
+      });
 
-      // const groups = await Group.findAll({
-      //   where: { id: userGroups.map((el) => el.group_id) },
-      // });
-      return res.status(201).json({ message: "Вы успешно вступили группу" });
+      return res
+        .status(201)
+        .json({ error: "Вы успешно вступили в группу", wishes: wishes });
     } else {
-      return res.sendStatus(202);
+      return res.sendStatus(202).json({ error: "Что-то пошло не так" });
     }
   } catch (error) {
     // res.json({ message: "Необходимо сначала создать группу" });

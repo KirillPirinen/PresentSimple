@@ -27,6 +27,7 @@ export const addAlone = (wish_id, user_id) => async (dispatch) => {
   );
   if (response.status === 200) {
     dispatch(getAllWishes(response.data));
+    dispatch(getWishesPersonWatchPeople(user_id))
   }
 };
 
@@ -41,11 +42,10 @@ export const addGroup = (maxusers, telegram, wish_id, user_id) => async (dispatc
     { withCredentials: true }
   );
   if (response.status === 200) {
-    console.log("response.dataADDGROUP", response.data);
-    dispatch(getWishesPersonWatchPeople(user_id));
-    dispatch(getProgressbar(response.data?.wishes?.Wishes?.Group));
-    // dispatch(getProgressbar(response.data));
-    // dispatch(getAllWishes(response.data));
+    console.log("response.dataADDGROUP", response.data?.wishes?.Wishes);
+    // dispatch(getWishesPersonWatchPeople(user_id))
+    dispatch(getAllWishes(response.data?.wishes))
+    dispatch(getProgressbar(response.data?.wishes?.Wishes));
   }
 };
 
@@ -56,16 +56,18 @@ export const joinGroup = (wish_id, user_id) => async (dispatch) => {
     { withCredentials: true }
   );
   if (response.status === 200) {
-    console.log("response.dataJOINGROUP", response.data);
-    dispatch(getWishesPersonWatchPeople(user_id));
-    dispatch(getProgressbar(response.data));
+    // console.log("response.dataJOINGROUP", response.data?.wishes);
+    // dispatch(getWishesPersonWatchPeople(user_id))
+    dispatch(getAllWishes(response.data?.wishes));
+    dispatch(getProgressbar(response.data?.wishes?.Wishes));
+
   } else if (response.status === 202) {
     console.log("response.dataJOINGROUP", response.data);
-    // dispatch(getAllWishes(response.data.wishes));
-    // dispatch(getProgressbar(response.data.groups));
+    dispatch(getAllWishes(response.data.wishes));
+    dispatch(getProgressbar(response.data.groups));
   } else if (response.status === 201) {
     console.log("response.dataJOINGROUP", response.data);
-    dispatch(getProgressbar(response.data.map((el) => el.Wishes)));
+    dispatch(getProgressbar(response.data?.wishes?.Wishes));
 
   } else if (response.status === 501) {
     console.log("response.dataJOINGROUP", response.data);
