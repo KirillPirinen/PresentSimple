@@ -44,5 +44,7 @@ button {
   display: flex;
   justify-content: center;
   width: 80%;
-
+}
+.contnav{
+padding: 0px;
 }
