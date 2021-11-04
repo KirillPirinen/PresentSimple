@@ -52,7 +52,7 @@ app.use("/api/v1/auth", authRouter);
 app.use("/sentform", sentFormRouter);
 
 //приватные руты
-// app.use(checkAuth)
+app.use(checkAuth)
 app.use("/api/v1/form", checkFormToPersonRouter);
 app.use("/api/v1/group", groupRouter);
 app.use("/wish", wishRouter);

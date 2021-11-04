@@ -35,13 +35,13 @@ const SignIn = () => {
 
   return (
     <>
-      <div className="d-flex justify-content-center py-5">
+      <div style={{ width:'60%' }} className="d-flex justify-content-center py-5">
         <form
           onSubmit={submitHandler}
-          className="d-flex flex-column align-items-center bg-light text-dark p-3 border rounded-3 container-glass"
+          className="w-100 d-flex flex-column align-items-center bg-light text-dark p-3 border rounded-3 container-glass"
         >
           <legend className="text-center mb-4">Вход</legend>
-          <div className="mb-3">
+          <div className="mb-3" style={{ width:'60%' }}>
             <input
               onChange={changeHandler}
               value={userSignIn.email}
@@ -52,7 +52,7 @@ const SignIn = () => {
             />
           </div>
 
-          <div className="mb-3">
+          <div className="mb-3" style={{ width:'60%' }}>
             <input
               onChange={changeHandler}
               value={userSignIn.password}
@@ -69,6 +69,7 @@ const SignIn = () => {
           <Link to="/auth/signup">
             Зарегистрироваться
           </Link>
+          <br/>
           <Link to="/modal/forgotPassword">
             Забыл пароль
           </Link>
