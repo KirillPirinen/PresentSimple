@@ -1,7 +1,8 @@
 .container{
   position: relative;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  margin: 0 10px;
 }
 
 .container .card{
@@ -9,14 +10,13 @@
 }
 
 .container .card .face{
-  width: 300px;
-  height: 200px;
-  transition: 0.2s;
+  width: 360px;
+  height: 260px;
+  transition: 0.4s;
 }
 
 .container .card .face.face1{
   position: relative;
-  background: rgb(223, 233, 229);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -25,12 +25,12 @@
 }
 
 .container .card:hover .face.face1{
-  background: #978fdd;
+  background: #54A692;
   transform: translateY(0);
 }
 
 .container .card .face.face1 .content{
-  opacity: 0.2;
+  opacity: 0;
   transition: 0.5s;
 }
 
@@ -39,15 +39,21 @@
 }
 
 .container .card .face.face1 .content img{
-  max-width: 200px;
+  width: 350px;
+  height: 250px;
 }
-
 .container .card .face.face1 .content h3{
   margin: 10px 0 0;
+  width: auto;
+  left:4px;
+  background-color: rgba(50, 196, 50, 0.4);
   padding: 0;
   color: #fff;
   text-align: center;
-  font-size: 1.5em;
+  font-size: 1.2em;
+  position: absolute;
+  top:0px;
+  border-radius: 10px;
 }
 
 .container .card .face.face2{
@@ -72,16 +78,18 @@
 }
 
 .container .card .face.face2 .content a{
-  margin: 15px 0 0;
-  display:  inline-block;
+  margin: 15px 0;
+  width: 200px;
+  height: 40px;
+  display: block;
   text-decoration: none;
   font-weight: 900;
   color: #333;
   padding: 5px;
-  border: 1px solid #333;
+  cursor: pointer;
 }
 
 .container .card .face.face2 .content a:hover{
-  background: #333;
+  background: rgb(153, 179, 139);
   color: #fff;
 }

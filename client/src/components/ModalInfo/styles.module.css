@@ -10,6 +10,7 @@
   justify-content: center;
   color: rgb(40, 63, 35);
   font-weight: 700;
+  z-index: 1000;
 }
 .clickhere {
   animation: clickhere 4s infinite;

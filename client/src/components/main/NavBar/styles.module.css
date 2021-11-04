@@ -13,7 +13,7 @@ nav {
 }
 
 nav ul {
-  width: 1000px;
+  width: 100%;
   text-align: center;
   background: linear-gradient(
     90deg,
