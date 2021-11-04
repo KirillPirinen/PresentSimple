@@ -118,7 +118,7 @@ const SignUp = () => {
         <button type="submit" className="btn">
           Зарегистрироваться
         </button>
-        <a
+        <a 
           href="/auth/signin"
           onClick={(e) => {
             e.preventDefault();

@@ -17,20 +17,13 @@ const allWishes = async (req, res, next) => {
 };
 
 const addAlone = async (req, res, next) => {
-  const { user_id } = req.params;
+
   const { wish_id } = req.body;
   try {
-    await Wish.update({ isBinded: true }, { where: { id: wish_id } });
-    const wishes = await Wishlist.findOne({
-      where: { user_id: user_id },
-      include: { model: Wish, include: { model: Group } },
-      required: false,
-      order: [[Wish, "id", "ASC"]],
-    });
-
-    return res.json(wishes);
+    await Wish.update({ isBinded: true, user_id: req.session?.user?.id }, { where: { id: wish_id } });
+    return res.json({ message: "Вы забронировали подарок" });
   } catch (error) {
-    return res.sendStatus(520);
+    return res.sendStatus(520).json({ message: "Что-то пошло не так" });
   }
 };
 
@@ -49,7 +42,7 @@ const addGroup = async (req, res, next) => {
       group_id: group.id,
     });
     await Wish.update(
-      { isBinded: true, user_id: user_id },
+      { isBinded: true },
       { where: { id: wish_id } }
     );
 
@@ -59,10 +52,9 @@ const addGroup = async (req, res, next) => {
       required: false,
       order: [[Wish, "id", "ASC"]],
     });
-    return res.json({ error: "Вы успешно создали группу", wishes: wishes });
+    return res.json({ message: "Вы успешно создали группу", wishes: wishes });
   } catch (error) {
-    console.log("error", error);
-    return res.json({ error: "Что-то пошло не так" });
+    return res.json({ message: "Что-то пошло не так" });
   }
 };
 
@@ -73,7 +65,7 @@ const joinGroup = async (req, res, next) => {
     const groupFind = await Group.findOne({ where: { wish_id: wish_id } });
     const nextuser = (await groupFind.currentusers) + 1;
     if (nextuser < groupFind.maxusers) {
-      const groupUpdate = await Group.update(
+      await Group.update(
         { currentusers: nextuser },
         { where: { wish_id: wish_id } }
       );
@@ -82,7 +74,7 @@ const joinGroup = async (req, res, next) => {
         where: { user_id: req.session?.user?.id },
       });
 
-      const groups = await Group.findAll({
+      await Group.findAll({
         where: { id: userGroups.map((el) => el.group_id) },
       });
 
@@ -95,7 +87,7 @@ const joinGroup = async (req, res, next) => {
 
       return res
         .status(200)
-        .json({ error: "Вы успешно создали в группу", wishes: wishes });
+        .json({ message: "Вы успешно вступили в группу", wishes: wishes });
     } else if (nextuser === groupFind.maxusers) {
       await Group.update(
         { currentusers: nextuser },
@@ -111,12 +103,12 @@ const joinGroup = async (req, res, next) => {
 
       return res
         .status(201)
-        .json({ error: "Вы успешно вступили в группу", wishes: wishes });
+        .json({ message: "Вы успешно вступили в группу", wishes: wishes });
     } else {
-      return res.sendStatus(202).json({ error: "Что-то пошло не так" });
+      return res.sendStatus(202).json({ message: "Что-то пошло не так" });
     }
   } catch (error) {
-    // res.json({ message: "Необходимо сначала создать группу" });
+    res.json({ message: "Что-то пошло не так" });
   }
 };
 

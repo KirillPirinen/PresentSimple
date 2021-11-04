@@ -1,6 +1,7 @@
 import { ALL_WISHES_PERSON } from "../types/groupModalTypes";
 import axios from "axios";
 import { getProgressbar } from "./Progressbar.ac";
+import { getError } from "./error.ac";
 
 export const getAllWishes = (value) => {
   return { type: ALL_WISHES_PERSON, payload: value };
@@ -19,15 +20,16 @@ export const getWishesPersonWatchPeople = (user_id) => async (dispatch) => {
 
 export const addAlone = (wish_id, user_id) => async (dispatch) => {
   let response = await axios.post(
-    `http://localhost:3001/api/v1/group/alone/${user_id}`,
+    `http://localhost:3001/api/v1/group/alone`,
     {
       wish_id,
     },
     { withCredentials: true }
   );
   if (response.status === 200) {
-    dispatch(getAllWishes(response.data));
+    // dispatch(getAllWishes(response.data.wishes));
     dispatch(getWishesPersonWatchPeople(user_id))
+    dispatch(getError(response.data))
   }
 };
 
@@ -42,9 +44,10 @@ export const addGroup = (maxusers, telegram, wish_id, user_id) => async (dispatc
     { withCredentials: true }
   );
   if (response.status === 200) {
-    console.log("response.dataADDGROUP", response.data?.wishes?.Wishes);
-    // dispatch(getWishesPersonWatchPeople(user_id))
-    dispatch(getAllWishes(response.data?.wishes))
+    dispatch(getError(response.data.message))
+
+    dispatch(getWishesPersonWatchPeople(user_id))
+    // dispatch(getAllWishes(response.data?.wishes))
     dispatch(getProgressbar(response.data?.wishes?.Wishes));
   }
 };
@@ -58,14 +61,14 @@ export const joinGroup = (wish_id, user_id) => async (dispatch) => {
   if (response.status === 200) {
     // console.log("response.dataJOINGROUP", response.data?.wishes);
     // dispatch(getWishesPersonWatchPeople(user_id))
+    dispatch(getError(response.data?.message))
     dispatch(getAllWishes(response.data?.wishes));
     dispatch(getProgressbar(response.data?.wishes?.Wishes));
 
   } else if (response.status === 202) {
-    console.log("response.dataJOINGROUP", response.data);
-    dispatch(getAllWishes(response.data.wishes));
-    dispatch(getProgressbar(response.data.groups));
+    dispatch(getError(response.data))
   } else if (response.status === 201) {
+    dispatch(getError(response.data?.message))
     console.log("response.dataJOINGROUP", response.data);
     dispatch(getProgressbar(response.data?.wishes?.Wishes));
 
