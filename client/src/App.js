@@ -39,6 +39,7 @@ function App() {
   // }, []);
 
   return (
+    <>
     <Router>
       <NavBar />
       <Route exact path="/" component={Home} />
@@ -55,9 +56,6 @@ function App() {
         <CheckFormToPerson />
       </PrivateRoute>
       <FormContextProvider>
-        {/* <Route exact path="/sentform">
-          <SentForm />
-        </Route> */}
         <Route exact path="/sentform/:uuid">
           <SentFormCheker />
         </Route>
@@ -72,6 +70,8 @@ function App() {
       <Route exact path="/mywishlist" component={WishList} />
       <Route exact path="/success" component={SuccessAdded} />
     </Router>
+    {/*<ModalInfo/>*/}
+    </>
   );
 }
 
