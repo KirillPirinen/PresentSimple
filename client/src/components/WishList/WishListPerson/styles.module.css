@@ -1,10 +1,9 @@
 .progressbar {
   font-size: 17px;
-  width: 300px;
-  font-weight: 600;
+  width: 200px;
+  font-weight: 400;
   text-align: center;
-  padding-top: 20px;
-  margin-left: 20px;
+  height: 100px;
 }
 a {
   color:black;
@@ -17,13 +16,14 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width:20px;
 }
 .button {
-  margin: 10px;
+  margin:0;
 }
 .bron {
-  font-size: 25px;
+  font-size: 20px;
   font-weight: 800;
   color:rgb(55, 97, 74);
-  margin-right: 50px;
 }
+
