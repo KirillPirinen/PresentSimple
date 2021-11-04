@@ -28,12 +28,12 @@
   margin: 10px;
 }
 
-button {
+/* button {
   border: none;
   padding: 10px;
   border-radius: 10px;
   background-color: rgb(77, 190, 255);
-}
+} */
 
 .lkdiv {
   display: flex;

@@ -45,7 +45,7 @@ const SignUp = () => {
     <div className="d-flex justify-content-center">
       <form
         onSubmit={submitHandler}
-        className="d-flex flex-column align-items-center bg-light text-dark p-3 border rounded-3"
+        className="container-glass d-flex flex-column align-items-center bg-light text-dark p-3 border rounded-3"
       >
         <legend className="text-center mb-4">Регистрация</legend>
 
@@ -115,7 +115,7 @@ const SignUp = () => {
           />
         </div>
 
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn">
           Зарегистрироваться
         </button>
         <a
@@ -128,7 +128,7 @@ const SignUp = () => {
           У меня уже есть аккаунт
         </a>
       </form>
-      )
+      
       <ModalInfo />
     </div>
   );

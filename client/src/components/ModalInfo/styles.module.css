@@ -9,19 +9,20 @@
   align-items: center;
   justify-content: center;
 }
-
+.clickhere{
+  animation: clickhere 4s infinite;
+}
 .info-modal.active {
   display: flex;
 }
 
 .info-modal_content {
   position: fixed;
-  top:20%;
+  top:25%;
   text-align: center;
   width: auto;
-  padding: 10px;
   border-radius: 15px;
-  background-color: rgba(255, 255, 255, 0.4);
+  background-color: rgba(255, 255, 255, 0);
   box-shadow: -4px 4px 51px 10px rgba(34, 60, 80, 0.24);
   height: auto;
   animation-duration: 0.5s;
@@ -33,6 +34,28 @@
     top:-10%;
   }
   100% {
-    top:20%;
+    top:25%;
   }
 }  
+
+@keyframes clickhere {
+  0% {
+    opacity: 0.1;
+  }
+  50% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0.1;
+  }
+}  
+
+.error {
+  font-size: 20px;
+  min-width: 150px;
+  min-height: 80px;
+  padding: 20px;
+  background-color: rgba(228, 216, 107, 0.8);
+  box-shadow: -4px 4px 21px 10px rgba(34, 60, 80, 0.24);
+  border-radius: 10px;
+}
