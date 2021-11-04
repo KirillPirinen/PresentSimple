@@ -32,21 +32,22 @@ export default function WishListPerson() {
 
   return (
     <>
-    <div className="container-glass">
-    <h3>Хотелки пользователя: {wishesGroupAlone.User.name} {wishesGroupAlone.User.lname}</h3>
-    <ul className={styles.listWish}>
-
-    <>
-    {wishesGroupAlone ?
-    (wishesGroupAlone?.Wishes?.map(el =>
-      <li key={el.id}>
-        <div style={{display:'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '25px'}}>
-        <Wish photo={el.WishPhoto} title={el.title} description={el.description} isBinded={el.isBinded} />
+    <div className="container-glass d-flex justify-content-between flex-row alighn-center flex-wrap">
+      <>
+      <h3>Хотелки пользователя: {wishesGroupAlone?.User?.name} {wishesGroupAlone?.User?.lname}</h3>
+      
+      {wishesGroupAlone &&
+      wishesGroupAlone?.Wishes?.map(el => {
+        return (
+      
+        <Wish key={el.id} WishPhoto={el.WishPhoto?.image} title={el.title} description={el.description} isBinded={el.isBinded}>
+          
+          <div>
      
      {!el.isBinded ?
           <div className={styles.buttons}>
-          <Button className={styles.button} onClick={() => dispatch(addAlone(el.id, user_id))}>Подарить самому</Button>
-          <Button className={styles.button} onClick={() => history.push(`/modalGroup/${el.id}/${user_id}`)}>Подарить группой(создать группу)</Button>
+          <a onClick={() => dispatch(addAlone(el.id, user_id))}>Подарить самому</a>
+          <a onClick={() => history.push(`/modalGroup/${el.id}/${user_id}`)}>Подарить группой(создать группу)</a>
           </div>
           :
         el.isBinded && !el.Group ? 
@@ -57,7 +58,7 @@ export default function WishListPerson() {
                groups?.map(progress => progress?.wish_id === el.id ?
                 progress?.maxusers !== progress?.currentusers ?
                   
-                <div>
+                <div className="d-flex flex-column justify-content-center">
                 {progressbarData(progress.maxusers, progress.currentusers).map((item, idx) => (
                   <>
                   <div className={styles.progressbar}>
@@ -68,27 +69,31 @@ export default function WishListPerson() {
                       width={item.width}
                     />
                     <p>В группу вступили: {progress.currentusers}</p>
-                    <p>Всего должно быть: {progress.maxusers}</p>
-                    <p>Можете пообщаться насчет подарка в этой группе в Телеграм</p>
+                    {/*<p>Всего должно быть: {progress.maxusers}</p>*/}
+                    <p>Группа в телеграмм</p>
                     <a className={styles.linkTelegram} href={progress.telegram}>Группа в Телеграме</a>
                     </div>
                     </>
-                    // )) : dispatch(deleteProgressbar(progress?.id)) 
                 ))}
-                   <Button className={styles.button} onClick={() => dispatch(joinGroup(el.id, user_id))}>Подарить группой(вступить в группу)</Button>
+                   <a onClick={() => dispatch(joinGroup(el.id, user_id))}>Подарить группой(вступить в группу)</a>
                 </div>
                  : <h5 className={styles.bron}>Забронировано</h5> 
                      : '')
             : ''}
-            </> 
+            </>  
      }
         </div>
-       </li>
-       )) : ''}
-    </>
-    </ul>
+
+          
+          </Wish>)
+      })}
+      </>
     </div>
     <ModalInfo/>
     </>
   )
 }
+
+
+
+

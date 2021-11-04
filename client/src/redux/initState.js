@@ -8,7 +8,6 @@ const initState = {
   alone: {},
   wishlist: [],
   progressbar: [],
-  wishesGroupAlone: [],
 };
 
 //состояния не подписанные на LocalStorage
@@ -21,6 +20,7 @@ export const initStateWithoutLS = {
   info: false,
   presents:[],
   wishes: {},
+  wishesGroupAlone: [],
 };
 
 const getInitState = () => {
