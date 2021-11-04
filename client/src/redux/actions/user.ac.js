@@ -1,8 +1,9 @@
-import { DELETE_USER, SET_USER } from "../types/userTypes";
+import { CHECK_EMAIL, DELETE_USER, SET_USER } from "../types/userTypes";
 import * as endPoints from "../../config/endPoints";
 import { disableLoader, enableLoader } from "./loader.ac";
 import { clearError, getError } from "./error.ac";
 import { setWishList } from "./wishlist.ac";
+import axios from "axios";
 
 export const setUser = (user) => ({
   type: SET_USER,
@@ -22,7 +23,7 @@ export const signUp = (payload, history) => async (dispatch) => {
   const data = await response.json();
   if (response.status === 200) {
     dispatch(setUser(data));
-    history.replace('/');
+    history.replace("/");
   } else if (response.status === 403) {
     dispatch(getError(data));
     history.replace("/auth/signin");
@@ -48,12 +49,10 @@ export const signIn = (payload, history, from) => async (dispatch) => {
     dispatch(clearError());
     dispatch(setUser(user));
     return history.replace("/");
-  } 
-  else if (response.status === 401) {
+  } else if (response.status === 401) {
     dispatch(setUser(user));
     //history.replace("/auth/signup");
-  } 
-  else {
+  } else {
     history.replace("/auth/signin");
   }
   dispatch(disableLoader());
@@ -77,10 +76,45 @@ export const checkAuth = () => async (dispatch) => {
     const user = await response.json();
     dispatch(setUser(user));
   } else if (response.status === 401) {
-
   }
 };
 
 export const deleteUser = () => ({
   type: DELETE_USER,
 });
+
+export const checkEmail = (email) => async (dispatch) => {
+  const response = await fetch(`http://localhost:3001/api/v1/auth/checkemail`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+    body: JSON.stringify({ email: email }),
+  });
+  const data = await response.json();
+  if (response.status === 200) {
+    dispatch(getError(data.message));
+  }
+};
+
+export const resetPasswordAction =
+  (payload, history, reset_password_id) => async (dispatch) => {
+    dispatch(enableLoader());
+    const response = await fetch(
+      `http://localhost:3001/api/v1/auth/resetpassword/${reset_password_id}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(payload),
+      }
+    );
+    const data = await response.json();
+    console.log("dataresetPassword", data);
+    if (response.status === 200) {
+      dispatch(getError(data.message));
+    }
+  };

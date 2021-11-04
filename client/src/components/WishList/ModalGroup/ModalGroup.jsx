@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import { useHistory, useParams } from 'react-router';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, Label, Input} from 'reactstrap';
+import { Modal, ModalHeader, ModalBody, ModalFooter, Form, Label, Input} from 'reactstrap';
 import { addGroup, showButtonAddGroup, showButtonAlone, showButtonJoinGroup } from '../../../redux/actions/groupModal';
 import styles from './styles.module.css'
 
@@ -28,7 +28,7 @@ export default function ModalGroup() {
   }
 
   return (
-    <Modal isOpen={groupModal}> 
+    <Modal isOpen={groupModal} toggle={() => {setGroupModal(false); history.goBack()}}> 
         <ModalHeader className={styles.header}>Стоимость подарка будет разделена между участниками поровну</ModalHeader>
         <ModalBody>
           <Form className={styles["modal_content"]}>
@@ -56,8 +56,8 @@ export default function ModalGroup() {
               </Form>
         </ModalBody>
         <ModalFooter>
-          <Button style={{backgroundColor:'rgb(156, 197, 233)'}} onClick={(e) => addGroupHandler(e)}>Добавить</Button>{' '}
-          <Button color="secondary" onClick={() => history.goBack()}>Отмена</Button>
+          <button style={{backgroundColor:'rgb(156, 197, 233)'}} onClick={(e) => addGroupHandler(e)}>Добавить</button>{' '}
+          <button color="secondary" onClick={() => history.goBack()}>Отмена</button>
         </ModalFooter>
       </Modal>
   );
