@@ -13,10 +13,10 @@ function Wish({wishPhoto, children, title, description, isBinded}) {
             <div className={`${styles.face} ${styles.face2}`}>
                 <div className={styles.content}>
                 <figure class="text-end">
-  <blockquote class="blockquote">
-  <dd className="col-sm-12">{description ? description : 'Пользователь не добавил детальное описание'}</dd>
-  </blockquote>
-</figure>
+                  <blockquote class="blockquote">
+                  <dd className="col-sm-12">{description ? description : 'Пользователь не добавил детальное описание'}</dd>
+                  </blockquote>
+                </figure>
                     
                       {children}
                 </div>
