@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from "react-redux"
 import { useHistory } from "react-router"
-import { Button } from "reactstrap"
 import { deliverForm } from "../../redux/actions/SentForm.ac"
 import ModalInfo from "../ModalInfo/ModalInfo"
 
@@ -25,7 +24,7 @@ export const SuccessAdded = () => {
    <p>
      Вам будет направлено письмо, когда Ваш друг заполнит анкету. Также информация будет доступна в вашем личном кабинете.
    </p>
-   <Button type="success" onClick={clickHandler} outline>Отправить анонимно</Button>
+   <button type="success" onClick={clickHandler} outline>Отправить анонимно</button>
  </div> : 
  <div className="container-glass">
    <h2>Нет данных</h2>

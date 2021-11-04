@@ -7,12 +7,8 @@
   margin-left: 20px;
 }
 a {
-  line-height: 25px;
-  font-size: 20px;
-  /* text-decoration: none !important;
-  color: black !important; */
-  font-weight: 800;
-  cursor: pointer;
+  color:black;
+  font-weight: 200;
 }
 .listWish {
   list-style: none;

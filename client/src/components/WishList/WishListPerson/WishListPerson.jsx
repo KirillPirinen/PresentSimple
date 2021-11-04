@@ -1,5 +1,4 @@
 import Wish from '../Wish/Wish';
-import {Button} from 'reactstrap';
 import { useHistory, useParams } from 'react-router';
 import { addAlone, joinGroup } from '../../../redux/actions/groupModal';
 import { useDispatch, useSelector } from 'react-redux';
@@ -42,8 +41,8 @@ export default function WishListPerson() {
      
      {!el.isBinded ?
           <div className={styles.buttons}>
-          <Button className={styles.button} onClick={() => dispatch(addAlone(el.id, user_id))}>Подарить самому</Button>
-          <Button className={styles.button} onClick={() => history.push(`/modalGroup/${el.id}/${user_id}`)}>Подарить группой(создать группу)</Button>
+          <button className={styles.button} onClick={() => dispatch(addAlone(el.id, user_id))}>Подарить самому</button>
+          <button className={styles.button} onClick={() => history.push(`/modalGroup/${el.id}/${user_id}`)}>Подарить группой(создать группу)</button>
           </div>
           :
         el.isBinded && !el.Group ? 
@@ -72,7 +71,7 @@ export default function WishListPerson() {
                     </>
                     // )) : dispatch(deleteProgressbar(progress?.id)) 
                 ))}
-                   <Button className={styles.button} onClick={() => dispatch(joinGroup(el.id, user_id))}>Подарить группой(вступить в группу)</Button>
+                   <button className={styles.button} onClick={() => dispatch(joinGroup(el.id, user_id))}>Подарить группой(вступить в группу)</button>
                 </div>
                  : <h5 className={styles.bron}>Забронировано</h5> 
                      : '')

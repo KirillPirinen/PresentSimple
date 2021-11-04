@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom"
 import moment from 'moment';
-import { Button } from "reactstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { setContacts } from "../../../redux/actions/checkFormToPerson";
 import { infoModalDeactivate } from "../../../redux/actions/modalInfoAC";
@@ -27,7 +26,7 @@ export const ListOfForms = ({forms}) => {
           </li>))}
       </ol>
       <hr/>
-      <Button onClick={clickHandler} color="success" outline>Данные устарели? Отправить новую</Button>
+      <button onClick={clickHandler} color="success" outline>Данные устарели? Отправить новую</button>
     </div>
   )
 }

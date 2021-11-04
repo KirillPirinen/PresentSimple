@@ -5,7 +5,6 @@ import { bindPresent, getAllPresents } from "../../redux/actions/presents.ac";
 import ModalInfo from "../ModalInfo/ModalInfo";
 import moment from 'moment';
 import { PriceRangeBlock } from "./subComponents/PriceRangeBlock";
-import { Button } from "reactstrap";
 import { setContacts } from "../../redux/actions/checkFormToPerson";
 
 
@@ -38,7 +37,7 @@ export const FormRoot = () => {
       <hr/>
       {ranges?.map(el => <PriceRangeBlock key={el.id} range={el} clickHandler={clickHandler}/>)}
       <hr/>
-      <Button onClick={newFormHandler} color="success" outline>Ничего не нашлось? Отправить ещё одну анкету</Button>
+      <button onClick={newFormHandler} color="success" outline>Ничего не нашлось? Отправить ещё одну анкету</button>
     </div>
       }
     <ModalInfo/>

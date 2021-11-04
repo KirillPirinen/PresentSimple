@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {useDispatch} from 'react-redux';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, Label, Input} from 'reactstrap';
+import { Modal, ModalHeader, ModalBody, ModalFooter, Form, Label, Input} from 'reactstrap';
 import { checkEmail } from '../../../../redux/actions/user.ac';
 import styles from './styles.module.css';
 import ModalInfo from '../../../ModalInfo/ModalInfo';
@@ -41,7 +41,7 @@ export default function ModalForgotPassword() {
               </Form>
         </ModalBody>
         <ModalFooter>
-          <Button style={{backgroundColor:'rgb(156, 197, 233)'}} onClick={(e) => {checkEmailHandler(e); history.goBack()}}>Подтвердить смену пароля</Button>{' '}
+          <button style={{backgroundColor:'rgb(156, 197, 233)'}} onClick={(e) => {checkEmailHandler(e); history.goBack()}}>Подтвердить смену пароля</button>{' '}
         </ModalFooter>
         <ModalInfo/>
       </Modal>

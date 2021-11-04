@@ -27,6 +27,7 @@ import "moment/locale/ru";
 import ModalInfo from "./components/ModalInfo/ModalInfo";
 import ModalForgotPassword from "./components/main/SignIn/modalForgotPassword/modalForgotPassword";
 import ResetPassword from "./components/main/SignIn/ResetPassword/ResetPassword";
+import ModalContact from "./components/main/Home/ModalContact/ModalContact";
 moment.locale("ru");
 
 function App() {
@@ -84,6 +85,11 @@ function App() {
           exact
           path="/resetPassword/fhjdbjhvhbavjdfhbakn/:reset_password_id"
           component={ResetPassword}
+        />
+                <Route
+          exact
+          path="/modalContact"
+          component={ModalContact}
         />
       </Router>
     </>
