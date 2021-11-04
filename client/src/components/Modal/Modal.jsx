@@ -49,10 +49,10 @@ function Modal({ active, setActive, wishValue, setModalValue }) {
 
   return (
     <div
-      className={active ? 'modal active' : 'modal'}
+      className={active ? 'modal-sanya active-sanya' : 'modal-sanya'}
       onClick={() => setActive(false)}
     >
-      <div className="modal_content" onClick={(e) => e.stopPropagation()}>
+      <div className="modal_content-sanya" onClick={(e) => e.stopPropagation()}>
         <form
           enctype="multipart/form-data"
           onSubmit={submitAction}

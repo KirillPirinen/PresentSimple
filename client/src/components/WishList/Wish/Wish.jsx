@@ -1,7 +1,7 @@
 import style from './styles.module.css'
 
 
-function Wish({children, wishPhoto, title, description, isBinded}) {
+function Wish({wishPhoto, children, title, description, isBinded}) {
   return (
    <div className={style.wish}>
       <div className={style['wish_body']}>

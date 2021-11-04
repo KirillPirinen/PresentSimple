@@ -4,9 +4,9 @@ import { useHistory, useParams } from 'react-router';
 import { addAlone, joinGroup } from '../../../redux/actions/groupModal';
 import { useDispatch, useSelector } from 'react-redux';
 import ProgressBar from '../../main/Progrssbar/Progrssbar';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { getWishesPersonWatchPeople } from '../../../redux/actions/groupModal';
-import { getProgressbar, deleteProgressbar } from '../../../redux/actions/Progressbar.ac';
+import { getProgressbar } from '../../../redux/actions/Progressbar.ac';
 import ModalInfo from '../../ModalInfo/ModalInfo';
 import styles from './styles.module.css'
 
@@ -31,6 +31,9 @@ export default function WishListPerson() {
   const progressbarData = (maxusers, currentusers) => [{ completed: currentusers, width: maxusers }];
 
   return (
+    <>
+    <div className="container-glass">
+    <h3>Хотелки пользователя: {wishesGroupAlone.User.name} {wishesGroupAlone.User.lname}</h3>
     <ul className={styles.listWish}>
 
     <>
@@ -38,7 +41,7 @@ export default function WishListPerson() {
     (wishesGroupAlone?.Wishes?.map(el =>
       <li key={el.id}>
         <div style={{display:'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '25px'}}>
-        <Wish photo={el.photo} title={el.title} description={el.description} isBinded={el.isBinded} />
+        <Wish photo={el.WishPhoto} title={el.title} description={el.description} isBinded={el.isBinded} />
      
      {!el.isBinded ?
           <div className={styles.buttons}>
@@ -82,9 +85,10 @@ export default function WishListPerson() {
         </div>
        </li>
        )) : ''}
-
-      <ModalInfo/>
     </>
     </ul>
+    </div>
+    <ModalInfo/>
+    </>
   )
 }
