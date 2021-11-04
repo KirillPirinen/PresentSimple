@@ -20,7 +20,7 @@ export const getWishesPersonWatchPeople = (user_id) => async (dispatch) => {
 
 export const addAlone = (wish_id, user_id) => async (dispatch) => {
   let response = await axios.post(
-    `http://localhost:3001/api/v1/group/alone/${user_id}`,
+    `http://localhost:3001/api/v1/group/alone`,
     {
       wish_id,
     },
