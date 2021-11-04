@@ -16,7 +16,7 @@ export const PriceRangeInput = ({id, del, rangeid}) => {
           <Input onChange={changeActivator} name="title" placeholder="Название подарка" type="text" />
         </Label>
       {description ? <TextAreaDescription handler={changeActivator}/> : null}
-      <span  className="btn btn-info my-2" onClick={() => setTextarea(prev=>!prev)}>{description ? 'Убрать' : "Добавить"} детальное описание</span>
+      <span  className="btn btn btn-success" onClick={() => setTextarea(prev=>!prev)}>{description ? 'Убрать' : "Добавить"} детальное описание</span>
   </div>
   )
 }
