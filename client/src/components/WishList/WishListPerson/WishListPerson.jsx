@@ -44,13 +44,13 @@ export default function WishListPerson() {
         <Wish photo={el.WishPhoto} title={el.title} description={el.description} isBinded={el.isBinded} />
      
      {!el.isBinded ?
-          <>
-          <Button onClick={() => dispatch(addAlone(el.id, user_id))}>Подарить самому</Button>
-          <Button onClick={() => history.push(`/modalGroup/${el.id}/${user_id}`)}>Подарить группой(создать группу)</Button>
-          </>
+          <div className={styles.buttons}>
+          <Button className={styles.button} onClick={() => dispatch(addAlone(el.id, user_id))}>Подарить самому</Button>
+          <Button className={styles.button} onClick={() => history.push(`/modalGroup/${el.id}/${user_id}`)}>Подарить группой(создать группу)</Button>
+          </div>
           :
         el.isBinded && !el.Group ? 
-       <h5>Забронировано</h5>  : 
+       <h5 className={styles.bron}>Забронировано</h5>  : 
             <>
               
             {groups ?
@@ -67,19 +67,17 @@ export default function WishListPerson() {
                       completed={item.completed}
                       width={item.width}
                     />
-                    <div className={styles.telegram}>
                     <p>В группу вступили: {progress.currentusers}</p>
                     <p>Всего должно быть: {progress.maxusers}</p>
                     <p>Можете пообщаться насчет подарка в этой группе в Телеграм</p>
-                    <a href={progress.telegram}>Группа в Телеграме</a>
-                    </div>
+                    <a className={styles.linkTelegram} href={progress.telegram}>Группа в Телеграме</a>
                     </div>
                     </>
                     // )) : dispatch(deleteProgressbar(progress?.id)) 
                 ))}
-                   <Button onClick={() => dispatch(joinGroup(el.id, user_id))}>Подарить группой(вступить в группу)</Button>
+                   <Button className={styles.button} onClick={() => dispatch(joinGroup(el.id, user_id))}>Подарить группой(вступить в группу)</Button>
                 </div>
-                 : <h5>Забронировано</h5> 
+                 : <h5 className={styles.bron}>Забронировано</h5> 
                      : '')
             : ''}
             </> 
