@@ -22,7 +22,7 @@ function WishList({wishlist}) {
 
 
   return (
-    <div className='wishes'>
+    <div className='wishes container-glass'>
     <div className={style['add_wish_btn']}>
     <button className={`${style.btn} ${style.second}`} onClick={() => (setActive(true),setModalValue(''))} >Добавить хотелку</button>
     </div>
