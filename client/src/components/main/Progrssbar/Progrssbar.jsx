@@ -8,13 +8,13 @@ const ProgressBar = (props) => {
   const containerStyles = {
     width: `${100}%`,
     backgroundColor: "#e0e0de",
-    borderRadius: 50,
+    borderRadius: 40,
   }
 
   const fillerStyles = {
-    height: '100%',
+    height: '50%',
     width: `${getProcent(completed, width)}%`,
-    backgroundColor: '#04FBE8',
+    backgroundColor: '#9ACD32',
     borderRadius: 'inherit',
     textAlign: 'right'
   }
@@ -23,7 +23,7 @@ const ProgressBar = (props) => {
     padding: 35,
     color: 'black',
     fontWeight: 'bold',
-    fontSize: 20,
+    fontSize: 15,
   }
 
   return (

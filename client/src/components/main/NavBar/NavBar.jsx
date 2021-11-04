@@ -39,19 +39,3 @@ export default function NavBar() {
   
   );
     }
-//<nav>
-{/* <Link to="/" className={styles.link}>
-  Главная
-</Link>
-  { user ?
-  <>
-  <Link exact to="/auth/signout" className={styles.link}>Выйти</Link>
-  <Link to="/lk" className={styles.link}> Личный кабинет</Link>
-  <Link to="/search" className={styles.link}>Найти человека</Link>
-  </>
-      :
-<>
-<Link to="/auth/signup" className={styles.link}>Зарегистрироваться</Link>
-<Link exact to="/auth/signin" className={styles.link}>Войти</Link>
-    </>
-  } */}
