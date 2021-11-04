@@ -1,13 +1,23 @@
-'use strict';
+"use strict";
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.bulkInsert(
-      'Wishes',
+      "Wishes",
       [
         {
-          title: 'test',
-          description: 'testtesttesttesttesttest',
+          title: "ноутбук",
+          description: "testtesttesttesttesttest",
+          isBinded: false,
+          user_id: 1,
+          pricerange_id: 5,
+          wishlist_id: 1,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          title: "носки",
+          description: "testtesttesttesttesttest",
           isBinded: false,
           user_id: 1,
           pricerange_id: 1,
@@ -16,28 +26,8 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          title: 'test',
-          description: 'testtesttesttesttesttest',
-          isBinded: false,
-          user_id: 1,
-          pricerange_id: 1,
-          wishlist_id: 1,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
-        {
-          title: 'test',
-          description: 'testtesttesttesttesttest',
-          isBinded: false,
-          user_id: 1,
-          pricerange_id: 1,
-          wishlist_id: 1,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
-        {
-          title: 'test',
-          description: 'testte333sttesttesttesttest',
+          title: "телефон",
+          description: "testtesttesttesttesttest",
           isBinded: false,
           user_id: 1,
           pricerange_id: 3,
@@ -46,8 +36,18 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          title: 'test',
-          description: 'testtest222testtesttesttest',
+          title: "блокнот",
+          description: "testte333sttesttesttesttest",
+          isBinded: false,
+          user_id: 1,
+          pricerange_id: 1,
+          wishlist_id: 1,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          title: "серьги",
+          description: "testtest222testtesttesttest",
           isBinded: false,
           user_id: 1,
           pricerange_id: 2,

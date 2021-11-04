@@ -1,0 +1,45 @@
+.wish {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  border: 1px solid rgb(212, 184, 56);
+  width: 250px;
+  background-color: rgb(255, 236, 127);
+  margin: 5px;
+  border-radius: 10px;
+  z-index: 1;
+  position: relative;
+  animation: show 0.4s;;
+}
+
+img {
+  width: 240px;
+  height: 160px;
+  margin-top: 4px;
+  border-radius: 10px;
+}
+
+.wish_body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+p {
+  margin-bottom: 0;
+}
+
+.btn_group {
+  
+}
+
+@keyframes show{
+  0%{
+  opacity:0;
+  }
+  100% {
+  opacity:1;
+  }
+  }
+
+

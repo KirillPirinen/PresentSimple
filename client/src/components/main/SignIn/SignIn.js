@@ -1,16 +1,16 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useHistory, useLocation } from "react-router";
+import { Link } from "react-router-dom";
 import { signIn } from "../../../redux/actions/user.ac";
-import { clearError } from "../../../redux/actions/error.ac";
+import ModalInfo from "../../ModalInfo/ModalInfo";
 
 const SignIn = () => {
-  const error = useSelector((state) => state.error);
+  const dispatch = useDispatch();
 
   const [userSignIn, setUserSignIn] = useState({
     email: "",
     password: "",
-    phone: "",
   });
 
   let history = useHistory();
@@ -21,8 +21,6 @@ const SignIn = () => {
   const changeHandler = (e) => {
     setUserSignIn((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
-
-  const dispatch = useDispatch();
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -36,60 +34,14 @@ const SignIn = () => {
   };
 
   return (
-    <div className="d-flex justify-content-center">
-      {error ? (
-        <>
-          <h2>{error}</h2>
-          <form
-            onSubmit={submitHandler}
-            className="d-flex flex-column align-items-center bg-light text-dark p-3 border rounded-3"
-          >
-            <legend className="text-center mb-4">Вход</legend>
-            <div className="mb-3">
-              <input
-                onChange={changeHandler}
-                value={userSignIn.email}
-                className="form-control"
-                type="email"
-                name="email"
-                placeholder="Email"
-              />
-            </div>
-
-            <div className="mb-3">
-              <input
-                onChange={changeHandler}
-                value={userSignIn.phone}
-                className="form-control"
-                type="text"
-                name="phone"
-                placeholder="Телефон"
-              />
-            </div>
-
-            <div className="mb-3">
-              <input
-                onChange={changeHandler}
-                value={userSignIn.password}
-                className="form-control"
-                type="password"
-                name="password"
-                placeholder="Пароль"
-              />
-            </div>
-
-            <button type="submit" className="btn btn-primary">
-              Войти
-            </button>
-          </form>
-        </>
-      ) : (
+    <>
+      <div style={{ width:'60%' }} className="d-flex justify-content-center py-5">
         <form
           onSubmit={submitHandler}
-          className="d-flex flex-column align-items-center bg-light text-dark p-3 border rounded-3"
+          className="w-100 d-flex flex-column align-items-center bg-light text-dark p-3 border rounded-3 container-glass"
         >
           <legend className="text-center mb-4">Вход</legend>
-          <div className="mb-3">
+          <div className="mb-3" style={{ width:'60%' }}>
             <input
               onChange={changeHandler}
               value={userSignIn.email}
@@ -100,7 +52,7 @@ const SignIn = () => {
             />
           </div>
 
-          <div className="mb-3">
+          <div className="mb-3" style={{ width:'60%' }}>
             <input
               onChange={changeHandler}
               value={userSignIn.password}
@@ -110,13 +62,21 @@ const SignIn = () => {
               placeholder="Пароль"
             />
           </div>
-
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className="btn">
             Войти
           </button>
+          <br />
+          <Link to="/auth/signup">
+            Зарегистрироваться
+          </Link>
+          <br/>
+          <Link to="/modal/forgotPassword">
+            Забыл пароль
+          </Link>
         </form>
-      )}
-    </div>
+      </div>
+      <ModalInfo />
+    </>
   );
 };
 

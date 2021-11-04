@@ -1,15 +1,27 @@
-import './wishstyle.css'
+import styles from "./styles2.module.css"
 
-
-function Wish({photo, title, description, bind}) {
+function Wish({wishPhoto, children, title, description, isBinded}) {
   return (
-   <div className='wish'>
-      <div className='wish_body'>
-        <img src={photo} alt='#'></img>
-        <div className='wish_title'><p>{title}</p></div>
-        <div className='wish_description'><p>{description}</p></div>
-        <div className='wish_bind'><p>{bind ? 'Не дарили' : 'Уже подарили'}</p></div>
-     </div>
+    <div className={styles.container}>
+        <div className={styles.card}>
+            <div className={`${styles.face} ${styles.face1}`}>
+                <div className={styles.content}>
+                    <img src={wishPhoto ? `http://localhost:3001/${wishPhoto.replace('public/', '')}` : 'http://localhost:3001/uploads/defaultizo.jpg'}/>
+                </div>
+            </div>
+            <div className={`${styles.face} ${styles.face2}`}>
+                <div className={styles.content}>
+                <figure class="text-end">
+                  <blockquote class="blockquote">
+                  <dd className="col-sm-12">{title}</dd>
+                  <span>{description ? description : 'Пользователь не добавил детальное описание'}</span>
+                  </blockquote>
+                </figure>
+                    
+                      {children}
+                </div>
+            </div>
+        </div>
    </div>
   )
 }

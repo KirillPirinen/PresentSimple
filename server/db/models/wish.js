@@ -9,11 +9,12 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate({Wishlist, PriceRange, WishPhoto, User, UserWish}) {
+    static associate({Wishlist, PriceRange, WishPhoto, User, Group}) {
       this.belongsTo(Wishlist, {foreignKey:"wishlist_id"})
       this.belongsTo(PriceRange,{foreignKey:"pricerange_id"})
-      this.hasOne(WishPhoto,{foreignKey:"wish_id"})
+      this.hasOne(WishPhoto,{foreignKey:"wish_id", onDelete: 'cascade'})
       this.belongsTo(User, {foreignKey:"user_id"})
+      this.hasOne(Group,{foreignKey:"wish_id"})
     }
   };
   Wish.init({
@@ -24,6 +25,7 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue:null,
       type: DataTypes.INTEGER
     },
+    isGiven: DataTypes.BOOLEAN,
     pricerange_id: DataTypes.INTEGER,
     wishlist_id: DataTypes.INTEGER
   }, {

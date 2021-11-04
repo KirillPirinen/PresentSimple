@@ -1,8 +1,8 @@
+const appError = require('../Errors/errors');
+
 const checkAuth = (req, res, next) => {
-  console.log("req?.session", req?.session);
-  console.log("req?.session?.user", req?.session?.user);
   if (!req.session.user) {
-    return res.sendStatus(401);
+    return next(new appError(401, 'Доступно только для авторизированных пользователей. Авторизируйтесь или зарегистрируйтесь'))
   }
   return next();
 };

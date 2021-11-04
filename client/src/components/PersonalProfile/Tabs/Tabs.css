@@ -1,0 +1,12 @@
+.tabs_person {
+  width: 80%;
+}
+.ext {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+.insder_tabs {
+  background-color: white;
+  padding-top: 3%;
+}

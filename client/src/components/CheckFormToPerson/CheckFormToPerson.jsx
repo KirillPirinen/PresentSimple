@@ -1,14 +1,24 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
-import { checkForm } from "../../redux/actions/checkFormToPerson";
+import { useEffect, useState } from "react";
+import { checkForm, clearCheckForm, createForm } from "../../redux/actions/checkFormToPerson";
 import { RecipientInfoBlock } from "./subComponents/recipientInfoBlock";
 import { ListOfForms } from "./subComponents/ListOfForms";
-
+import ModalInfo from "../ModalInfo/ModalInfo";
+import { infoModalActivate} from "../../redux/actions/modalInfoAC";
+import { useHistory } from "react-router";
 export default function CheckFormToPerson() {
-  const [inputFormToPerson, setInputFormToPerson] = useState({name: '', lname: '', phone: '', email: ''});
-  const {recipient, forms, message} = useSelector(state=>state.checkform)
-  
+  const {recipient, forms, contacts, form} = useSelector(state=>state.checkform)
+  const initialState = contacts ? contacts : {name: '', lname: '', phone: '', email: ''};
+  const [inputFormToPerson, setInputFormToPerson] = useState(initialState);
+  const history = useHistory()
+  if(form?.id) history.push('/success')
   const dispatch = useDispatch();
+
+  useEffect(()=>{
+    if(recipient || forms) {
+      dispatch(infoModalActivate())
+    }
+  },[recipient, forms])
 
 
   const changeHandler = (e) => {
@@ -17,17 +27,27 @@ export default function CheckFormToPerson() {
 
   const checkFormHandler = (e) => {
     e.preventDefault();
-    if (inputFormToPerson) {
-      dispatch(checkForm(inputFormToPerson.name, inputFormToPerson.lname, inputFormToPerson.phone, inputFormToPerson.email))
+    if(contacts) {
+      dispatch(createForm(inputFormToPerson))
+    } else {
+      dispatch(clearCheckForm())
+      if (inputFormToPerson) {
+        dispatch(checkForm(inputFormToPerson.phone, inputFormToPerson.email))
+      }
     }
   };
 
   return(
     <>
-    <div className='container-glass'>
-    <h2>Возможно твой друг уже зарегистрирован здесь и оставил список желаний. Давай проверим</h2>
-    <form onSubmit={checkFormHandler} className="d-flex flex-column align-items-center bg-light text-dark p-3 border rounded-3">
-      
+    <div className='container-glass d-flex justify-content-center'>
+   <div>
+    {
+      contacts ? <h3>Отправка пользователю анкеты-приглашения</h3> :<h3>Возможно твой друг уже зарегистрирован здесь и оставил список желаний. Давай проверим</h3>
+    }
+    <form onSubmit={checkFormHandler} className="d-flex justify-content-center flex-column bg-light text-dark p-3 border rounded-3 container-glasseffect">
+    <div>
+      {contacts && 
+      <>
       <div className="mb-3">
       <input 
       name="name"
@@ -36,19 +56,22 @@ export default function CheckFormToPerson() {
       placeholder="Имя" 
       value={inputFormToPerson.name}
       onChange={changeHandler}
+      required
       />
       </div>
       
       <div className="mb-3">
-      <input 
+      <input
       name="lname"
       className="form-control"
       type="text"
       placeholder="Фамилия" 
       value={inputFormToPerson.lname}
       onChange={changeHandler}
+      required 
       />
       </div>
+      </>}
 
       <div className="mb-3">
       <input 
@@ -74,21 +97,17 @@ export default function CheckFormToPerson() {
       />
       </div>
 
-      <button type="submit" className="btn btn-primary">
-      Добавить
-    </button>
+      <button type="submit">
+        {contacts ? "Сгенерировать ссылку" : "Искать"}
+      </button>
+      </div>
     </form>
     </div>
-    <div className="container-glass">
-    {recipient &&
-        <RecipientInfoBlock recipient={recipient}/>
-    }
-    {forms && <ListOfForms forms={forms}/>}
-
-    {message && 
-      <h2>{message}</h2>
-    }
     </div>
+      <ModalInfo>
+        {recipient && <RecipientInfoBlock recipient={recipient}/>}
+        {forms && <ListOfForms forms={forms}/>}
+      </ModalInfo>
     </>
   )
 }

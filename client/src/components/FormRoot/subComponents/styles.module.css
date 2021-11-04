@@ -1,0 +1,36 @@
+.easy {
+  background-color:rgba(124, 252, 0, 0.2);
+  border-radius: 5%;
+  padding: 15px;
+  margin-top: 5px;
+}
+
+.middle {
+  background-color:rgba(240, 230, 140, 0.4);
+  border-radius: 3%;
+  padding: 15px;
+  margin-top: 5px;
+}
+
+.hard {
+  background-color:rgba(255, 160, 122, 0.4);
+  border-radius: 3%;
+  padding: 15px;
+  margin-top: 5px;
+}
+.superhard {
+  background-color:rgba(255, 99, 71, 0.5);
+  border-radius: 3%;
+  padding: 15px;
+  margin-top: 5px;
+}
+.insane {
+  background-color:rgba(255, 69, 0, 0.5);
+  border-radius: 3%;
+  padding: 15px;
+  margin-top: 5px;
+}
+
+.list-group-item.disabled {
+  text-decoration: line-through;
+}

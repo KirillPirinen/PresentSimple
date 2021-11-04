@@ -1,0 +1,12 @@
+.wish_wrapper {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 80%;
+}
+
+.mainwrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 2%;
+}

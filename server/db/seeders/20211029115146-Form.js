@@ -1,8 +1,9 @@
 'use strict';
-
+const { uuid } = require('uuidv4');
 module.exports = {
   up: async (queryInterface, Sequelize) => {
      await queryInterface.bulkInsert('Forms', [{
+        id: uuid(),
         name: 'John',
         lname: 'Doe',
         email: '2@mail.ru',

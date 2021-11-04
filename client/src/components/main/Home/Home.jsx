@@ -15,27 +15,13 @@ export default function Home() {
   }, [])
 
     const exampleForm = useSelector(state => state.exampleForm);
+    const checkform = useSelector(state => state.checkform)
+
+    const showAnswerFromBack = useSelector(state => state.showAnswerFromBack);
 
   return (
     <div className="container-glass">
     <Main user={user}/>
-     {/* <WishListPerson/> */}
-    {exampleForm ?
-    
-    <>
-    <h2>Мы не нашли его список желаний</h2>
-    <h2>Готовы ли Вы отправить ему эту анкету?</h2>
-    <div>
-    <h2>Ура! Кто-то из твоих близких или знакомых хотят подарить Вам подарок! Заполните, пожалуйста, как можно больше полей</h2>
-    <PresentForm/>
-    </div>
-    </>
-     : '' }
     </div>
   )
 }
-
-// {showForm || <Main setShowForm={setShowForm} user={user}/>}
-//     <CSSTransition in={showForm} classNames="transitions" timeout={400} unmountOnExit>
-//       <CheckFormToPerson/>
-//     </CSSTransition>
