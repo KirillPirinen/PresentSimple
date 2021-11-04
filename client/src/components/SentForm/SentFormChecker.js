@@ -1,7 +1,6 @@
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useHistory, useParams } from "react-router"
-import { Button } from "reactstrap"
 import { infoModalActivate, infoModalDeactivate } from "../../redux/actions/modalInfoAC"
 import { CheckUUID } from "../../redux/actions/SentForm.ac"
 import Loader from "../Loader/Loader"
@@ -34,12 +33,12 @@ export const SentFormCheker = () => {
       <ModalInfo>
         {message && 
           <ErrorMessage message={message}>
-            <Button onClick={clickHandler} color="success">На главную</Button>
+            <button onClick={clickHandler} color="success">На главную</button>
           </ErrorMessage>
         }
         {error && 
           <ErrorMessage message={error}>
-            <Button onClick={clickHandler} color="success">На главную</Button>
+            <button onClick={clickHandler} color="success">На главную</button>
           </ErrorMessage>
         }
       </ModalInfo>

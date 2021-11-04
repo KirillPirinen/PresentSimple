@@ -1,5 +1,4 @@
 import Wish from '../Wish/Wish';
-import {Button} from 'reactstrap';
 import { useHistory, useParams } from 'react-router';
 import { addAlone, joinGroup } from '../../../redux/actions/groupModal';
 import { useDispatch, useSelector } from 'react-redux';

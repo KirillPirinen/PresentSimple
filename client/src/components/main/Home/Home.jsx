@@ -3,7 +3,6 @@ import PresentForm from "../../presents/PresentForm/PresentForm";
 import { useState, useEffect } from "react";
 import { getExampleForm } from "../../../redux/actions/checkFormToPerson";
 import { Main } from "./Main";
-import { Button } from "reactstrap";
 
 export default function Home() {
 
