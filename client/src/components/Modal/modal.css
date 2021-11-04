@@ -1,7 +1,7 @@
-.modal-sanya {
+.modal {
   height: 100vh;
   width: 100vw;
-  background-color: rgba(48, 57, 58, 0.4);
+  background-color: rgba(0, 0, 0, 0.4);
   position: fixed;
   display: flex;
   align-items: center;
@@ -10,14 +10,15 @@
   transition: 0.7s;
 }
 
-.modal-sanya.active-sanya {
+.modal.active {
   transform: scale(1);
 }
 
-.modal_content-sanya {
+.modal_content {
   padding: 20px;
   border-radius: 15px;
-  background-color: rgb(156, 197, 233);
+  border-color: aliceblue;
+  background-color: aliceblue;
   height: auto;
-  width: auto;
-} 
+  width: 300px;
+}

@@ -35,6 +35,7 @@ function PersonalProfile() {
           <Tabs />
         </div>
     </div>
+    
   );
 }
 

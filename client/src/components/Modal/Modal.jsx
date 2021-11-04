@@ -1,4 +1,4 @@
-import style from './styles.module.css';
+import './modal.css';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
@@ -16,6 +16,8 @@ function Modal({ active, setActive, wishValue, setModalValue }) {
     setDescription(wishValue.description ? wishValue.description : '');
     setPrice(wishValue.price ? wishValue.price : '');
   }, [wishValue]);
+
+  console.log(active, 'MODAL STATUS');
 
   const submitAction = (e) => {
     if (wishValue.id) {
@@ -49,10 +51,10 @@ function Modal({ active, setActive, wishValue, setModalValue }) {
 
   return (
     <div
-      className={active ? style['modal-sanya'] : style['active-sanya']}
+      className={active ? 'modal active' : 'modal'}
       onClick={() => setActive(false)}
     >
-      <div className="modal_content-sanya" onClick={(e) => e.stopPropagation()}>
+      <div className="modal_content" onClick={(e) => e.stopPropagation()}>
         <form
           enctype="multipart/form-data"
           onSubmit={submitAction}
