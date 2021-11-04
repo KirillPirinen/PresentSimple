@@ -28,7 +28,7 @@ function WishList({wishlist}) {
     </div>
     <div className={style['wish_wrapper']}>
       {
-        wishes?.map((wish) => !wish.isGiven ?
+        wishes?.sort((a, b) => b.id - a.id).map((wish) => !wish.isGiven ?
         <Wish
            key={wish.id}
            title={wish.title}

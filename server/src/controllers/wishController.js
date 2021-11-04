@@ -4,9 +4,14 @@ const { User, Form, Present, WishPhoto, Wish, Wishlist, Group } = require('../..
 const allUserWishes = async (req, res) => {
   const user_id = req.session.user.id;
   try {
+
+    const wishlist = await Wishlist.findOne({where: {user_id}})
+
+    wishlist_id = wishlist.id
+
     const allWishes = await User.findOne({
       where: { id: user_id },
-      include: [{ model: Wishlist, include: {model: Wish, required: false, include: {model: WishPhoto, required: false}}},
+      include: [{ model: Wishlist, include: {model: Wish, include: {model: WishPhoto, required: false}}},
       { model: Group},
       {model: Form},
       {model: Present}]
@@ -53,7 +58,6 @@ const addNewWish = async (req, res) => {
       title,
       description,
       pricerange_id,
-      user_id,
       wishlist_id,
     });
 

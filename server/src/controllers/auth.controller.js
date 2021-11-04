@@ -36,23 +36,19 @@ const signUp = async (req, res, next) => {
         password: hashPassword,
       });
 
-      await Wishlist.create({user_id:newUser.id})
-
+     const wishlist = await Wishlist.create({user_id:newUser.id})
+      
       req.session.user = {
         id: newUser.id,
         name: newUser.name,
       };
-
-      const wishlist = await Wishlist.create({
-        user_id: req.session.user.id,
-      });
 
       return res.json({
         user: { id: newUser.id, name: newUser.name },
         wishlist: wishlist,
       });
     } catch (error) {
-      return res.status(401).json(error)
+      return next(new Error(error))
     }
   } else {
     return next(new appError(500, 'Вы не ввели всех необходимых данных для регистрации'))
