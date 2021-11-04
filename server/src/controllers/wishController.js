@@ -11,10 +11,14 @@ const allUserWishes = async (req, res) => {
 
     const allWishes = await User.findOne({
       where: { id: user_id },
-      include: [{ model: Wishlist, include: {model: Wish, include: {model: WishPhoto, required: false}}},
-      { model: Group},
-      {model: Form},
-      {model: Present}]
+      include: [ { model: Wishlist, include: 
+        {model: Wish, required: false, include: 
+          {model: WishPhoto, required: false}}},
+      { model: Group },
+      { model: Form },
+      { model: Present, include: {model: Form, attributes: ['name', 'lname']} },
+      { model: Wish, include: {model: Wishlist, include:
+         {model: User, attributes: ['name', 'lname']}}}]
     });
     res.json(allWishes);
   } catch (error) {

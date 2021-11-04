@@ -1,0 +1,17 @@
+.active {
+  background-color: rgb(120, 173, 149);
+  width: auto;
+  padding: 30px;
+  margin: 20px;
+  width: auto;
+  box-shadow: -4px 4px 51px 10px rgb(34 60 80 / 24%);
+}
+
+.notactive {
+  background-color: rgb(236, 138, 131);
+  width: auto;
+  padding: 30px;
+  margin: 20px;
+  width: auto;
+  box-shadow: -4px 4px 51px 10px rgb(34 60 80 / 24%);
+}
