@@ -1,5 +1,7 @@
+import { CLEAR_INFO } from "../types/errorTypes"
+import { MODAL_INFO_DEACTIVATE } from "../types/modalTypes"
 import { CHECK_FORM_UUID, CLEAR_SENTFORM, ERR_INTERNAL, FORM_DELIVERED, SEND_FILLING_FORM, SEND_FILLING_FORM_ERROR } from "../types/sentform.types"
-import { getError } from "./error.ac"
+import { clearInfo, getError } from "./error.ac"
 import { disableLoader, enableLoader } from "./loader.ac"
 
 export const CheckUUID = (uuid) => async (dispatch) => {
@@ -34,8 +36,10 @@ export const SendForm = (uuid, data, history) => async (dispatch) => {
         dispatch({type:SEND_FILLING_FORM, payload:{status, message, count}})
         setTimeout(() => {
           history.push('/')
+          dispatch({type:MODAL_INFO_DEACTIVATE})
+          dispatch({type:CLEAR_INFO})
           dispatch({type:CLEAR_SENTFORM})
-        }, 2000);
+        }, 3000);
         break;
       case "empty":
         dispatch({type:SEND_FILLING_FORM_ERROR, payload:{status, message}})

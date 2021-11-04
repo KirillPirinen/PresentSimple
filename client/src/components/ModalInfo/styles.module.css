@@ -44,12 +44,15 @@
 @keyframes clickhere {
   0% {
     opacity: 0.5;
+    margin-top: 400px;
   }
   50% {
     opacity: 2;
+    margin-top: 550px;
   }
   100% {
     opacity: 0.5;
+    margin-top: 400px;
   }
 }
 

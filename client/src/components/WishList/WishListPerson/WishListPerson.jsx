@@ -37,7 +37,7 @@ export default function WishListPerson() {
       <h3>Хотелки пользователя: {wishesGroupAlone?.User?.name} {wishesGroupAlone?.User?.lname}</h3>
       </div>
       
-      {wishesGroupAlone &&
+      {wishesGroupAlone?.Wishes?.length ?
       wishesGroupAlone?.Wishes?.map(el => {
         return (
       
@@ -87,7 +87,12 @@ export default function WishListPerson() {
 
           
           </Wish>)
-      })}
+      }) :
+      <> 
+      <br/>
+      <br/>
+      <h4 className="container">Пользователь не добавил хотелок</h4>
+      </>}
       </>
     </div>
     <ModalInfo/>
