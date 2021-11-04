@@ -11,7 +11,6 @@ const checkFormToPersonRouter = require("./src/routes/checkFormToPerson.router")
 const path = require("path");
 const wishRouter = require("./src/routes/wishRouter");
 const presentsRouter = require('./src/routes/presentsRouter');
-
 const redis = require("redis");
 const session = require("express-session");
 const groupRouter = require("./src/routes/group.router");

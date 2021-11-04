@@ -14,7 +14,7 @@ function Wish({wishPhoto, children, title, description, isBinded}) {
                 <figure class="text-end">
                   <blockquote class="blockquote">
                   <dd className="col-sm-12">{title}</dd>
-                  <span>{description ? description : 'Пользователь не добавил детальное описание'}</span>
+                  {description && <span>{description}</span>}
                   </blockquote>
                 </figure>
                     

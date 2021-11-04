@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import NavBar from "./components/main/NavBar/NavBar";
 import Home from "./components/main/Home/Home";
 import { useEffect } from "react";
@@ -27,6 +27,7 @@ import ModalInfo from "./components/ModalInfo/ModalInfo";
 import ModalForgotPassword from "./components/main/SignIn/modalForgotPassword/modalForgotPassword";
 import ResetPassword from "./components/main/SignIn/ResetPassword/ResetPassword";
 import ModalContact from "./components/main/Home/ModalContact/ModalContact";
+import { NotFound } from "./components/404";
 moment.locale("ru");
 
 function App() {
@@ -41,9 +42,9 @@ function App() {
   // }, []);
 
   return (
-    <>
-      <Router>
-        <NavBar />
+      <BrowserRouter>
+      <NavBar />
+         <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/auth/signup" component={SignUp} />
         <Route exact path="/auth/signin" component={SignIn} />
@@ -57,23 +58,26 @@ function App() {
         <PrivateRoute exact path="/search">
           <CheckFormToPerson />
         </PrivateRoute>
-        <FormContextProvider>
+        <PrivateRoute exact path="/wishListPerson/:user_id">
+          <WishListPerson/>
+        </PrivateRoute>
           <Route exact path="/sentform/:uuid">
+            <FormContextProvider>
             <SentFormCheker />
+            </FormContextProvider>
           </Route>
-        </FormContextProvider>
-        <Route exact path="/lk" component={PersonalProfile} />
-        <Route
-          exact
-          path="/wishListPerson/:user_id"
-          component={WishListPerson}
-        />
-        <Route
+        <PrivateRoute exact path="/lk">
+          <PersonalProfile/>
+        </PrivateRoute>
+        <PrivateRoute
           exact
           path="/modalGroup/:wish_id/:user_id"
-          component={ModalGroup}
-        />
-        <Route exact path="/mywishlist" component={WishList} />
+        >
+          <ModalGroup/>
+        </PrivateRoute>
+        <PrivateRoute exact path="/mywishlist">
+        <WishList/>
+        </PrivateRoute>
         <Route exact path="/success" component={SuccessAdded} />
         <Route
           exact
@@ -85,13 +89,14 @@ function App() {
           path="/resetPassword/fhjdbjhvhbavjdfhbakn/:reset_password_id"
           component={ResetPassword}
         />
-                <Route
+        <Route
           exact
           path="/modalContact"
           component={ModalContact}
         />
-      </Router>
-    </>
+        <Route exact path="*" component={NotFound}/>
+        </Switch>
+      </BrowserRouter>
   );
 }
 
