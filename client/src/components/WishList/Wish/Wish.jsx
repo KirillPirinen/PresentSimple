@@ -7,14 +7,14 @@ function Wish({wishPhoto, children, title, description, isBinded}) {
             <div className={`${styles.face} ${styles.face1}`}>
                 <div className={styles.content}>
                     <img src={wishPhoto ? `http://localhost:3001/${wishPhoto.replace('public/', '')}` : 'http://localhost:3001/uploads/defaultizo.jpg'}/>
-                    <h3>{title}</h3>
                 </div>
             </div>
             <div className={`${styles.face} ${styles.face2}`}>
                 <div className={styles.content}>
                 <figure class="text-end">
                   <blockquote class="blockquote">
-                  <dd className="col-sm-12">{description ? description : 'Пользователь не добавил детальное описание'}</dd>
+                  <dd className="col-sm-12">{title}</dd>
+                  <span>{description ? description : 'Пользователь не добавил детальное описание'}</span>
                   </blockquote>
                 </figure>
                     

@@ -7,10 +7,12 @@ import { infoModalDeactivate } from "../../../redux/actions/modalInfoAC";
 export const ListOfForms = ({forms}) => {
   const dispatch = useDispatch()
   const clickHandler = () => {
+    dispatch(infoModalDeactivate())
     dispatch(setContacts(forms[0]))
+  }
+  const clickLink = () => {
     dispatch(infoModalDeactivate())
   }
-  console.log(forms)
   return (
     <div className="container-info">
     <h3>Хорошая новость! Пользователь уже заполнял анкет{forms.length === 1 ? 'у' : 'ы'}.</h3>
@@ -21,7 +23,7 @@ export const ListOfForms = ({forms}) => {
             <b>Фамилия:  </b>{e.lname} &nbsp;
             <b>Дата заполнения анкеты:  
             </b> {moment(e.createdAt).format('ll')} 
-            {e.isActive ? <Link to={`/presents/${e.id}`}>перейти в анкету</Link> : 
+            {e.isActive ? <Link onClick={clickLink} to={`/presents/${e.id}`}>перейти в анкету</Link> : 
             <p>Анкета отправлена, но не заполнена пользователем. Ссылка на неё будет доступна после заполнения</p>}
           </li>))}
       </ol>

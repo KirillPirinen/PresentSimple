@@ -42,14 +42,15 @@ const SignUp = () => {
   };
 
   return (
-    <div className="d-flex justify-content-center">
+    <div style={{ width:'60%' }} className="d-flex justify-content-center w-65">
       <form
+        style={{ width:'60%' }}
         onSubmit={submitHandler}
         className="container-glass d-flex flex-column align-items-center bg-light text-dark p-3 border rounded-3"
       >
         <legend className="text-center mb-4">Регистрация</legend>
 
-        <div className="mb-3">
+        <div className="mb-3" style={{ width:'60%' }}>
           <input
             onChange={changeHandler}
             className="form-control"
@@ -60,7 +61,7 @@ const SignUp = () => {
           />
         </div>
 
-        <div className="mb-3">
+        <div className="mb-3" style={{ width:'60%' }}>
           <input
             onChange={changeHandler}
             className="form-control"
@@ -71,7 +72,7 @@ const SignUp = () => {
           />
         </div>
 
-        <div className="mb-3">
+        <div className="mb-3" style={{ width:'60%' }}>
           <input
             onChange={changeHandler}
             className="form-control"
@@ -82,7 +83,7 @@ const SignUp = () => {
           />
         </div>
 
-        <div className="mb-3">
+        <div className="mb-3" style={{ width:'60%' }}>
           <input
             onChange={changeHandler}
             className="form-control"
@@ -93,7 +94,7 @@ const SignUp = () => {
           />
         </div>
 
-        <div className="mb-3">
+        <div className="mb-3" style={{ width:'60%' }}>
           <input
             onChange={changeHandler}
             className="form-control"
@@ -104,7 +105,7 @@ const SignUp = () => {
           />
         </div>
 
-        <div className="mb-3">
+        <div className="mb-3" style={{ width:'60%' }}>
           <input
             onChange={changeHandler}
             className="form-control"
@@ -118,6 +119,7 @@ const SignUp = () => {
         <button type="submit" className="btn">
           Зарегистрироваться
         </button>
+        <hr/>
         <a 
           href="/auth/signin"
           onClick={(e) => {
