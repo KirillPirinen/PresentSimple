@@ -1,4 +1,4 @@
-import './modal.css';
+import style from './styles.module.css';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
@@ -10,7 +10,7 @@ function Modal({ active, setActive, wishValue, setModalValue }) {
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
   const [photo, setPhoto] = useState();
-
+  console.log(active);
   useEffect(() => {
     setTitle(wishValue.title ? wishValue.title : '');
     setDescription(wishValue.description ? wishValue.description : '');
@@ -49,7 +49,7 @@ function Modal({ active, setActive, wishValue, setModalValue }) {
 
   return (
     <div
-      className={active ? 'modal-sanya active-sanya' : 'modal-sanya'}
+      className={active ? style['modal-sanya'] : style['active-sanya']}
       onClick={() => setActive(false)}
     >
       <div className="modal_content-sanya" onClick={(e) => e.stopPropagation()}>

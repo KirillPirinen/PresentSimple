@@ -10,7 +10,7 @@
   transition: 0.7s;
 }
 
-.modal.active-sanya {
+.modal-sanya.active-sanya {
   transform: scale(1);
 }
 

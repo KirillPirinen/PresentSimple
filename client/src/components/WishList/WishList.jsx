@@ -16,10 +16,9 @@ function WishList({wishlist}) {
 
   function deleteAction(id) {
     dispatch(delWish(id))
-    console.log(modalValue);
     setModalValue({})
   }
-
+  
 
   return (
     <div className='wishes container-glass'>
