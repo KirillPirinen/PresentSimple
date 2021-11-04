@@ -10,7 +10,7 @@ export default function NavBar() {
     <nav>
   <ul>
     <li>
-      <Link exact to="/auth/signout">Главная</Link>
+      <Link exact to="/">Главная</Link>
     </li>
       { user ?
       <>

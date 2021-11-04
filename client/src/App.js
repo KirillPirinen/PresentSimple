@@ -8,7 +8,6 @@ import PrivateRoute from "./components/main/PrivateRouter/PrivateRouter";
 import SignUp from "./components/main/SignUp/SignUp";
 import SignIn from "./components/main/SignIn/SignIn";
 import SignOut from "./components/main/SignOut/SignOut";
-import { SentForm } from "./components/SentForm/SentForm";
 import { FormContextProvider } from "./components/context/SentFormContext";
 import SentList from "./components/presents/SentList/SentList";
 import WishList from "./components/WishList/WishList";
@@ -32,7 +31,7 @@ function App() {
   useEffect(() => {
     dispatch(checkAuth());
     // dispatch(deleteUser())
-  }, []);
+  }, [dispatch]);
 
   // useEffect(() => {
   //   dispatch(clearErrorAuth());
