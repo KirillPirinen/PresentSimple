@@ -1,6 +1,9 @@
 import { useState } from 'react'
+import './Tabs.css';
 import { Nav, NavItem, NavLink, TabContent, TabPane, Row, Col, Card, CardTitle, CardText, Button, Container } from 'reactstrap'
 import WishList from '../../WishList/WishList'
+import MyPresents from '../../PersonalProfile/MyPresents/MyPresents'
+import IGive from '../IGive/IGive';
 
 function Tabs() {
 
@@ -8,9 +11,9 @@ function Tabs() {
 
   return (
 
-<div>
-<Container>
-  <Nav tabs>
+<div className="tabs_person">
+<Container className="contnav">
+  <Nav tabs className="ext">
     <NavItem>
       <NavLink
         className={active.tab1}
@@ -54,10 +57,17 @@ function Tabs() {
   </Nav>
   
   </Container> 
+
+    <div className='insder_tabs'>
   {
-    active.tab1 === 'active' ? <WishList/> :
-    <WishList/>
+
+    active.tab1 === 'active' ? <WishList/> : 
+    active.tab5 === 'active' ? <MyPresents/> : 
+    active.tab5 === 'active' ? <IGive/> :
+    null
   }
+    </div>
+    
 </div>
   )
 }

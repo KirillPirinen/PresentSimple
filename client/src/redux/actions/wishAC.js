@@ -20,12 +20,10 @@ export function addNewWish(wish) {
       body: wish,
     });
     const newWish = await response.json();
-    console.log(newWish);
     return dispatch({
       type: ADD_WISH,
       payload: newWish,
     });
-    // dispatch(getAllWishes())
   };
 }
 
@@ -68,6 +66,7 @@ export function isGiven(id) {
       credentials: 'include',
       body: id,
     })
+    console.log(id, 'GET ID SUKANAH');
     return dispatch({
       type: WISH_IS_GIVEN,
       payload: id,

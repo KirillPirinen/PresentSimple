@@ -1,8 +1,8 @@
 import Wish from "./Wish/Wish";
 import style from './styles.module.css'
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import { getAllWishes, delWish, isGiven } from "../../redux/actions/wishAC";
+import { useState } from "react";
+import { delWish, isGiven } from "../../redux/actions/wishAC";
 import Modal from "../Modal/Modal";
 
 function WishList({wishlist}) {
@@ -28,7 +28,7 @@ function WishList({wishlist}) {
     </div>
     <div className={style['wish_wrapper']}>
       {
-        wishes?.map((wish) => 
+        wishes?.map((wish) => !wish.isGiven ?
         <Wish
            key={wish.id}
            title={wish.title}
@@ -44,7 +44,7 @@ function WishList({wishlist}) {
            <button onClick={() => deleteAction(wish.id)} >Удалить</button>
            <button onClick={() => dispatch(isGiven(wish.id))}>Подарили!</button>
            </div>
-           </Wish>
+           </Wish> : null
        
        )
        
