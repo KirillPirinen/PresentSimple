@@ -3,7 +3,7 @@ import style from './styles.module.css'
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { delWish, isGiven } from "../../redux/actions/wishAC";
-import Modal from "../Modal/Modal";
+import ModalAddWish from "../ModalAddWish/ModalAddWish";
 
 function WishList({wishlist}) {
 
@@ -24,7 +24,7 @@ function WishList({wishlist}) {
   return (
     <div className='wishes container-glass'>
     <div className={style['add_wish_btn']}>
-    <button className={`${style.btn} ${style.second}`} onClick={() => (setActive(true),setModalValue(''))} >Добавить хотелку</button>
+    <button onClick={() => (setActive(true),setModalValue(''))} >Добавить хотелку</button>
     </div>
     <div className={style['wish_wrapper']}>
       {
@@ -49,7 +49,7 @@ function WishList({wishlist}) {
        )
        
       }
-      <Modal wishValue={modalValue} setModalValue={setModalValue} active={modalActive} setActive={setActive} />
+      <ModalAddWish wishValue={modalValue} setModalValue={setModalValue} active={modalActive} setActive={setActive} />
       </div>
     </div>
   )
