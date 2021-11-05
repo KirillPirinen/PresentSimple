@@ -46,7 +46,7 @@ export default function WishListPerson() {
           <div>
      
      {!el.isBinded ?
-          <div className={styles.buttons}>
+          <div className="d-flex flex-column justify-content-center">
           <a onClick={() => dispatch(addAlone(el.id, user_id))}>Подарить самому</a>
           <a onClick={() => history.push(`/modalGroup/${el.id}/${user_id}`)}>Создать группу</a>
           </div>

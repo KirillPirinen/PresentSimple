@@ -18,24 +18,22 @@ const allWishes = async (req, res, next) => {
 };
 
 const addAlone = async (req, res, next) => {
-
   const { wish_id } = req.body;
   try {
-    await Wish.update({ isBinded: true });
+    await Wish.update({ isBinded: true }, {where:{id:wish_id}});
     const wishes = await Wishlist.findOne({
-      where: { user_id: user_id },
+      where: { user_id: req.params.user_id },
       include: [{ model: Wish, include: [{ model: Group,  }, {model:WishPhoto}] }, {model:User, attributes:['name', 'lname']}],
       required: false,
       order: [[Wish, "id", "ASC"]],
     });
     return res.json(wishes);
   } catch (error) {
-    return res.sendStatus(520).json({ message: "Что-то пошло не так" });
+    return next(new Error(error.message));
   }
 };
 
 const addGroup = async (req, res, next) => {
-  console.log("req.session.user", req.session?.user?.id);
   const { wish_id } = req.body;
   const { user_id } = req.params;
   try {
@@ -61,6 +59,7 @@ const addGroup = async (req, res, next) => {
     });
     return res.json({ message: "Вы успешно создали группу", wishes: wishes });
   } catch (error) {
+    console.log(error)
     return res.json({ message: "Что-то пошло не так" });
   }
 };

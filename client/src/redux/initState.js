@@ -1,6 +1,6 @@
 //состояния подписанные на LocalStorage
 const initState = {
-  user: null,
+  user: false,
   loader: false,
   exampleForm: false,
   showAnswerFromBack: false,
