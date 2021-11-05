@@ -4,6 +4,7 @@ import { Nav, NavItem, NavLink, TabContent, TabPane, Row, Col, Card, CardTitle, 
 import WishList from '../../WishList/WishList'
 import MyPresents from '../../PersonalProfile/MyPresents/MyPresents'
 import IGive from '../IGive/IGive';
+import MyGroups from '../MyGroups/MyGroups';
 
 function Tabs() {
 
@@ -64,6 +65,7 @@ function Tabs() {
     active.tab1 === 'active' ? <WishList/> : 
     active.tab5 === 'active' ? <MyPresents/> : 
     active.tab5 === 'active' ? <IGive/> :
+    active.tab4 === 'active' ? <MyGroups/> :
     null
   }
     </div>
