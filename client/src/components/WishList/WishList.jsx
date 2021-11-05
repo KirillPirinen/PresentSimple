@@ -10,15 +10,18 @@ function WishList({ wishlist }) {
 
   const wishes = useSelector((state) => state.wishes?.Wishlist?.Wishes);
 
+  
   const [modalActive, setActive] = useState(false);
   const [modalValue, setModalValue] = useState({});
-
+  
+  console.log(modalActive);
   function deleteAction(id) {
     dispatch(delWish(id));
     setModalValue({});
   }
 
   return (
+    <>
     <div className="wishes">
       <div className={style['add_wish_btn']}>
         <button
@@ -63,6 +66,7 @@ function WishList({ wishlist }) {
         />
       </div>
     </div>
+        </>
   );
 }
 

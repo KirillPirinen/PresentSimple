@@ -1,4 +1,4 @@
-.modal {
+.modalsdsd {
   height: 100vh;
   width: 100vw;
   background-color: rgba(0, 0, 0, 0.4);
@@ -10,11 +10,12 @@
   transition: 0.7s;
 }
 
-.modal.active {
+.modalsdsd.active {
   transform: scale(1);
 }
 
-.modal_content {
+.modalsdsd_content {
+  text-align: center;
   padding: 20px;
   border-radius: 15px;
   border-color: aliceblue;

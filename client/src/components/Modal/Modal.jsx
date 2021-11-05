@@ -51,7 +51,7 @@ function Modal({ active, setActive, wishValue, setModalValue }) {
 
   return (
     <div
-      className={active ? 'modal active' : 'modal'}
+      className={active ? 'modalsdsd active' : 'modalsdsd'}
       onClick={() => setActive(false)}
     >
       <div className="modal_content" onClick={(e) => e.stopPropagation()}>
