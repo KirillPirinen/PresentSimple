@@ -20,7 +20,7 @@ export const Main = ({ setShowForm, user }) => {
           <br />
           <button
             onClick={() =>
-              user ? history.push("/mywishlist") : history.push("/auth/signup")
+              user ? history.push("/lk") : history.push("/auth/signup")
             }
           >
             Очень хочу!!!

@@ -20,6 +20,7 @@ const allUserWishes = async (req, res) => {
       { model: Wish, include: {model: Wishlist, include:
          {model: User, attributes: ['name', 'lname']}}}]
     });
+    console.log(allWishes);
     res.json(allWishes);
   } catch (error) {
     console.log(error);
