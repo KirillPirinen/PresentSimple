@@ -2,14 +2,21 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  border: 1px solid rgb(212, 184, 56);
   width: 250px;
-  background-color: rgb(255, 236, 127);
+  background: linear-gradient(
+    36deg,
+    rgba(38, 153, 154, 1) 0%,
+    rgb(102, 154, 154) 30%,
+    rgb(211, 198, 103) 58%,
+    rgba(212, 178, 40, 1) 91%,
+    rgba(222, 204, 81, 1) 100%
+  );
+  animation: gradient;
   margin: 5px;
   border-radius: 10px;
   z-index: 1;
   position: relative;
-  animation: show 0.4s;;
+  animation: show 0.4s;
 }
 
 img {
@@ -29,17 +36,23 @@ p {
   margin-bottom: 0;
 }
 
-.btn_group {
-  
-}
-
-@keyframes show{
-  0%{
-  opacity:0;
+@keyframes show {
+  0% {
+    opacity: 0;
   }
   100% {
-  opacity:1;
+    opacity: 1;
   }
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 80% 0%;
   }
-
-
+  50% {
+    background-position: 20% 100%;
+  }
+  100% {
+    background-position: 80% 0%;
+  }
+}

@@ -3,28 +3,27 @@ import style from './styles.module.css'
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { delWish, isGiven } from "../../redux/actions/wishAC";
-import Modal from "../Modal/Modal";
+import ModalAddWish from "../ModalAddWish/ModalAddWish";
 
-function WishList({wishlist}) {
-
-  const dispatch = useDispatch()
+function WishList({ wishlist }) {
+  const dispatch = useDispatch();
 
   const wishes = useSelector((state) => state.wishes?.Wishlist?.Wishes);
 
-  const [modalActive, setActive] = useState(false)
-  const [modalValue, setModalValue] = useState({})
-
+  
+  const [modalActive, setActive] = useState(false);
+  const [modalValue, setModalValue] = useState({});
+  
+  console.log(modalActive);
   function deleteAction(id) {
-    dispatch(delWish(id))
-    console.log(modalValue);
-    setModalValue({})
+    dispatch(delWish(id));
+    setModalValue({});
   }
 
-
   return (
-    <div className='wishes container-glass'>
+    <div className='wishes'>
     <div className={style['add_wish_btn']}>
-    <button className={`${style.btn} ${style.second}`} onClick={() => (setActive(true),setModalValue(''))} >Добавить хотелку</button>
+    <button onClick={() => (setActive(true),setModalValue(''))} >Добавить хотелку</button>
     </div>
     <div className={style['wish_wrapper']}>
       {
@@ -49,11 +48,10 @@ function WishList({wishlist}) {
        )
        
       }
-      <Modal wishValue={modalValue} setModalValue={setModalValue} active={modalActive} setActive={setActive} />
+      <ModalAddWish wishValue={modalValue} setModalValue={setModalValue} active={modalActive} setActive={setActive} />
       </div>
     </div>
-  )
-    }
+  );
+}
 
-
-export default WishList
+export default WishList;

@@ -4,12 +4,10 @@ import {
   EDIT_WISH,
   DELETE_WISH,
   WISH_IS_GIVEN,
-} from '../types/types';
+} from "../types/types";
 
 function wishReducer(state = {}, action) {
-
   switch (action.type) {
-
     case ALL_WISHES: {
       return action.payload;
     }
@@ -50,12 +48,12 @@ function wishReducer(state = {}, action) {
     }
 
     case WISH_IS_GIVEN: {
-      console.log(action, 'GET ID SUKANAH');
+      console.log(action, "GET ID SUKANAH");
       const newState = { ...state };
       newState.Wishlist = { ...newState.Wishlist };
       newState.Wishlist.Wishes = newState.Wishlist.Wishes.map((wish) => {
         if (Number(action.payload) === Number(wish.id)) {
-          console.log(action, 'GET ID SUKANAH222');
+          console.log(action, "GET ID SUKANAH222");
           return {
             ...wish,
             isGiven: true,

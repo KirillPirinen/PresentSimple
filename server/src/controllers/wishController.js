@@ -4,13 +4,23 @@ const { User, Form, Present, WishPhoto, Wish, Wishlist, Group } = require('../..
 const allUserWishes = async (req, res) => {
   const user_id = req.session.user.id;
   try {
+
+    const wishlist = await Wishlist.findOne({where: {user_id}})
+
+    wishlist_id = wishlist.id
+
     const allWishes = await User.findOne({
       where: { id: user_id },
-      include: [{ model: Wishlist, include: {model: Wish, required: false, include: {model: WishPhoto, required: false}}},
-      { model: Group},
-      {model: Form},
-      {model: Present}]
+      include: [ { model: Wishlist, include: 
+        {model: Wish, required: false, include: 
+          {model: WishPhoto, required: false}}},
+      { model: Group },
+      { model: Form },
+      { model: Present, include: {model: Form, attributes: ['name', 'lname']} },
+      { model: Wish, include: {model: Wishlist, include:
+         {model: User, attributes: ['name', 'lname']}}}]
     });
+    console.log(allWishes);
     res.json(allWishes);
   } catch (error) {
     console.log(error);
@@ -53,7 +63,6 @@ const addNewWish = async (req, res) => {
       title,
       description,
       pricerange_id,
-      user_id,
       wishlist_id,
     });
 

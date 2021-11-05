@@ -20,7 +20,7 @@ const allWishes = async (req, res, next) => {
 const addAlone = async (req, res, next) => {
   const { wish_id } = req.body;
   try {
-    await Wish.update({ isBinded: true }, {where:{id:wish_id}});
+    await Wish.update({ isBinded: true, user_id: req.session?.user?.id }, {where:{id:wish_id}});
     const wishes = await Wishlist.findOne({
       where: { user_id: req.params.user_id },
       include: [{ model: Wish, include: [{ model: Group,  }, {model:WishPhoto}] }, {model:User, attributes:['name', 'lname']}],
