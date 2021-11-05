@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsTo(PriceRange,{foreignKey:"pricerange_id"})
       this.hasOne(WishPhoto,{foreignKey:"wish_id", onDelete: 'cascade'})
       this.belongsTo(User, {foreignKey:"user_id"})
-      this.hasOne(Group,{foreignKey:"wish_id"})
+      this.hasOne(Group,{foreignKey:"wish_id", onDelete: 'cascade'})
     }
   };
   Wish.init({
