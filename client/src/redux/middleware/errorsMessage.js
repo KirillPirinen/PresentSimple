@@ -1,15 +1,13 @@
 import { getError, getInfo } from "../actions/error.ac"
 
 export const errorMessageMiddleware = ({dispatch}) => next => action => {
-  if(action?.payload?.error) {
+  if(action.payload?.hasOwnProperty("error")) {
     dispatch(getError(action.payload.error))
-    return next({type:"undefined"});
-  } else if (action?.payload?.message) {
-    dispatch(getInfo(action.payload.message))
-    return next({type:"undefined"});
+  } else if (action.payload?.hasOwnProperty("info")) {
+    dispatch(getInfo(action.payload.info))
   } else {
-    let result = next(action);
-    return result
+    console.log(action)
+    return next(action);
   }  
 }
 

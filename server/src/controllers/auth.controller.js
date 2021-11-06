@@ -132,7 +132,6 @@ const checkAuth = async (req, res) => {
 const checkEmail = async (req, res) => {
   try {
     const user = await User.findOne({ where: { email: req.body.email } });
-    console.log("user", user);
     if (!user) {
       return res.json({ message: "Пользователь не найден" });
     } else {

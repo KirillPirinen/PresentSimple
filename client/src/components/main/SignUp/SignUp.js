@@ -130,8 +130,6 @@ const SignUp = () => {
           У меня уже есть аккаунт
         </a>
       </form>
-      
-      <ModalInfo />
     </div>
   );
 };

@@ -15,7 +15,7 @@ const checkInput = (input, propArr, forced=false) => {
     } 
 }
 
-const validateBeforeInsert = (arr, form_id, user_id) => {
+const validateBeforeInsert = (arr, form_id) => {
   return arr.reduce((a, e) => {
     if(e.payload.length) {
       e.payload.forEach(input => {
