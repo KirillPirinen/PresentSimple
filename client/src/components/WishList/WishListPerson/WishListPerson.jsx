@@ -6,7 +6,6 @@ import ProgressBar from '../../main/Progrssbar/Progrssbar';
 import { useEffect } from 'react';
 import { getWishesPersonWatchPeople } from '../../../redux/actions/groupModal';
 import { getProgressbar } from '../../../redux/actions/Progressbar.ac';
-import ModalInfo from '../../ModalInfo/ModalInfo';
 import styles from './styles.module.css'
 
 export default function WishListPerson() {
@@ -97,7 +96,6 @@ export default function WishListPerson() {
       </>}
       </>
     </div>
-    <ModalInfo/>
     </>
   )
 }

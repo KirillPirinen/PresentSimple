@@ -35,12 +35,7 @@ const signUp = async (req, res, next) => {
             : reg.test(personInDataBase.phone)
             ? `с таким телефоном (ваша почта: ${personInDataBase.email})`
             : "с такими данными";
-        return next(
-          new appError(
-            403,
-            `Пользователь ${coincidence} уже существует авторизируйтесь`
-          )
-        );
+        return res.status(403).json({info:`Пользователь ${coincidence} уже существует авторизируйтесь`})
       }
     } catch (err) {
       return next(new Error(err));

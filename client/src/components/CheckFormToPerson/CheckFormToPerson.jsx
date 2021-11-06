@@ -1,26 +1,21 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { checkForm, clearCheckForm, createForm } from "../../redux/actions/checkFormToPerson";
-import { RecipientInfoBlock } from "./subComponents/recipientInfoBlock";
-import { ListOfForms } from "./subComponents/ListOfForms";
-import ModalInfo from "../ModalInfo/ModalInfo";
-import { infoModalActivate} from "../../redux/actions/modalInfoAC";
-import { useHistory } from "react-router";
+import { useHistory, useLocation } from "react-router";
+
 export default function CheckFormToPerson() {
-  const {recipient, forms, contacts, form} = useSelector(state=>state.checkform)
+  const {contacts, form} = useSelector(state=>state.checkform)
   const initialState = contacts ? contacts : {name: '', lname: '', phone: '', email: ''};
   const [inputFormToPerson, setInputFormToPerson] = useState(initialState);
   const history = useHistory()
   if(form?.id) history.push('/success')
   const dispatch = useDispatch();
-
+  const location = useLocation();
+  
   useEffect(()=>{
-    if(recipient || forms) {
-      dispatch(infoModalActivate())
-    }
-  },[recipient, forms])
-
-
+    dispatch(clearCheckForm())
+  },[location])
+  
   const changeHandler = (e) => {
     setInputFormToPerson((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
@@ -30,7 +25,6 @@ export default function CheckFormToPerson() {
     if(contacts) {
       dispatch(createForm(inputFormToPerson))
     } else {
-      dispatch(clearCheckForm())
       if (inputFormToPerson) {
         dispatch(checkForm(inputFormToPerson.phone, inputFormToPerson.email))
       }
@@ -104,10 +98,6 @@ export default function CheckFormToPerson() {
     </form>
     </div>
     </div>
-      <ModalInfo>
-        {recipient && <RecipientInfoBlock recipient={recipient}/>}
-        {forms && <ListOfForms forms={forms}/>}
-      </ModalInfo>
     </>
   )
 }

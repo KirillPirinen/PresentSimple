@@ -62,7 +62,18 @@
   max-width: 1000px;
   min-height: 80px;
   padding: 20px;
-  background-color: rgb(204, 236, 167);
+  background-color: rgb(219, 185, 152);
+  box-shadow: -4px 4px 21px 10px rgba(34, 60, 80, 0.24);
+  border-radius: 10px;
+}
+
+.info {
+  font-size: 20px;
+  min-width: 150px;
+  max-width: 1000px;
+  min-height: 80px;
+  padding: 20px;
+  background-color: rgb(144, 218, 214);
   box-shadow: -4px 4px 21px 10px rgba(34, 60, 80, 0.24);
   border-radius: 10px;
 }
