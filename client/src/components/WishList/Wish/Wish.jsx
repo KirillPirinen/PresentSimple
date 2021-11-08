@@ -6,7 +6,7 @@ function Wish({wishPhoto, children, title, description, isBinded}) {
         <div className={styles.card}>
             <div className={`${styles.face} ${styles.face1}`}>
                 <div className={styles.content}>
-                    <img src={wishPhoto ? `http://localhost:3001/${wishPhoto.replace('public/', '')}` : 'http://localhost:3001/uploads/defaultizo.jpg'}/>
+                    <img src={wishPhoto ? `http://localhost:3001/${wishPhoto.replace('public/', '')}` : 'https://i.mycdn.me/i?r=AzEPZsRbOZEKgBhR0XGMT1RkYs4tTgxg7vt9wxbBaDlsdqaKTM5SRkZCeTgDn6uOyic'}/>
                 </div>
             </div>
             <div className={`${styles.face} ${styles.face2}`}>
@@ -25,6 +25,5 @@ function Wish({wishPhoto, children, title, description, isBinded}) {
    </div>
   )
 }
-
 
 export default Wish

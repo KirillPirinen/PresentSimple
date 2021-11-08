@@ -7,7 +7,7 @@ const authRouter = require("./src/routes/auth.router");
 const sentFormRouter = require("./src/routes/sentForm.router");
 const rootRouter = require("./src/routes/rootRouter");
 const errorHandler = require("./src/controllers/error.controller");
-const checkFormToPersonRouter = require("./src/routes/checkFormToPerson.router");
+const formRouter = require("./src/routes/form.router");
 const path = require("path");
 const wishRouter = require("./src/routes/wishRouter");
 const presentsRouter = require('./src/routes/presentsRouter');
@@ -46,13 +46,14 @@ app.use(
     },
   })
 );
+
 //руты доступные неавторизированным пользователям
 app.use("/api/v1/auth", authRouter);
 app.use("/sentform", sentFormRouter);
 
 //приватные руты
 app.use(checkAuth)
-app.use("/api/v1/form", checkFormToPersonRouter);
+app.use("/api/v1/form", formRouter);
 app.use("/api/v1/group", groupRouter);
 app.use("/wish", wishRouter);
 app.use('/presents', presentsRouter)

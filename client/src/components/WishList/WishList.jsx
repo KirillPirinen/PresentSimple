@@ -5,24 +5,23 @@ import { useState } from "react";
 import { delWish, isGiven } from "../../redux/actions/wishAC";
 import ModalAddWish from "../ModalAddWish/ModalAddWish";
 
-function WishList({wishlist}) {
-
-  const dispatch = useDispatch()
+function WishList({ wishlist }) {
+  const dispatch = useDispatch();
 
   const wishes = useSelector((state) => state.wishes?.Wishlist?.Wishes);
 
-  const [modalActive, setActive] = useState(false)
-  const [modalValue, setModalValue] = useState({})
-
+  
+  const [modalActive, setActive] = useState(false);
+  const [modalValue, setModalValue] = useState({});
+  
+  console.log(modalActive);
   function deleteAction(id) {
-    dispatch(delWish(id))
-    console.log(modalValue);
-    setModalValue({})
+    dispatch(delWish(id));
+    setModalValue({});
   }
 
-
   return (
-    <div className='wishes container-glass'>
+    <div className='wishes'>
     <div className={style['add_wish_btn']}>
     <button onClick={() => (setActive(true),setModalValue(''))} >Добавить хотелку</button>
     </div>
@@ -52,8 +51,7 @@ function WishList({wishlist}) {
       <ModalAddWish wishValue={modalValue} setModalValue={setModalValue} active={modalActive} setActive={setActive} />
       </div>
     </div>
-  )
-    }
+  );
+}
 
-
-export default WishList
+export default WishList;

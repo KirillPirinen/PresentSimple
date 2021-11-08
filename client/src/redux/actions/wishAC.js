@@ -62,6 +62,7 @@ export function delWish(id) {
   return async (dispatch) => {
     await fetch(`http://localhost:3001/wish/${id}`, {
       method: "DELETE",
+      credentials: "include",
     });
     return dispatch({
       type: DELETE_WISH,

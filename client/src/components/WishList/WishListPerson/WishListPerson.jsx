@@ -6,12 +6,13 @@ import ProgressBar from '../../main/Progrssbar/Progrssbar';
 import { useEffect } from 'react';
 import { getWishesPersonWatchPeople } from '../../../redux/actions/groupModal';
 import { getProgressbar } from '../../../redux/actions/Progressbar.ac';
-import ModalInfo from '../../ModalInfo/ModalInfo';
 import styles from './styles.module.css'
 
 export default function WishListPerson() {
 
   const wishesGroupAlone = useSelector(state => state.wishesGroupAlone);
+
+
 
   const progressbar = useSelector(state => state.progressbar) //здесь все группы
   const groups = progressbar?.map(el => el.Group)
@@ -31,17 +32,17 @@ export default function WishListPerson() {
 
   return (
     <>
-    <div className="container-glass d-flex justify-content-center flex-row flex-wrap">
-      <>
-      <div className="container">
+      <div>
       <h3>Хотелки пользователя: {wishesGroupAlone?.User?.name} {wishesGroupAlone?.User?.lname}</h3>
       </div>
+    <div className="container-glass d-flex justify-content-center flex-row flex-wrap">
+      <>
       
       {wishesGroupAlone?.Wishes?.length ?
       wishesGroupAlone?.Wishes?.map(el => {
         return (
       
-        <Wish key={el.id} WishPhoto={el.WishPhoto?.image} title={el.title} description={el.description} isBinded={el.isBinded}>
+        <Wish key={el.id} wishPhoto={el.WishPhoto?.image} title={el.title} description={el.description} isBinded={el.isBinded}>
           
           <div>
      
@@ -95,7 +96,6 @@ export default function WishListPerson() {
       </>}
       </>
     </div>
-    <ModalInfo/>
     </>
   )
 }

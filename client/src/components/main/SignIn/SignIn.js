@@ -75,7 +75,6 @@ const SignIn = () => {
           </Link>
         </form>
       </div>
-      <ModalInfo />
     </>
   );
 };

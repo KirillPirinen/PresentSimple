@@ -12,12 +12,14 @@ export default function ModalAddWish({ active, setActive, wishValue }) {
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
   const [photo, setPhoto] = useState();
-
+  console.log(active);
   useEffect(() => {
     setTitle(wishValue.title ? wishValue.title : '');
     setDescription(wishValue.description ? wishValue.description : '');
     setPrice(wishValue.price ? wishValue.price : '');
   }, [wishValue]);
+
+  console.log(active, 'MODAL STATUS');
 
   const submitAction = (e) => {
     if (wishValue.id) {

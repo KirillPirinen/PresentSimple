@@ -4,7 +4,6 @@ import { useHistory } from "react-router";
 import { signUp } from "../../../redux/actions/user.ac";
 import validator from "validator";
 import { getError, clearError } from "../../../redux/actions/error.ac";
-import ModalInfo from "../../ModalInfo/ModalInfo";
 
 const SignUp = () => {
   const error = useSelector((state) => state.error);
@@ -130,8 +129,6 @@ const SignUp = () => {
           У меня уже есть аккаунт
         </a>
       </form>
-      
-      <ModalInfo />
     </div>
   );
 };

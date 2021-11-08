@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate({Wish, User, UserGroup}) {
-      this.belongsTo(Wish, {foreignKey:"wish_id"})
+      this.belongsTo(Wish, {foreignKey:"wish_id", onDelete: 'cascade'})
       this.belongsToMany(User, {through:UserGroup, foreignKey:"group_id"})
     }
   };
@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     maxusers: DataTypes.INTEGER,
     currentusers: DataTypes.INTEGER,
     telegram: DataTypes.STRING,
-    wish_id: DataTypes.INTEGER
+    wish_id: DataTypes.INTEGER,
   }, {
     sequelize,
     modelName: 'Group',

@@ -96,6 +96,7 @@ function App() {
         />
         <Route exact path="*" component={NotFound}/>
         </Switch>
+        <ModalInfo />
       </BrowserRouter>
   );
 }
