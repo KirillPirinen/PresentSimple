@@ -1,0 +1,38 @@
+.container {
+  width: 75%;
+  display: flex;
+  flex-direction: row;
+}
+.rightdiv {
+  background:#163A24 url('../../../backgrounds/base.png');
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: right bottom;
+  width: 40%;
+  padding-top: 30%
+}
+.leftdiv {
+  background:#163A24 url('../../../backgrounds/Frame.png');
+  background-size: 80%;
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  color:wheat;
+  width: 60%;
+  text-align: center;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: column;
+  height: auto;
+  padding-bottom: 15%;
+}
+
+.header, .maintext {
+  text-align: start;
+  width: 60%;
+  padding: 10px;
+}
+.maintext {
+  height: 50%;
+  font-size: 25px;
+}

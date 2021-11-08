@@ -94,12 +94,12 @@ const joinGroup = async (req, res, next) => {
         { where: { wish_id: wish_id } }
       );
 
-      const wishes = await Wishlist.findOne({
-        where: { user_id: user_id },
-        include: [{ model: Wish, include: [{ model: Group,  }, {model:WishPhoto}] }, {model:User, attributes:['name', 'lname']}],
-        required: false,
-        order: [[Wish, "id", "ASC"]],
-      });
+      // const wishes = await Wishlist.findOne({
+      //   where: { user_id: user_id },
+      //   include: [{ model: Wish, include: [{ model: Group,  }, {model:WishPhoto}] }, {model:User, attributes:['name', 'lname']}],
+      //   required: false,
+      //   order: [[Wish, "id", "ASC"]],
+      // });
 
      await UserGroup.create({user_id:req.session.user.id, group_id:groupFind.id})
 

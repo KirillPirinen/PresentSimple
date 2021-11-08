@@ -1,40 +1,30 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import styles from "./styles.module.css";
 import { useSelector } from "react-redux";
-
+import logo from "../../../backgrounds/pslogo.png"
+import { NavBtn } from "./NavBtn";
 export default function NavBar() {
 
   const user = useSelector(state => state.user)
 
   return (
-    <nav>
-  <ul>
-    <li>
-      <Link exact to="/">Главная</Link>
-    </li>
+    <nav className={styles.navbar}>
+    <Link exact to="/"><img width="240px" src={logo}/></Link>
+  <div className={styles.wrapper}>
+      <NavLink activeClassName={styles.active} exact to="/"><NavBtn>Главная</NavBtn></NavLink>
       { user ?
       <>
-      <li>
-        <Link exact to="/auth/signout">Выйти</Link>
-      </li>
-      <li>
-        <Link to="/lk"> Личный кабинет</Link>
-      </li>
-      <li>
-        <Link to="/search">Найти человека</Link>
-      </li>
+        <NavLink activeClassName={styles.active} exact to="/auth/signout"><NavBtn>Выйти</NavBtn></NavLink>
+        <NavLink activeClassName={styles.active} to="/lk"><NavBtn>Личный кабинет</NavBtn></NavLink>
+        <NavLink activeClassName={styles.active} to="/search"><NavBtn>Найти человека</NavBtn></NavLink>
       </>
           :
       <>
-      <li>
-      <Link to="/auth/signup" className={styles.link}>Зарегистрироваться</Link>
-      </li>
-      <li>
-      <Link exact to="/auth/signin" className={styles.link}>Войти</Link>
-      </li>
+      <NavLink activeClassName={styles.active} to="/auth/signup"><NavBtn>Зарегистрироваться</NavBtn></NavLink>
+      <NavLink activeClassName={styles.active} exact to="/auth/signin"><NavBtn>Войти</NavBtn></NavLink>
       </>
       } 
-  </ul>
+  </div>
 </nav>
   
   );

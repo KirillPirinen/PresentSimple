@@ -1,126 +1,71 @@
-nav {
-  max-width: 90%;
-  mask-image: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0) 0%,
-    #ffffff 30%,
-    #ffffff 75%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  padding: 2% 5%;
-  align-self: center;
-  text-align: center;
+.navbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 90%;
+}
+.wrapper {
+  display: flex;
+  justify-content: row;
+  list-style: none;
+  align-items: center;
+  padding: 20px;
+  width: 40%;
 }
 
-nav ul {
-  width: 100%;
-  text-align: center;
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.219) 20%,
-    rgba(255, 255, 255, 0.377) 80%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  box-shadow: 0 0 25px rgba(0, 0, 0, 0.1),
-    inset 0 0 1px rgba(255, 255, 255, 0.3);
-}
-
-nav ul li {
-  display: inline-block;
-  margin: 0 40px;
-}
-
-nav ul li a {
-  padding: 10px 30px;
-  font-family: "Comic Sans MS", arial, serif;
-  /* text-transform:uppercase; */
-  color: rgba(0, 0, 0, 0.8);
-  font-size: 20px;
+.wrapper a {
   text-decoration: none;
-  display: block;
 }
-
-nav ul li a:hover {
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1),
-    inset 0 0 1px rgba(255, 255, 255, 0.6);
-  background: rgba(255, 255, 255, 0.021);
-  color: rgb(9, 75, 49);
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  height: 100vh;
+.navbtn {
+  background: #222;
+  height: 50px;
+  min-width: 150px;
+  border: none;
+  border-radius: 10px;
+  color: #A19F7A;
+  font-size: 40px;
+  font-family: 'Cookie', cursive;
+  position: relative;
+  transition: 1s;
+  -webkit-tap-highlight-color: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #2b1331;
-  background-image: linear-gradient(315deg, #2b1331 0%, #abcfc9 74%);
-  font-family: "Comfortaa", cursive !important;
-}
-
-.noselect {
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-tap-highlight-color: transparent;
-}
-
-button {
-  min-width: 100px;
-  min-height: 40px;
-  padding: 5px;
   cursor: pointer;
-  border: none;
-  font-family: "Comfortaa", cursive;
-  color: rgba(0, 0, 0, 0.7);
-  font-size: 18px;
-  border-radius: 10px;
-  box-shadow: inset 0px 3px 5px rgba(255, 255, 255, 0.5),
-    0px 0px 10px rgba(0, 0, 0, 0.15);
-  background: rgb(2, 0, 36);
-  background: linear-gradient(
-    45deg,
-    rgba(2, 0, 36, 0.3) 5%,
-    rgba(255, 255, 255, 0.5) 6%,
-    rgba(255, 255, 255, 0) 9%,
-    rgba(255, 255, 255, 0.5) 20%,
-    rgba(241, 4, 4, 0) 17%,
-    rgba(255, 255, 255, 0.5) 19%,
-    rgba(255, 255, 255, 0) 21%
-  );
-  background-size: 150%;
-  background-position: right;
-  transition: 0.5s;
-  padding: 10 px 30 px;
-  color: rgba(0, 0, 0, 0.8);
-  font-size: 20px;
-}
-button:hover {
-  background-position: left;
-  color: rgb(21, 73, 44);
-  box-shadow: inset 0px 3px 5px rgba(255, 255, 255, 1),
-    0px 0px 10px rgba(0, 0, 0, 0.25);
-}
-button[disabled] {
-  background-color: rgb(102, 60, 60);
-  box-shadow: none;
-  background: none;
-  cursor: progress;
-}
-button[disabled]:hover {
-  background: none;
-  box-shadow: none;
+  padding: 10px 20px;
+  padding-top: 5px;
 }
 
-button:focus {
-  outline: none;
+.navbtn div {
+  width: 5px;
+  height: 5px;
+  background: transparent;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transition: 500ms;
+}
+
+.navbtn:hover {
+  background: transparent;
+}
+.active .navbtn {
+  background: transparent;
+}
+
+.navbtn:hover div {
+  height: 50px;
+  width: 100%;
+  left: 0;
+  border-radius: 0;
+  border-bottom: 2px solid #eee;
+}
+
+.active .navbtn div {
+  height: 50px;
+  width: 100%;
+  left: 0;
+  border-radius: 0;
+  border-bottom: 2px solid #eee;
 }

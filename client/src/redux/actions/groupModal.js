@@ -1,7 +1,5 @@
 import { ALL_WISHES_PERSON, BIND_ALONE, CREATE_GROUP } from "../types/groupModalTypes";
-import axios from "axios";
 import { getProgressbar } from "./Progressbar.ac";
-import { getError, getInfo } from "./error.ac";
 import customFetch from "../../custom/customFetch";
 import initPoints from "../../config/endPoints";
 
@@ -35,35 +33,22 @@ export const addGroup = (maxusers, telegram, wish_id) => async (dispatch) => {
  })
     if (status === 200) {
       dispatch({type:CREATE_GROUP, payload:data.group})
-      console.log(data)
     } 
 };
 
-export const joinGroup = (wish_id, user_id) => async (dispatch) => {
-  try{
-    let response = await axios.post(
-      `http://localhost:3001/api/v1/group/join/${user_id}`,
-      { wish_id },
-      { withCredentials: true }
-    );
-    if (response.status === 200) {
-      // console.log("response.dataJOINGROUP", response.data?.wishes);
-      // dispatch(getWishesPersonWatchPeople(user_id))
-      dispatch(getAllWishes(response.data?.wishes));
-      dispatch(getProgressbar(response.data?.wishes?.Wishes));
-  
-    } else if (response.status === 202) {
-      console.log("response.dataJOINGROUP", response.data);
-      dispatch(getAllWishes(response.data.wishes));
-      dispatch(getProgressbar(response.data.groups));
-    } else if (response.status === 201) {
-      console.log("response.dataJOINGROUP", response.data);
-      dispatch(getProgressbar(response.data?.wishes?.Wishes));
-    } else {
-      dispatch(getError(response?.data))
+export const joinGroup = (wish_id) => async (dispatch) => {
+   const {status, data} = await customFetch(dispatch, initPoints.joinGroup, {
+   method:"PATCH",
+   credentials:'include',
+   headers:{"Content-Type":"application/json"},
+   body:JSON.stringify({wish_id})
+    })
+
+    if (status === 200) {
+      //dispatch(getProgressbar(response.data?.wishes?.Wishes));
+    } else if (status === 202) {
+      //dispatch(getProgressbar(response.data.groups));
+    } else if (status === 201) {
+      //dispatch(getProgressbar(response.data?.wishes?.Wishes));
     }
-  } catch (err) {
-    dispatch(getError(err))
-  }
-  
 };

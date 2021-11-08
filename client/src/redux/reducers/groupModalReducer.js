@@ -14,11 +14,9 @@ export const wishesGroupAloneReducer = (state = [], action) => {
       return newObj
 
     case CREATE_GROUP: 
-      newObj.Wishes = newObj.Wishes.map(e => e.id == payload.group.wish_id ? {...e, isBinded:true, Group:payload.group} : e)
+      newObj.Wishes = newObj.Wishes.map(e => e.id == payload.wish_id ? {...e, isBinded:true, Group:payload} : e)
       return newObj
     
-
-    default:
-      return state;
+      default: return state;
   }
 };

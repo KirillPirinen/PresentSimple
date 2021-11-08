@@ -6,7 +6,7 @@ const groupRouter = Router();
 groupRouter.get("/:user_id", groupController.allWishes)
             .post("/", groupController.checkWish, groupController.addGroup)
               .patch("/alone/", groupController.checkWish, groupController.addAlone)
-                .post("/join/:user_id", groupController.joinGroup)
+                .patch("/", groupController.joinGroup)
 
 module.exports = groupRouter;
 

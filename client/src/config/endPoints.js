@@ -14,6 +14,7 @@ const initPoints = {
   //Вишлисты
   getPersonWishes: (id) => `/api/v1/group/${id}`,
   createGroup: "/api/v1/group/",
+  joinGroup:"api/v1/group/",
   addAlone: "/api/v1/group/alone/",
 }
 

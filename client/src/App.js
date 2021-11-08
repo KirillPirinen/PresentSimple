@@ -28,6 +28,7 @@ import ModalForgotPassword from "./components/main/SignIn/modalForgotPassword/mo
 import ResetPassword from "./components/main/SignIn/ResetPassword/ResetPassword";
 import ModalContact from "./components/main/Home/ModalContact/ModalContact";
 import { NotFound } from "./components/404";
+import { MainPage } from "./components/main/Home/MainPage";
 moment.locale("ru");
 
 function App() {
@@ -45,7 +46,7 @@ function App() {
       <BrowserRouter>
       <NavBar />
          <Switch>
-        <Route exact path="/" component={Home} />
+        <Route exact path="/" component={MainPage}/>
         <Route exact path="/auth/signup" component={SignUp} />
         <Route exact path="/auth/signin" component={SignIn} />
         <Route exact path="/auth/signout" component={SignOut} />
