@@ -11,7 +11,10 @@ const initPoints = {
   //Юзеры, Анкеты
   createForm: "/api/v1/form/",
   searchPersonOrForm: "/api/v1/form/search",
-  //
+  //Вишлисты
+  getPersonWishes: (id) => `/api/v1/group/${id}`,
+  createGroup: "/api/v1/group/",
+  addAlone: "/api/v1/group/alone/",
 }
 
 export default initPoints;

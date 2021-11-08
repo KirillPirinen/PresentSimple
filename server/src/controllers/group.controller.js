@@ -6,61 +6,65 @@ const { UserGroup, User, WishPhoto } = require("../../db/models");
 const { Wishlist } = require("../../db/models");
 const appError = require('../Errors/errors');
 
-const allWishes = async (req, res, next) => {
-  const { user_id } = req.params;
-  const wishes = await Wishlist.findOne({
-    where: { user_id: user_id },
-    include: [{ model: Wish, include: [{ model: Group,  }, {model:WishPhoto}] }, {model:User, attributes:['name', 'lname']}],
-    required: false,
-    order: [[Wish, "id", "ASC"]],
-  });
-  res.json(wishes);
-};
-
-const addAlone = async (req, res, next) => {
+const checkWish = async (req, res, next) => {
   const { wish_id } = req.body;
   try {
-    await Wish.update({ isBinded: true, user_id: req.session?.user?.id }, {where:{id:wish_id}});
+    const wish = await Wish.findOne({where:{[Op.and]:[{id:wish_id},{isBinded:false}]}})
+  if(wish) {
+    res.locals.wish = wish;
+    return next()
+  } else {
+    return res.status(303).json({info:"Извините, кто-то уже забронировал этот подарок. Выберете другой"})
+  }
+  } catch (err) {
+    return next(new Error(err.message))
+  }
+}
+
+const allWishes = async (req, res, next) => {
+  const { user_id } = req.params;
+  try{
     const wishes = await Wishlist.findOne({
-      where: { user_id: req.params.user_id },
-      include: [{ model: Wish, include: [{ model: Group,  }, {model:WishPhoto}] }, {model:User, attributes:['name', 'lname']}],
+      where: { user_id: user_id },
+      include: [{ model: Wish, include: [{model: Group}, {model:WishPhoto}] }, {model:User, attributes:['name', 'lname']}],
       required: false,
       order: [[Wish, "id", "ASC"]],
     });
-    return res.json(wishes);
+    res.status(200).json(wishes)
+  } catch (err) {
+    next(new Error(err.message))
+  }
+};
+
+const addAlone = async (req, res, next) => {
+  try {
+    res.locals.wish.isBinded = true
+    res.locals.wish.user_id = req.session.user.id
+    await res.locals.wish.save()
+    return res.status(200).json({info:"Вы успешно забронировали, подарок. Другие пользователи не смогут выбрать его. Если вы захотите выбрать другой подарок, пожалуйста не забудьте убрать данный из планируемых"})
   } catch (error) {
     return next(new Error(error.message));
   }
 };
 
 const addGroup = async (req, res, next) => {
-  const { wish_id } = req.body;
-  const { user_id } = req.params;
   try {
     const group = await Group.create({
       ...req.body,
       currentusers: 1,
-      wish_id: wish_id,
     });
+
     await UserGroup.create({
-      user_id: req.session?.user?.id,
+      user_id: req.session.user.id,
       group_id: group.id,
     });
-    await Wish.update(
-      { isBinded: true },
-      { where: { id: wish_id } }
-    );
 
-    const wishes = await Wishlist.findOne({
-      where: { user_id: user_id },
-      include: [{ model: Wish, include: [{ model: Group,  }, {model:WishPhoto}] }, {model:User, attributes:['name', 'lname']}],
-      required: false,
-      order: [[Wish, "id", "ASC"]],
-    });
-    return res.json({ message: "Вы успешно создали группу", wishes: wishes });
+    res.locals.wish.isBinded = true
+    await res.locals.wish.save()
+
+    return res.status(200).json({ info: "Вы успешно создали группу", group });
   } catch (error) {
-    console.log(error)
-    return res.json({ message: "Что-то пошло не так" });
+    return next(new Error(error.message))
   }
 };
 
@@ -127,6 +131,7 @@ const joinGroup = async (req, res, next) => {
 };
 
 module.exports = {
+  checkWish,
   addGroup,
   addAlone,
   joinGroup,

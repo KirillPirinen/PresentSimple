@@ -1,7 +1,7 @@
 import initPoints from "../../config/endPoints";
 import customFetch from "../../custom/customFetch";
 import { ADD_USER, CHECK_FORM, CLEAR_CHECKFORM_STATE, CREATE_URL_FORM, GET_EXAMPLE_FORM, SET_CONTACTS, USER_OR_FORM_NOTFOUND } from "../types/checkFormToPersonTypes";
-import { getError } from "./error.ac";
+
 
 export const getCheckedForm = (payload) => ({
   type: CHECK_FORM, payload
@@ -29,20 +29,18 @@ export const checkForm = (phone, email) => async (dispatch) => {
       headers:{"Content-Type":"application/json"},
       body:JSON.stringify({phone, email})
     })
-    console.log(data)
     switch (status) {
       case 200: return dispatch(getCheckedUser(data));
       case 201: return dispatch(getCheckedForm(data));
       case 303:
       dispatch(userOrFormNotFound(data))
       dispatch(setContacts({phone, email}))
-      break;
-      default: dispatch(userOrFormNotFound(data))
+      // break;
+      // default: dispatch(userOrFormNotFound(data))
     }
   };
 
 export const createForm = values => async dispatch => {
-  try {
     const {status, data} = await customFetch(dispatch, initPoints.createForm, {
       method:"POST",
       credentials:'include',
@@ -54,8 +52,5 @@ export const createForm = values => async dispatch => {
     } else {
       dispatch(userOrFormNotFound(data, values))
     }
-  } catch(err) {
-    dispatch(getError(err))
-  }
 }
 

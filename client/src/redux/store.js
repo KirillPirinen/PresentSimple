@@ -5,7 +5,7 @@ import getInitState, {initStateWithoutLS} from "./initState";
 import { errorMessageMiddleware } from "./middleware/errorsMessage";
 import rootReducer from "./reducers/rootReducer";
 
-const store = createStore(rootReducer, getInitState(), composeWithDevTools(applyMiddleware(thunk, errorMessageMiddleware)))
+const store = createStore(rootReducer, getInitState(), composeWithDevTools(applyMiddleware(thunk, /*errorMessageMiddleware*/)))
 
 store.subscribe(() => {
   const state = {...store.getState(), ...initStateWithoutLS};
