@@ -6,10 +6,7 @@ body {
   width: 100%;
   height: 100%;
   font-size: 20px !important;
-  background-color: #163A24;
-}
-#root {
-  background:#163A24;
+  background-color: rgba(217, 233, 217, 0.664);
 }
 body {
   margin: 0;
@@ -18,21 +15,19 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /*background-color: #7F8C8D;*/
   height: 100%;
-  /* background: rgb(38, 153, 154);
-  background: linear-gradient(
-    36deg,
-    rgba(38, 153, 154, 1) 0%,
-    rgba(102, 154, 119, 1) 30%,
-    rgba(168, 161, 106, 1) 58%,
-    rgba(212, 178, 40, 1) 91%,
-    rgba(222, 204, 81, 1) 100%
-  ); */
   animation: gradient 15s infinite linear;
   background-size: 400%;
 }
-
+.maincontainer {
+  margin-top: 50px;
+  background-color: #163A24;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 @keyframes gradient {
   0% {
     background-position: 80% 0%;
@@ -124,12 +119,6 @@ canvas {
 
 /*Анимированный фон*/
 body {
-  background-color: #163A24;
-  /* background: radial-gradient(#caeea9bd, #4d8a84); */
-  /* background-size: 90% 100%;
-  background-repeat:no-repeat;
-  background-position: center;  
-  url('./bird-g3977d05a9_1920.jpg') */
   margin: 0;
   height: 100vh;
   font-weight: 100;

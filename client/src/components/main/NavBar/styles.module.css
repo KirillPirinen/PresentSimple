@@ -3,7 +3,10 @@
   flex-direction: row;
   justify-content: space-between;
   width: 90%;
+  border-bottom: 1px solid#F5DEAF;
+  border-radius: 30px;
 }
+
 .wrapper {
   display: flex;
   justify-content: row;
@@ -59,7 +62,7 @@
   width: 100%;
   left: 0;
   border-radius: 0;
-  border-bottom: 2px solid #eee;
+  border-bottom: 2px solid #F5DEAF;
 }
 
 .active .navbtn div {
@@ -67,5 +70,10 @@
   width: 100%;
   left: 0;
   border-radius: 0;
-  border-bottom: 2px solid #eee;
+  border-bottom: 2px solid #F5DEAF;
+}
+
+.logo {
+  margin-left: 15%;
+  margin-bottom: 20px;
 }

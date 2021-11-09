@@ -9,7 +9,7 @@ export default function NavBar() {
 
   return (
     <nav className={styles.navbar}>
-    <Link exact to="/"><img width="240px" src={logo}/></Link>
+    <Link exact to="/"><img className={styles.logo} width="240px" src={logo}/></Link>
   <div className={styles.wrapper}>
       <NavLink activeClassName={styles.active} exact to="/"><NavBtn>Главная</NavBtn></NavLink>
       { user ?

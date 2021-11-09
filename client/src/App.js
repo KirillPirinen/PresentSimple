@@ -44,6 +44,7 @@ function App() {
 
   return (
       <BrowserRouter>
+      <div className="maincontainer">
       <NavBar />
          <Switch>
         <Route exact path="/" component={MainPage}/>
@@ -97,6 +98,7 @@ function App() {
         />
         <Route exact path="*" component={NotFound}/>
         </Switch>
+        </div>
         <ModalInfo />
       </BrowserRouter>
   );

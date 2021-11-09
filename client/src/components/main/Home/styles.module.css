@@ -8,8 +8,8 @@
   background-size: 100%;
   background-repeat: no-repeat;
   background-position: right bottom;
-  width: 40%;
-  padding-top: 30%
+  width: 50%;
+  padding-top: 39%;
 }
 .leftdiv {
   background:#163A24 url('../../../backgrounds/Frame.png');
@@ -17,13 +17,14 @@
   background-repeat: no-repeat;
   background-position: center bottom;
   color:wheat;
-  width: 60%;
+  width: 50%;
   text-align: center;
   display: flex;
   justify-content: start;
   align-items: center;
   flex-direction: column;
   height: auto;
+  padding-top: 20px;
   padding-bottom: 15%;
 }
 
