@@ -3,7 +3,7 @@
   flex-direction: row;
   justify-content: space-between;
   width: 90%;
-  border-bottom: 1px solid#F5DEAF;
+  border-bottom: 1px solid (40, 78%, 82%);
   border-radius: 30px;
 }
 
@@ -13,20 +13,18 @@
   list-style: none;
   align-items: center;
   padding: 20px;
-  width: 40%;
+  max-width: 80%;
 }
 
 .wrapper a {
   text-decoration: none;
 }
 .navbtn {
-  background: #222;
   height: 50px;
-  min-width: 150px;
   border: none;
   border-radius: 10px;
   color: #A19F7A;
-  font-size: 40px;
+  font-size: 30px;
   font-family: 'Cookie', cursive;
   position: relative;
   transition: 1s;
@@ -51,10 +49,11 @@
 }
 
 .navbtn:hover {
-  background: transparent;
+  background: rgb(32, 42, 32);
+  /* background: transparent; */
 }
 .active .navbtn {
-  background: transparent;
+  background: rgb(32, 42, 32);
 }
 
 .navbtn:hover div {

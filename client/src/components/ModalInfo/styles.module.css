@@ -8,7 +8,7 @@
   display: none;
   align-items: center;
   justify-content: center;
-  color: rgb(40, 63, 35);
+  color: #A19F7A;
   font-weight: 700;
   z-index: 1000;
 }
@@ -44,15 +44,15 @@
 @keyframes clickhere {
   0% {
     opacity: 0.5;
-    margin-top: 400px;
+    margin-top: 300px;
   }
   50% {
     opacity: 2;
-    margin-top: 550px;
+    margin-top: 450px;
   }
   100% {
     opacity: 0.5;
-    margin-top: 400px;
+    margin-top: 300px;
   }
 }
 
