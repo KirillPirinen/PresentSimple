@@ -7,6 +7,77 @@ const appError = require("../Errors/errors");
 const MailController = require("./emailController/email.controller");
 const { changePassword } = require("../functions/htmlResetPassword");
 const { uuid } = require("uuidv4");
+const {OAuth2Client} = require("google-auth-library");
+
+const googleClient = new OAuth2Client({
+  clientId: process.env.GOOGLE_CLIENT_ID
+})
+
+const googleAuth = async (req, res, next) => {
+
+  const { token } = req.body;
+
+  const ticket = await googleClient.verifyIdToken({
+    idToken:token,
+    audient: `${process.env.GOOGLE_CLIENT_ID}`,
+  });
+
+  const {email, picture:avatar, given_name:name, family_name:lname} = ticket.getPayload();
+
+  const personInDataBase = await User.findOne({where:{ email }});
+
+  if(personInDataBase) {
+
+    req.session.user = {
+      id: personInDataBase.id,
+      name: personInDataBase.name,
+    };
+
+    res.json(
+      {
+        info:`Вы успешно авторизировались с почты ${email}`,
+        id:personInDataBase.id,
+        name:personInDataBase.name
+      }
+    )
+  } else {
+    try {
+      const hashPassword = await bcrypt.hash('123', 4);
+      const newUser = await User.create({
+        name,
+        lname,
+        phone:'79999992211',
+        avatar,
+        email,
+        password: hashPassword,
+      });
+
+      const wishlist = await Wishlist.create({user_id:newUser.id})
+
+      req.session.user = {
+        id: newUser.id,
+        name: newUser.name,
+      };
+
+      return res.json({
+        /*user: {*/ id: newUser.id, name: newUser.name //},
+        //wishlist: wishlist,
+      });
+    } catch (error) {
+      return next(new appError(404, error.message))
+    }
+  }
+  
+  // if (!user) {
+  //   user = await new User({
+  //     email: payload?.email,
+  //     avatar: payload?.picture,
+  //     name: payload?.name,
+  //   });
+
+  //   await user.save();
+  // }
+}
 
 const signUp = async (req, res, next) => {
   const input = checkInput(
@@ -14,6 +85,7 @@ const signUp = async (req, res, next) => {
     ["password", "email", "name", "lname", "phone"],
     true
   );
+  
   if (input) {
     //если инпут валиден
     phone = input.phone.slice(1);
@@ -62,8 +134,8 @@ const signUp = async (req, res, next) => {
       };
 
       return res.json({
-        user: { id: newUser.id, name: newUser.name },
-        wishlist: wishlist,
+        /*user: {*/ id: newUser.id, name: newUser.name //},
+        //wishlist: wishlist,
       });
     } catch (error) {
       return next(new appError(404, error.message))
@@ -207,4 +279,5 @@ module.exports = {
   checkAuth,
   checkEmail,
   ResetPasswordBack,
+  googleAuth
 };

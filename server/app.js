@@ -15,6 +15,7 @@ const redis = require("redis");
 const session = require("express-session");
 const groupRouter = require("./src/routes/group.router");
 const checkAuth = require('./src/middleware/checkAuth');
+const appError = require("./src/Errors/errors");
 let RedisStore = require("connect-redis")(session);
 let redisClient = redis.createClient();
 
@@ -52,11 +53,15 @@ app.use("/api/v1/auth", authRouter);
 app.use("/sentform", sentFormRouter);
 
 //приватные руты
-app.use(checkAuth)
-app.use("/api/v1/form", formRouter);
-app.use("/api/v1/group", groupRouter);
-app.use("/wish", wishRouter);
-app.use('/presents', presentsRouter)
+app.use("/api/v1/form", checkAuth, formRouter);
+app.use("/api/v1/group", checkAuth, groupRouter);
+app.use("/wish", checkAuth, wishRouter);
+app.use('/presents', checkAuth, presentsRouter)
+
+//404
+app.use((req,res,next)=> {
+  next(new appError(404, 'Нет такой страницы'))
+})
 
 //обработчик ошибок
 app.use(errorHandler);
