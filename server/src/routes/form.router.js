@@ -4,6 +4,10 @@ const formController = require('../controllers/form.controller')
 const router = Router()
 
 router.post('/', formController.addNewForm)
-        .post('/search', formController.check)
+        .post('/search', 
+        formController.checkInputsMiddleware, 
+        formController.findUser, 
+        formController.findForms,
+        formController.searchEnd)
 
 module.exports = router

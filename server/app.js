@@ -28,7 +28,7 @@ app.use("/", rootRouter);
 
 // const rootRouter = require('./src/routes/rootRouter')
 
-app.use(cors({ credentials: true, origin: true }));
+app.use(cors({ credentials: true, origin:'http://localhost:3000' }));
 
 app.use(express.json());
 app.use(express.static(path.join(process.env.PWD, "public")));
@@ -50,7 +50,7 @@ app.use(
 
 //руты доступные неавторизированным пользователям
 app.use("/api/v1/auth", authRouter);
-app.use("/sentform", sentFormRouter);
+app.use("/api/v1/sentform", sentFormRouter);
 
 //приватные руты
 app.use("/api/v1/form", checkAuth, formRouter);

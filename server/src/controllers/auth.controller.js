@@ -17,16 +17,18 @@ const googleClient = new OAuth2Client({
 const googleAuth = async (req, res, next) => {
 
   const { token } = req.body;
+
+  let ticket;
+
   try {
-    const ticket = await googleClient.verifyIdToken({
+    ticket = await googleClient.verifyIdToken({
       idToken:token,
       audient: `${process.env.GOOGLE_CLIENT_ID}`,
     });
   } catch(err) {
     next(new appError(400, `Ошибка Google авторизации ${err.message}`))
   }
-  
-  
+
     const {email, picture:avatar, given_name:name, family_name:lname} = ticket.getPayload();
     const personInDataBase = await User.findOne({where:{ email }});
 
@@ -133,8 +135,7 @@ const signUp = async (req, res, next) => {
       };
 
       return res.json({
-        /*user: {*/ id: newUser.id, name: newUser.name //},
-        //wishlist: wishlist,
+        id: newUser.id, name: newUser.name
       });
     } catch (error) {
       return next(new appError(404, error.message))
