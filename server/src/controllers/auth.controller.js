@@ -8,6 +8,7 @@ const MailController = require("./emailController/email.controller");
 const { changePassword } = require("../functions/htmlResetPassword");
 const { uuid } = require("uuidv4");
 const {OAuth2Client} = require("google-auth-library");
+const stringGenerator = require('../functions/stringGenerator')
 
 const googleClient = new OAuth2Client({
   clientId: process.env.GOOGLE_CLIENT_ID
@@ -16,41 +17,48 @@ const googleClient = new OAuth2Client({
 const googleAuth = async (req, res, next) => {
 
   const { token } = req.body;
+  try {
+    const ticket = await googleClient.verifyIdToken({
+      idToken:token,
+      audient: `${process.env.GOOGLE_CLIENT_ID}`,
+    });
+  } catch(err) {
+    next(new appError(400, `Ошибка Google авторизации ${err.message}`))
+  }
+  
+  
+    const {email, picture:avatar, given_name:name, family_name:lname} = ticket.getPayload();
+    const personInDataBase = await User.findOne({where:{ email }});
 
-  const ticket = await googleClient.verifyIdToken({
-    idToken:token,
-    audient: `${process.env.GOOGLE_CLIENT_ID}`,
-  });
+    if(personInDataBase) {
 
-  const {email, picture:avatar, given_name:name, family_name:lname} = ticket.getPayload();
+      req.session.user = {
+        id: personInDataBase.id,
+        name: personInDataBase.name,
+      };
 
-  const personInDataBase = await User.findOne({where:{ email }});
+      res.json(
+        {
+          info:`Вы успешно авторизировались с почты ${email}`,
+          id:personInDataBase.id,
+          name:personInDataBase.name
+        }
+      )
 
-  if(personInDataBase) {
-
-    req.session.user = {
-      id: personInDataBase.id,
-      name: personInDataBase.name,
-    };
-
-    res.json(
-      {
-        info:`Вы успешно авторизировались с почты ${email}`,
-        id:personInDataBase.id,
-        name:personInDataBase.name
-      }
-    )
   } else {
     try {
-      const hashPassword = await bcrypt.hash('123', 4);
+      const randomPass = stringGenerator(5)
+      const hashPassword = await bcrypt.hash(randomPass, 4);
       const newUser = await User.create({
         name,
         lname,
-        phone:'79999992211',
         avatar,
         email,
         password: hashPassword,
       });
+
+      const html = `<p>Ваш пароль врмененный пароль: <b>${randomPass}</b>, просим Вас сменить его как можно скорее</p>`
+      await MailController.sendEmail(email, "Ваш пароль от сервиса Present Simple", html)
 
       const wishlist = await Wishlist.create({user_id:newUser.id})
 
@@ -60,35 +68,26 @@ const googleAuth = async (req, res, next) => {
       };
 
       return res.json({
-        /*user: {*/ id: newUser.id, name: newUser.name //},
-        //wishlist: wishlist,
+        id: newUser.id, name: newUser.name,
+        info:`Вы успешно зарегистрировались с помощью Google аккаунта, на вашу почту ${email} направлен временный пароль, просим Вас изменить его как можно скорее, а также добавить Ваш телефон в свой профиль, так другим пользователям будет проще найти ваш список желаний`
       });
     } catch (error) {
       return next(new appError(404, error.message))
     }
   }
   
-  // if (!user) {
-  //   user = await new User({
-  //     email: payload?.email,
-  //     avatar: payload?.picture,
-  //     name: payload?.name,
-  //   });
-
-  //   await user.save();
-  // }
 }
 
 const signUp = async (req, res, next) => {
   const input = checkInput(
     req.body,
-    ["password", "email", "name", "lname", "phone"],
+    ["password", "email", "name", "lname"],
     true
   );
   
   if (input) {
     //если инпут валиден
-    phone = input.phone.slice(1);
+    input.phone = req.body.phone.slice(1) || null;
     try {
       const personInDataBase = await User.findOne({
         where: {
@@ -113,7 +112,7 @@ const signUp = async (req, res, next) => {
       return next(new Error(err));
     }
     //создаём пользователя
-    if (input.phone.length !== 11)
+    if (input.phone && input.phone.length !== 11)
       return next(new appError(411, "Телефон должен быть длиной 11 символов"));
     try {
       let { email, phone, password, lname, name } = input;
