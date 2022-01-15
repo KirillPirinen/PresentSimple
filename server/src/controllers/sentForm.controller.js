@@ -15,7 +15,7 @@ module.exports = class SentFormController {
         res.locals.guest = form;
         next()
       } else {
-        next(new appError(404, 'Форма не найдена или уже заполнялась'))
+        next(new appError(410, 'Форма не найдена или уже заполнялась'))
       }
     } catch(err) {
         next(new Error('Неправильный адрес формы или сервер умер'))
@@ -45,13 +45,13 @@ module.exports = class SentFormController {
       if(readyToPush.length) {
         const {length} = await Present.bulkCreate(readyToPush, {returning: ['id']}) 
         await Form.update({status:false, isActive:true}, {where:{id:res.locals.guest.id}})
-        res.json({status:"success", message:`Спасибо! Вы добавили ${length} подарков`})
+        res.json({info:`Спасибо! Вы добавили ${length} подарков`})
         //уведомляем инициатора
         const formInitiator = await User.findOne({where:{id:res.locals.guest.user_id}})
         const html = initiatorMessage(res.locals.guest.name);
         await MailController.sendEmail(formInitiator.email, "Отправленная анкета заполнена", html)
       } else {
-        next(new appError('empty', 'Пожалуйста добавьте хоть один подарок...'))
+        next(new appError(403, 'Пожалуйста добавьте хоть один подарок...'))
       }
     } catch(err) {
       next(new Error(`Ошибка добавления подарков, попробуйте ещё раз ${err.message}`))

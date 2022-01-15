@@ -23,7 +23,8 @@ const findForms = async (req, res, next) => {
         [Op.or]: [
             {email:{[Op.like]:email}},
             {phone:{[Op.like]:`%${phone}`}} 
-            ]} 
+            ]},
+      order: [['isActive','DESC']],
       }); 
       
       if(formsInDataBase.length) {

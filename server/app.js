@@ -56,7 +56,7 @@ app.use("/api/v1/sentform", sentFormRouter);
 app.use("/api/v1/form", checkAuth, formRouter);
 app.use("/api/v1/group", checkAuth, groupRouter);
 app.use("/wish", checkAuth, wishRouter);
-app.use('/presents', checkAuth, presentsRouter)
+app.use('/api/v1/presents', checkAuth, presentsRouter)
 
 //404
 app.use((req,res,next)=> {
