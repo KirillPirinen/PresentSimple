@@ -43,7 +43,8 @@ const googleAuth = async (req, res, next) => {
         {
           info:`Вы успешно авторизировались с почты ${email}`,
           id:personInDataBase.id,
-          name:personInDataBase.name
+          name:personInDataBase.name,
+          lname:personInDataBase.lname
         }
       )
 
@@ -67,6 +68,7 @@ const googleAuth = async (req, res, next) => {
       req.session.user = {
         id: newUser.id,
         name: newUser.name,
+        lname:newUser.lname
       };
 
       return res.json({
@@ -135,8 +137,9 @@ const signUp = async (req, res, next) => {
       };
 
       return res.json({
-        id: newUser.id, name: newUser.name
+        id: newUser.id, name: newUser.name, lname:newUser.lname
       });
+
     } catch (error) {
       return next(new appError(404, error.message))
     }
@@ -159,7 +162,7 @@ const signIn = async (req, res, next) => {
             id: currentUser.id,
             name: currentUser.name,
           };
-          return res.json({ id: currentUser.id, name: currentUser.name });
+          return res.json({ id: currentUser.id, name: currentUser.name, lname:currentUser.lname});
         } else {
           next(new appError(401, "Неверный пароль"));
         }

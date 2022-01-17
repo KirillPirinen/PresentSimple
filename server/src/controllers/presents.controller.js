@@ -29,7 +29,6 @@ module.exports = class PresentsController {
           }}
         })
       if(rangesWithPresents?.length) {
-        console.log(rangesWithPresents)
           res.json(rangesWithPresents)
       } else {
         next(new appError(404, "Подарки не найдены"))
@@ -43,7 +42,7 @@ module.exports = class PresentsController {
     try {
       await Present.update({user_id:req.session.user.id, isBinded:true}, 
         {where:{id:req.body.id}})
-      res.json({status:true, message:"Вы успешно забронировали, подарок. Другие пользователи не смогут выбрать его. Если вы захотите выбрать другой подарок, пожалуйста не забудьте убрать данный из планируемых"})
+      res.json({info:"Вы успешно забронировали, подарок. Другие пользователи не смогут выбрать его. Если вы захотите выбрать другой подарок, пожалуйста не забудьте убрать данный из планируемых"})
     } catch (err) {
       next(new Error(err))
     }

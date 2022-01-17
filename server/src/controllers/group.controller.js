@@ -26,9 +26,13 @@ const allWishes = async (req, res, next) => {
   try{
     const wishes = await Wishlist.findOne({
       where: { user_id: user_id },
-      include: [{ model: Wish, include: [{model: Group}, {model:WishPhoto}] }, {model:User, attributes:['name', 'lname']}],
+      attributes:['createdAt', 'updatedAt'],
+      include: [
+        {model:Wish, include: [{model: Group}, {model:WishPhoto}] }, 
+        {model:User, attributes:['name', 'lname', 'avatar']}
+      ],
       required: false,
-      order: [[Wish, "id", "ASC"]],
+      order: [[Wish, "pricerange_id", "ASC"]],
     });
     res.status(200).json(wishes)
   } catch (err) {

@@ -57,7 +57,7 @@ const findUser = async (req, res, next) => {
 
     try {
       const personInDataBase = await User.findOne({
-        attributes: {exclude: ['updatedAt', 'password', 'id']}, 
+        attributes: {exclude: ['updatedAt', 'password']}, 
         where: {[Op.or]: [
           {email:{[Op.like]:email}},
           {phone:{[Op.like]:`%${phone}`}} 

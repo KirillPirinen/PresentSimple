@@ -2,7 +2,8 @@ const checkInput = (input, propArr, forced=false) => {
   const props = {}
   propArr.forEach(prop=> {
     if(input.hasOwnProperty(prop)) {
-       if(input[prop].length) props[prop] = input[prop].trim()
+       const test = input[prop].trim()
+       if(test.length) props[prop] = test
     }
   })
     switch (forced) {
