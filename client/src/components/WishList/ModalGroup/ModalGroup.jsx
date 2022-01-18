@@ -37,7 +37,7 @@ export default function ModalGroup() {
               className={styles.select}
               id="numberPerson"
               value={inputGroup.numberPerson}
-             onChange={(e) => setInputGroup({...inputGroup, numberPerson: e.target.value})}>
+              onChange={(e) => setInputGroup({...inputGroup, numberPerson: e.target.value})}>
                <option disabled value="">Выбор количества человек</option>
                 {persons?.map(el => 
                   <option name="person" value={el}>{el}</option>

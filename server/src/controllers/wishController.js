@@ -1,11 +1,14 @@
 const { defaults } = require('pg');
 const { User, Form, Present, WishPhoto, Wish, Wishlist, Group } = require('../../db/models');
 const appError = require('../Errors/errors');
+const notification = require('../functions/mailing');
 const getRange = require('../functions/rangeIdentifier');
 const { checkInput } = require('../functions/validateBeforeInsert');
+const MailController = require('./emailController/email.controller');
 
 const allUserProfile = async (req, res, next) => {
   const user_id = req.session.user.id;
+
   try {
     const allWishes = await User.findOne({
       where: { id: user_id },
@@ -20,11 +23,11 @@ const allUserProfile = async (req, res, next) => {
       },
       { model: Group },
       { model: Form },
-      { model: Present, include: {
+      { model: Present, required:false, where:{isGiven:false}, include: {
         model: Form, attributes: ['name', 'lname']
       } 
     },
-      { model: Wish, include: {
+      { model: Wish, required:false, where:{isGiven:false}, include: {
         model: Wishlist, include:{
            model: User, attributes: ['name', 'lname']
           }
@@ -97,6 +100,8 @@ const editWish = async (req, res, next) => {
       updatedWish[field] = input[field]
     })
 
+    await updatedWish.save()
+
     if(req.file) {
       const image = `uploads/${req.file.filename}`;
       const photo = await WishPhoto.findOrCreate({defaults:{wish_id:id, image}, where: { wish_id:id }})
@@ -105,12 +110,9 @@ const editWish = async (req, res, next) => {
         photo[0].image = image 
         await photo[0].save()
       }
-      updatedWish.WishPhoto = photo[0]
+
+      updatedWish.dataValues.WishPhoto = photo[0]
     }
-    
-    await updatedWish.save()
-    console.log('После добавления фото', updatedWish.WishPhoto)
-    res.json(updatedWish);
 
     } else if(req.file) {
 
@@ -132,27 +134,49 @@ const editWish = async (req, res, next) => {
   }
 };
 
-const deleteWish = async (req, res) => {
+const deleteWish = async (req, res, next) => {
   try {
     const id = req.params.id;
     await Wish.destroy({ where: { id } });
     res.sendStatus(200);
   } catch (error) {
-    console.log(error);
-    res.sendStatus(500);
+    next(new Error(error.message))
   }
 };
 
-const wishIsGiven = async (req, res) => {
+const wishIsGiven = async (req, res, next) => {
   try {
-    const isGiven = true;
     const id = req.params.id;
-    await Wish.update({ isGiven }, { where: { id }})
+    const wish = await Wish.findOne({ where: { id }})
+
+    const newStatus = !wish.isGiven;
+
+    if(newStatus && wish.isBinded) {
+      notification(wish, wish.user_id)
+    }
+
+    wish.isGiven = newStatus
+    wish.isBinded = false
+    wish.user_id = null
+
+    await wish.save()
+
     res.sendStatus(200)
   } catch (error) {
-    console.log(error);
+    next(new Error(error.message))
   }
 }
+
+const unBindWish = async (req, res) => {
+  try {
+    await Wish.update({user_id:null, isBinded:false}, 
+      {where:{id:req.params.id}})
+    res.sendStatus(200)
+  } catch (err) {
+    next(new Error(err))
+  }
+}
+
 
 module.exports = {
   allUserProfile,
@@ -160,4 +184,5 @@ module.exports = {
   editWish,
   deleteWish,
   wishIsGiven,
+  unBindWish
 };

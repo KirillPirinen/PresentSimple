@@ -2,8 +2,11 @@ const checkInput = (input, propArr, forced=false) => {
   const props = {}
   propArr.forEach(prop=> {
     if(input.hasOwnProperty(prop)) {
-       const test = input[prop].trim()
-       if(test.length) props[prop] = test
+       if(typeof input[prop] !== 'string') props[prop] = input[prop]
+       else {
+        const test = input[prop].trim()
+        if(test.length) props[prop] = test
+       }
     }
   })
     switch (forced) {

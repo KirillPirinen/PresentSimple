@@ -47,4 +47,28 @@ module.exports = class PresentsController {
       next(new Error(err))
     }
   }
+
+  static unbindPresent = async (req, res, next) => {
+    try {
+      await Present.update({user_id:null, isBinded:false}, 
+        {where:{id:req.params.id}})
+      res.sendStatus(200)
+    } catch (err) {
+      next(new Error(err))
+    }
+  }
+
+  static givePresent = async (req, res, next) => {
+    try {
+      await Present.update({isGiven:true}, 
+        {where:{id:req.params.id}})
+      res.sendStatus(200)
+    } catch (err) {
+      next(new Error(err))
+    }
+  }
+  
 }
+
+
+

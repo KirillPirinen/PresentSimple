@@ -91,10 +91,21 @@ const addNewForm = async (req, res, next) => {
   }
 };
 
+const deleteForm = async (req, res, next) => {
+  try {
+    const id = req.params.uuid;
+    await Form.destroy({ where: { id } });
+    res.sendStatus(200);
+  } catch (error) {
+    next(new Error(error.message))
+  }
+};
+
 module.exports = {
   findUser,
   addNewForm,
   checkInputsMiddleware,
   findForms,
-  searchEnd
+  searchEnd,
+  deleteForm
 };

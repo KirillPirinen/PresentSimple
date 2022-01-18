@@ -19,6 +19,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       wish_id: {
+        allowNull: false,
         type: Sequelize.INTEGER,
         onDelete: 'CASCADE',
         references:{

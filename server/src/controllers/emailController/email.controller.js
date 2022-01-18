@@ -13,11 +13,30 @@ module.exports = class MailController {
       secure: true,
       auth: {user: MAIL_USER,pass: MAIL_PASS},
     });
-  
-    let info = await transporter.sendMail({
-      from: MAIL_USER, to, subject, html
-    }); 
-  
-    return info;
+
+    const send = async (to, subject, html) => {
+      try {
+        transporter.sendMail({
+          from: MAIL_USER, to, subject, html
+        }); 
+      } catch(error) {
+        console.log(error)
+      }
+    }
+
+    if(Array.isArray(to)) {
+      let timeout = 2000;
+        to.forEach(email => {
+          console.log(email)
+          setTimeout(() => {
+            send(email, subject, html)
+          timeout += 5000;
+        });
+      })
+    } else {
+      return await transporter.sendMail({
+        from: MAIL_USER, to, subject, html
+      }); 
+    }
   }
 }

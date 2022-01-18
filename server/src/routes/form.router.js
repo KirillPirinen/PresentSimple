@@ -9,5 +9,6 @@ router.post('/', formController.addNewForm)
         formController.findUser, 
         formController.findForms,
         formController.searchEnd)
+        .delete('/:uuid', formController.deleteForm)
 
 module.exports = router
