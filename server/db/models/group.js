@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate({Wish, User, UserGroup}) {
       this.belongsTo(Wish, {foreignKey:"wish_id", onDelete: 'cascade'})
-      this.belongsToMany(User, {through:UserGroup, foreignKey:"group_id"})
+      this.belongsToMany(User, {through:UserGroup, foreignKey:"group_id", otherKey: 'user_id'})
     }
   };
   Group.init({

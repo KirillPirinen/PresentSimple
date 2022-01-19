@@ -1,7 +1,7 @@
 const { defaults } = require('pg');
 const { User, Form, Present, WishPhoto, Wish, Wishlist, Group } = require('../../db/models');
 const appError = require('../Errors/errors');
-const notification = require('../functions/mailing');
+const {ownerToggleStatusWish, giverToggleStatusWish} = require('../functions/mailing');
 const getRange = require('../functions/rangeIdentifier');
 const { checkInput } = require('../functions/validateBeforeInsert');
 const MailController = require('./emailController/email.controller');
@@ -144,7 +144,7 @@ const deleteWish = async (req, res, next) => {
   }
 };
 
-const wishIsGiven = async (req, res, next) => {
+const wishToggleStatusByOwner = async (req, res, next) => {
   try {
     const id = req.params.id;
     const wish = await Wish.findOne({ where: { id }})
@@ -152,7 +152,7 @@ const wishIsGiven = async (req, res, next) => {
     const newStatus = !wish.isGiven;
 
     if(newStatus && wish.isBinded) {
-      notification(wish, wish.user_id)
+      ownerToggleStatusWish(wish, wish.user_id)
     }
 
     wish.isGiven = newStatus
@@ -167,13 +167,26 @@ const wishIsGiven = async (req, res, next) => {
   }
 }
 
-const unBindWish = async (req, res) => {
+const giveWish = async (req, res, next) => {
+  try {
+    const [wishlist_id] = await Wish.update({user_id:null, isBinded:false, isGiven:true}, 
+      {where:{id:req.params.id}, returning:['wishlist_id']})
+      
+      giverToggleStatusWish(wishlist_id)
+
+    res.sendStatus(200)
+  } catch (err) {
+    next(new Error(err.message))
+  }
+}
+
+const unBindWish = async (req, res, next) => {
   try {
     await Wish.update({user_id:null, isBinded:false}, 
       {where:{id:req.params.id}})
     res.sendStatus(200)
   } catch (err) {
-    next(new Error(err))
+    next(new Error(err.message))
   }
 }
 
@@ -183,6 +196,7 @@ module.exports = {
   addNewWish,
   editWish,
   deleteWish,
-  wishIsGiven,
-  unBindWish
+  wishToggleStatusByOwner,
+  unBindWish,
+  giveWish
 };

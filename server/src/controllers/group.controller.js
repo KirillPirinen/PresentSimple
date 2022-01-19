@@ -1,9 +1,7 @@
+const e = require("express");
 const { v4: uuidv4 } = require("uuid");
-const { Group, Sequelize } = require("../../db/models");
-const Op = Sequelize.Op;
-const { Wish } = require("../../db/models");
-const { UserGroup, User, WishPhoto } = require("../../db/models");
-const { Wishlist } = require("../../db/models");
+const { Group, Sequelize:{Op}, Wish, UserGroup, 
+        User, WishPhoto, Wishlist } = require("../../db/models");
 const appError = require('../Errors/errors');
 const { checkInput } = require("../functions/validateBeforeInsert");
 
@@ -11,12 +9,12 @@ const checkWish = async (req, res, next) => {
   const { wish_id } = req.body;
   try {
     const wish = await Wish.findOne({where:{[Op.and]:[{id:wish_id},{isBinded:false}]}})
-  if(wish) {
-    res.locals.wish = wish;
-    return next()
-  } else {
-    return res.status(303).json({info:"Извините, кто-то уже забронировал этот подарок. Выберете другой"})
-  }
+    if(wish) {
+      res.locals.wish = wish;
+      return next()
+    } else {
+      return res.status(303).json({info:"Извините, кто-то уже забронировал этот подарок. Выберете другой"})
+    }
   } catch (err) {
     return next(new Error(err.message))
   }
@@ -26,15 +24,16 @@ const allWishes = async (req, res, next) => {
   const { user_id } = req.params;
   try{
     const wishes = await Wishlist.findOne({
-      where: { user_id: user_id },
-      attributes:['createdAt', 'updatedAt'],
+      where: { user_id },
+      attributes:['createdAt', 'updatedAt', 'user_id'],
       include: [
-        {model:Wish, include: [{model: Group}, {model:WishPhoto}] }, 
+        {model:Wish, required:false, where:{isGiven:false}, include: [{model: Group}, {model:WishPhoto}] }, 
         {model:User, attributes:['name', 'lname', 'avatar']}
       ],
       required: false,
       order: [[Wish, "pricerange_id", "ASC"]],
     });
+    if(wishes.user_id === req.session.user.id) return next(new appError(303, 'Просмотр собственных подарков доступен в личном кабинете'))
     res.status(200).json(wishes)
   } catch (err) {
     next(new Error(err.message))
@@ -85,7 +84,7 @@ const joinGroup = async (req, res, next) => {
       include:{model:User},
     });
     
-    if(!groupFind) return next(new appError(211, 'Группа не найдена'))
+    if(!groupFind) return next(new appError(403, 'Группа не найдена'))
     else {
       const sameuser = groupFind.Users.find(e=>e.id===req.session.user.id)
       if(sameuser) return next(new appError(403, 'Вы уже вступили в эту группу'))
@@ -106,10 +105,37 @@ const joinGroup = async (req, res, next) => {
   }
 };
 
+const getGroupInfo = async (req, res, next) => {
+  const {id} = req.params;
+  try {
+
+    const group = await Group.findOne({where:{id}, include:[
+      {model:User, through:{attributes:[]}, attributes: ['name', 'lname', 'id', 'email', 'avatar'],
+      },
+      {model:Wish, 
+        include:{model:Wishlist, attributes:['id'],
+          include:{model:User, attributes:['name', 'lname', 'id', 'email', 'avatar']}
+        }
+      }
+    ]})
+
+    if(group) {
+      if(group.Users.some(user => user.id === req.session.user.id)) return res.json(group)
+      else return next(new appError(303, 'Вы не состоите в данной группе'))
+    } else {
+      next(new appError(403, 'Группа не найдена'))
+    }
+
+  } catch (error) {
+    return next(new Error(error.message));
+  }
+};
+
 module.exports = {
   checkWish,
   addGroup,
   addAlone,
   joinGroup,
   allWishes,
+  getGroupInfo
 };

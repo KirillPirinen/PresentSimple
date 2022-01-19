@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       this.hasMany(Form, {foreignKey:"user_id"})
       this.hasMany(Present, {foreignKey:"user_id"})
       this.hasMany(Wish, {foreignKey:"user_id"})
-      this.belongsToMany(Group, {through:UserGroup, foreignKey:"user_id"})
+      this.belongsToMany(Group, {through:UserGroup, foreignKey:"user_id", otherKey: 'group_id'})
       this.hasOne(ResetPassword, {foreignKey:"user_id"})
     }
   };
