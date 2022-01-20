@@ -37,6 +37,7 @@ const googleAuth = async (req, res, next) => {
       req.session.user = {
         id: personInDataBase.id,
         name: personInDataBase.name,
+        lname: personInDataBase.lname,
       };
 
       res.json(
@@ -134,6 +135,7 @@ const signUp = async (req, res, next) => {
       req.session.user = {
         id: newUser.id,
         name: newUser.name,
+        lname: currentUser.lname,
       };
 
       return res.json({
@@ -161,6 +163,7 @@ const signIn = async (req, res, next) => {
           req.session.user = {
             id: currentUser.id,
             name: currentUser.name,
+            lname: currentUser.lname,
           };
           return res.json({ id: currentUser.id, name: currentUser.name, lname:currentUser.lname});
         } else {
