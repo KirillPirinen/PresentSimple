@@ -13,16 +13,16 @@ module.exports = {
         references: {
           model:"Users"
         },
-        group_id:{
-          type: Sequelize.INTEGER,
-          onDelete: 'CASCADE',
-          references: {
-            mode:"Groups"
-          }
-        },
-        text: {
-          type: Sequelize.TEXT
+      },
+      group_id:{
+        type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
+        references: {
+          model:"Groups"
         }
+      },
+      text: {
+          type: Sequelize.TEXT
       },
       createdAt: {
         allowNull: false,
