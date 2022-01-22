@@ -1,17 +1,17 @@
 const { createServer } = require('http');
 const WebSocket = require('ws');
 const {app, sessionParser} = require('./app.js');
-const {chatBroadcast, chatConnect, chatDisconect, currentOnline, getMessages, addMessage} = require('./src/functions/broadcast.js');
+const {chatBroadcast, chatConnect, chatDisconect, currentOnline, getMessages, addMessage, pingHandler} = require('./src/functions/broadcast.js');
 const urlParser = require('./src/functions/urlparser.js');
 const PORT = process.env.SERVER_PORT
-const setupWsHeartbeat = require('./src/functions/heartbeat')
 const server = createServer(app);
 
 function heartbeat() {
+  console.log('pong')
   this.isAlive = true;
 }
 
-const wss = new WebSocket.Server({ clientTracking: true, noServer: true });
+const wss = new WebSocket.Server({ clientTracking: false, noServer: true });
 
 //setupWsHeartbeat(wss)
 
@@ -86,19 +86,11 @@ wss.on('connection', (ws, request) => {
     }
   });
 
-  const interval = setInterval(function ping() {
-    console.log('ping')
-    wss.clients.forEach(function each(ws) {
-      if (ws.isAlive === false) return ws.terminate();
-  
-      ws.isAlive = false;
-      ws.ping();
-    });
-  }, 5000);
+  const interval = pingHandler()
 
   ws.on('close', () => {
 
-    chatDisconect(group_id)
+    chatDisconect(group_id, id)
     
     clearInterval(interval);
 

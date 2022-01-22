@@ -13,12 +13,14 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsTo(Wish, {foreignKey:"wish_id", onDelete: 'cascade'})
       this.belongsToMany(User, {through:UserGroup, foreignKey:"group_id", otherKey: 'user_id'})
       this.hasMany(Message, {foreignKey:'user_id'})
+      this.belongsTo(User, {as:'Admin', foreignKey:'admin_id'})
     }
   };
   Group.init({
     maxusers: DataTypes.INTEGER,
     currentusers: DataTypes.INTEGER,
-    telegram: DataTypes.STRING,
+    name: DataTypes.STRING,
+    admin_id:DataTypes.INTEGER,
     wish_id: DataTypes.INTEGER,
   }, {
     sequelize,

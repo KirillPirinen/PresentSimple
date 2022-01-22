@@ -89,7 +89,7 @@ const editWish = async (req, res, next) => {
 
   try {
     if(input) {
-      if(!id) return next(new appError(500, 'Ошибка отправки пакета ошибка'))
+      if(!id) return next(new appError(500, 'Ошибка отправки пакета'))
 
     const pricerange_id = getRange(price);
 

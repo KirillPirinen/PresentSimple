@@ -1,7 +1,6 @@
 const bcrypt = require("bcrypt");
-// const { noExtendLeft } = require("sequelize/types/lib/operators");
 const { User, Sequelize, Wishlist, ResetPassword } = require("../../db/models");
-const { Op } = Sequelize;
+const Op = Sequelize.Op;
 const { checkInput } = require("../functions/validateBeforeInsert");
 const appError = require("../Errors/errors");
 const MailController = require("./emailController/email.controller");
@@ -25,11 +24,12 @@ const googleAuth = async (req, res, next) => {
       idToken:token,
       audient: `${process.env.GOOGLE_CLIENT_ID}`,
     });
+    ticket = ticket.getPayload()
   } catch(err) {
-    next(new appError(400, `Ошибка Google авторизации ${err.message}`))
+    return next(new appError(400, `Ошибка Google авторизации ${err.message}`))
   }
-
-    const {email, picture:avatar, given_name:name, family_name:lname} = ticket.getPayload();
+    //if(!ticket) return;
+    const {email, picture:avatar, given_name:name, family_name:lname} = ticket;
     const personInDataBase = await User.findOne({where:{ email }});
 
     if(personInDataBase) {
@@ -89,7 +89,7 @@ const signUp = async (req, res, next) => {
     ["password", "email", "name", "lname"],
     true
   );
-  
+
   if (input) {
     //если инпут валиден
     input.phone = req.body.phone.slice(1) || null;
@@ -135,7 +135,7 @@ const signUp = async (req, res, next) => {
       req.session.user = {
         id: newUser.id,
         name: newUser.name,
-        lname: currentUser.lname,
+        lname: newUser.lname,
       };
 
       return res.json({

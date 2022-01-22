@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsToMany(Group, {through:UserGroup, foreignKey:"user_id", otherKey: 'group_id'})
       this.hasOne(ResetPassword, {foreignKey:"user_id"})
       this.hasMany(Message, {foreignKey:'user_id'})
+      this.hasMany(Group, {as:'Admin', foreignKey:'admin_id'})
     }
   };
   User.init({

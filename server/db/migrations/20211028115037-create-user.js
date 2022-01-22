@@ -30,8 +30,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       avatar: {
-        allowNull:false,
-        defaultValue:"default123321.png",
+        allowNull:true,
         type: Sequelize.STRING
       },
       createdAt: {

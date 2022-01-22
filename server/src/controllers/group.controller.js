@@ -1,5 +1,3 @@
-const e = require("express");
-const { v4: uuidv4 } = require("uuid");
 const { Group, Sequelize:{Op}, Wish, UserGroup, 
         User, WishPhoto, Wishlist } = require("../../db/models");
 const appError = require('../Errors/errors');
@@ -52,11 +50,12 @@ const addAlone = async (req, res, next) => {
 };
 
 const addGroup = async (req, res, next) => {
-  const input = checkInput(req.body, ['maxusers', 'telegram', 'wish_id'], true)
+  const input = checkInput(req.body, ['maxusers', 'name', 'wish_id'], true)
   if(!input) return next(new appError(400, "Не заполнены необходимые поля"));
   try {
     const group = await Group.create({
       ...input,
+      admin_id:req.session.user.id,
       currentusers: 1,
     });
 
@@ -91,8 +90,11 @@ const joinGroup = async (req, res, next) => {
     }
 
     if ( (groupFind.currentusers + 1) <= groupFind.maxusers) {
-      await groupFind.increment('currentusers')
-      await UserGroup.create({user_id:req.session.user.id, group_id:groupFind.id})
+
+      await Promise.all([
+        groupFind.increment('currentusers'),
+        UserGroup.create({user_id:req.session.user.id, group_id:groupFind.id})
+      ])
 
       return res.json({info: "Вы успешно вступили в группу"});
 
@@ -131,11 +133,89 @@ const getGroupInfo = async (req, res, next) => {
   }
 };
 
+const deleteGroup = async (req, res, next) => {
+  if(res.locals.group) {
+    const [count] = await Wish.update({isBinded:false},{where:{id:res.locals.group.wish_id}})
+    if(count) {
+      await res.locals.group.destroy()
+    } else {
+      return next(new appError(400, 'Не удалось высвободить подарок, отмена удаления группы'))
+    }
+    return res.json({info:'Группа успешно удалена'})
+  } else {
+    return next(new appError(400, 'Ощибка удаления группы'))
+  }
+}
+
+const checkRights = async (req, res, next) => {
+  const id = Number(req.params.id);
+  try{
+    const group = await Group.findOne({where:{id}, 
+      include:{model: User,
+      as: 'Admin',}})
+      if(group?.Admin?.id === req.session.user.id) {
+        res.locals.group = group;
+        next()
+      } else {
+        return next(new appError(403, 'Вы не администратор группы'))
+      }
+  } catch (err) {
+    return next(new Error(err.message))
+  }
+
+}
+
+
+const editGroup = async (req, res, next) => {
+  const input = checkInput(req.body, ['name', 'admin_id', 'maxusers'])
+  if(input) {
+    if(res.locals.group) {
+
+    if(input.maxusers && +input.maxusers < +res.locals.group.currentusers ) {
+      return next(new appError(403, 'Нельзя установить максимальное количество участников меньше текущего'))
+    }
+
+      Object.keys(input).forEach(field => {
+        res.locals.group[field] = input[field]
+      })
+
+      try {
+        await res.locals.group.save()
+      } catch (err) {
+        return next(new Error(err.message))
+      }
+
+      return res.sendStatus(200)
+    }
+  } else {
+    next(new appError(403, 'Вы ничего не изменили'))
+  }
+}
+
+const leaveGroup = async (req, res, next) => {
+  const group_id = req.params.id;
+  try {
+
+   await Promise.all([
+      UserGroup.destroy({where:{[Op.and]:[{group_id},{user_id:req.session.user.id}]}}),
+      Group.decrement("currentusers", {where: {id:group_id}})
+    ])
+
+    return res.json({info:'Вы успешно вышли из группы'})
+  } catch (err) {
+    next(new Error(err.message))
+  }
+}
+
 module.exports = {
   checkWish,
   addGroup,
   addAlone,
   joinGroup,
   allWishes,
-  getGroupInfo
+  getGroupInfo,
+  deleteGroup,
+  editGroup,
+  checkRights,
+  leaveGroup
 };

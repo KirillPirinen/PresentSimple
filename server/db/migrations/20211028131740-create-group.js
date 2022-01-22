@@ -8,6 +8,12 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      admin_id:{
+        type: Sequelize.INTEGER,
+        references:{
+          model:"Users"
+        }
+      },
       maxusers: {
         type: Sequelize.INTEGER
       },
@@ -15,7 +21,7 @@ module.exports = {
         defaultValue:0,
         type: Sequelize.INTEGER
       },
-      telegram: {
+      name: {
         type: Sequelize.STRING
       },
       wish_id: {
