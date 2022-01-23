@@ -28,7 +28,7 @@ const googleAuth = async (req, res, next) => {
   } catch(err) {
     return next(new appError(400, `Ошибка Google авторизации ${err.message}`))
   }
-    //if(!ticket) return;
+
     const {email, picture:avatar, given_name:name, family_name:lname} = ticket;
     const personInDataBase = await User.findOne({where:{ email }});
 

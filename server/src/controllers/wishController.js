@@ -50,13 +50,18 @@ const addNewWish = async (req, res, next) => {
     const {price, description, title} = input;
 
     const pricerange_id = getRange(price);
-     
+
     const user_id = req.session.user.id;
 
     const wishlist = await Wishlist.findOne({where: {user_id}, attributes:['id']})
 
     const wishlist_id = wishlist.id
-
+      console.log({
+        title,
+      description,
+      pricerange_id,
+      wishlist_id,
+      })
     const newWish = await Wish.create({
       title,
       description,

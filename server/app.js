@@ -15,6 +15,7 @@ const errorHandler = require("./src/controllers/error.controller");
 const formRouter = require("./src/routes/form.router");
 const path = require("path");
 const wishRouter = require("./src/routes/wishRouter");
+const userRouter = require("./src/routes/userRouter");
 const presentsRouter = require('./src/routes/presentsRouter');
 const groupRouter = require("./src/routes/group.router");
 const checkAuth = require('./src/middleware/checkAuth');
@@ -55,6 +56,7 @@ app.use("/api/v1/form", checkAuth, formRouter);
 app.use("/api/v1/group", checkAuth, groupRouter);
 app.use("/api/v1/profile", checkAuth, wishRouter);
 app.use('/api/v1/presents', checkAuth, presentsRouter)
+app.use('/api/v1/user', checkAuth, userRouter)
 
 //404
 app.use((req,res,next)=> {
