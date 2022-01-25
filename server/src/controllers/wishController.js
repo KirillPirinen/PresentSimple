@@ -87,18 +87,16 @@ const addNewWish = async (req, res, next) => {
 
 const editWish = async (req, res, next) => {
   Object.setPrototypeOf(req.body, Object.prototype)
-
   const {id} = checkInput(req.body, ['id'], true)
-  const {price} = checkInput(req.body, ['price'])
-  const input = checkInput(req.body, ['title', 'description']);
+  const input = checkInput(req.body, ['title', 'description', 'price']);
 
   try {
     if(input) {
       if(!id) return next(new appError(500, 'Ошибка отправки пакета'))
+    
+    const pricerange_id = getRange(input.price);
 
-    const pricerange_id = getRange(price);
-
-    let updatedWish = await Wish.findOne({where:{id}, include:{model:WishPhoto}})
+    const updatedWish = await Wish.findOne({where:{id}, include:{model:WishPhoto}})
     if(typeof pricerange_id === 'number') updatedWish.pricerange_id = pricerange_id;
     
     Object.keys(input).forEach(field => {
@@ -118,6 +116,7 @@ const editWish = async (req, res, next) => {
 
       updatedWish.dataValues.WishPhoto = photo[0]
     }
+    res.json(updatedWish)
 
     } else if(req.file) {
 

@@ -202,81 +202,85 @@ const checkAuth = async (req, res) => {
   }
 };
 
-const checkEmail = async (req, res) => {
+const checkEmail = async (req, res, next) => {
   try {
+    const input = checkInput(req.body, ['email'], true)
+    if(!input) return next(new appError(403, 'Поле не может быть пустым'))
     const user = await User.findOne({ where: { email: req.body.email } });
     if (!user) {
-      return res.json({ message: "Пользователь не найден" });
+      return next(new appError(403, 'Пользователя с указанной почтой не существует'))
     } else {
       const link = await ResetPassword.create({ id: uuid(), user_id: user.id });
       const time = 1e3 * 86400;
       const html = changePassword(user, link.id, time);
+      
       await MailController.sendEmail(
         user.email,
         "Ссылка для восстановления пароля на Present Simple",
         html
       );
+
       setTimeout(() => {
         link.destroy();
       }, time);
+
       return res.json({
-        message:
-          "Письмо с восстановлением пароля отправлено на электронную почту",
+        info:
+          `Письмо с дальнейшими инструкциями отправлено на электронную почту ${user.email}`,
       });
     }
   } catch (error) {
-    return res.json({ message: "Что-то пошло не так" });
+    return next(new Error(error.message))
   }
 };
 
 const ResetPasswordBack = async (req, res, next) => {
+  
+  if(!req.session.restorePassword) {
+    return next(new appError(403, 'Восстановление невозможно. Ссылка устарела или несуществует'))
+  }
+
   const input = checkInput(req.body, ["password"], true);
-  const { reset_password_id } = req.params;
+
   if (input.password) {
     //если инпут валиден
     try {
-      const user = await ResetPassword.findOne({
-        where: { id: reset_password_id },
-        include: { model: User },
-      });
+      const hashPassword = await bcrypt.hash(input.password, 4);
 
-      if (!user) {
-        return res.json({
-          message: "Ссылка не действительна",
-        });
-      }
+      await User.update({password:hashPassword}, {where:{id:req.session.restorePassword}})
 
-      if (!user.User)
-        return res.json({
-          message:
-            "Такого пользователя не существует, попробуйте зарегистрироваться",
-        });
-      let { password } = input;
+      res.clearCookie(req.app.get("cookieName"));
 
-      const hashPassword = await bcrypt.hash(password, 4);
+      return res.status(200).json({info:'Пароль успешно изменён'}) 
 
-      await User.update(
-        { password: hashPassword },
-        { where: { id: user.User.id } }
-      );
-
-      const reset_password = await ResetPassword.findOne({
-        where: { id: reset_password_id },
-      });
-      reset_password.destroy();
-
-      return res.json({
-        message: "Вы успешно поменяли пароль, можете авторизоваться",
-      });
     } catch (error) {
-      return res.json({
-        message: "Что-то пошло не так",
-      });
+      return next(new Error(error.message))
     }
   } else {
-    return res.json({ message: "Что-то пошло не так" });
+    return next(new appError(403, 'Поле пароль не можеть быть пустым'))
   }
 };
+
+const checkLink = async (req, res, next) => {
+  const {uuid} = req.params;
+  if(req.session.restorePassword) {
+    return res.sendStatus(200)
+  } else {
+    try {
+      const link = await ResetPassword.findOne({where: { id: uuid }});
+      if(link) {
+        req.session.restorePassword = link.user_id
+        res.sendStatus(200)
+        link.destroy()
+      } else {
+        res.clearCookie(req.app.get("cookieName"));
+        return next(new appError(403, 'Ссылка неактивна или несуществует'))
+      }
+    } catch (err) {
+      return next(new Error(err.message))
+    }
+  }
+}
 
 module.exports = {
   signIn,
@@ -285,5 +289,6 @@ module.exports = {
   checkAuth,
   checkEmail,
   ResetPasswordBack,
-  googleAuth
+  googleAuth,
+  checkLink
 };
